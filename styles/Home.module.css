@@ -1,22 +1,78 @@
-.main {
+.container {
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+}
+
+.headerleft h1 {
+  margin-right: 10px;
+}
+
+.headerright {
+  font-size: 24px;
+}
+
+
+.main {
+  text-align: center;
+}
+
+.servicescontainer {
+  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 4rem 0;
+  margin: 20px 0;
 }
 
-.title {
-  line-height: 1.15;
-  font-size: 4rem;
+.service {
+  flex: 1;
+  padding: 20px;
 }
 
-.title a {
-  color: #0070f3;
+.servicedescription {
+  flex: 1;
+  background-color: white;
+  padding: 20px;
+  text-align: left;
+}
+
+.greenbutton {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+}
+
+.footerleft {
+  display: flex;
+  align-items: center;
+}
+
+.separator {
+  border-right: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.footerright a {
   text-decoration: none;
-}
-
-.title a:hover, .title a:focus, .title a:active {
-  text-decoration: underline;
 }
