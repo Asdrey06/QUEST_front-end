@@ -7,6 +7,8 @@ import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/i
 import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
 
 function Home() {
   const [number, setNumber] = useState(347);
@@ -33,36 +35,11 @@ function Home() {
     };
   }, [numberWorker]);
 
-  const openInsta = () => {
-    window.open("https://www.instagram.com", "_blank");
-  };
-
-  const openFb = () => {
-    window.open("https://www.facebook.com", "_blank");
-  };
-
   return (
     <div className="" style={{ backgroundColor: "#FFFFFF" }}>
-      <div
-        className="fixed top-0 w-full flex flex-row items-center justify-between pr-10 pl-10 pb-5 pt-5 mb-10"
-        style={{ backgroundColor: "#33B49C" }}
-      >
-        <div className="flex flex-row items-center">
-          <Link href="/">
-            <img
-              src="/questlogowhite.png"
-              className="h-10 mr-10 cursor-pointer"
-            />
-          </Link>
-          <button>
-            <div className="w-48 border-black pt-2 pb-2 flex items-center justify-center rounded-2xl text-sm text-white bg-neutral-800 hover:bg-neutral-600">
-              <Link href="/conciergewelcome">Devenir concierge</Link>
-            </div>
-          </button>
-        </div>
-
-        <FontAwesomeIcon icon={faUser} className="h-6 text-white" />
-      </div>
+      {/* HEADER START */}
+      <Header />
+      {/* HEADER END */}
       <div
         className="flex items-center justify-center mb-10 mt-28 h-24 ml-5 mr-5"
         style={{ backgroundColor: "#FFFFFF" }}
@@ -277,51 +254,9 @@ function Home() {
           </div>
         </button>
       </div>
-      {/* FOOTER */}
-      <div
-        className="w-full h-full pt-5 pl-5 flex flex-row justify-between"
-        style={{ backgroundColor: "#33B49C" }}
-      >
-        <div className="flex ">
-          <div className="flex flex-row">
-            <Link href="/">
-              <img src="/questlogowhite.png" className="h-8 cursor-pointer" />
-            </Link>
-          </div>
-          <div className="flex flex-col text-white text-sm pb-5 pl-5">
-            <p className="w-3/12 hover:text-neutral-200">
-              <Link href="">FAQ</Link>
-            </p>
-            <p className="hover:text-neutral-200">
-              <Link href="">Contactez-nous</Link>
-            </p>
-            <p className="hover:text-neutral-200">
-              <Link href="">Mentions légales</Link>
-            </p>
-            <p className="w-4/12 hover:text-neutral-200">
-              <Link href="">RGPD</Link>
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col justify-around pb-5">
-          <div className="mr-10 text-white text-lg hover:text-neutral-200">
-            <Link href="/conciergewelcome">Devenir concierge</Link>
-          </div>
-          <div className="flex flex-row justify-end mr-10">
-            <FontAwesomeIcon
-              icon={faInstagram}
-              className="h-6 text-white hover:text-neutral-200 cursor-pointer"
-              onClick={openInsta}
-            />
-            <FontAwesomeIcon
-              icon={faFacebook}
-              className="h-6 text-white ml-5 hover:text-neutral-200 cursor-pointer"
-              onClick={openFb}
-            />
-          </div>
-        </div>
-      </div>
-      {/* FOOTER END  */}
+      {/* FOOTER START */}
+      <Footer />
+      {/* FOOTER END */}
     </div>
   );
 }
