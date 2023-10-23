@@ -2,183 +2,248 @@ import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import {
+  faArrowRight,
+  faCheck,
+} from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import { faSolid } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import Link from "../node_modules/next/link";
 
-function Concierge() {
+function Home() {
   return (
-    <div className="" style={{ backgroundColor: "#f3f3f3" }}>
+    <div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
       <div
-        className="flex flex-row items-center justify-between pr-10 pl-10 pb-5 pt-5"
+        className="fixed top-0 w-full flex flex-row items-center justify-between pr-10 pl-10 pb-5 pt-5 mb-10"
         style={{ backgroundColor: "#33B49C" }}
       >
-        <img src="/questlogowhite.png" className="h-10" />
+        <div className="flex flex-row items-center cursor-pointer">
+          <Link href="/">
+            <img src="/questlogowhite.png" className="h-10 mr-10" />
+          </Link>
+        </div>
+
         <FontAwesomeIcon icon={faUser} className="h-6 text-white" />
       </div>
       <div
-        className="flex items-center justify-center mb-10 mt-10 h-24 ml-5 mr-5"
-        style={{ backgroundColor: "#FFFFFF" }}
+        className=""
+        // style={{
+        //   backgroundImage: 'url("/citylights2.jpg")',
+        //   backgroundSize: "cover",
+        // }}
       >
-        <h1 className="text-3xl font-semibold" style={{ color: "#68938B" }}>
-          CONCIERGERIE À LA CARTE
-        </h1>
+        <div className="flex items-center justify-center h-24 ml-5 mr-5">
+          <h1 className="text-3xl font-semibold" style={{ color: "#68938B" }}>
+            DEVENEZ UN CONCIERGE AGRÉÉ DE QUEST
+          </h1>
+        </div>
+        <div className="ml-5 mr-5 mb-10 flex items-center justify-center text-xl text-center">
+          Mettez en avant vos compétences, nous nous occupons de votre
+          rémunération.
+        </div>
+        <div className="flex items-center justify-center mt-14 mb-14">
+          <button
+            className={`${styles.hovereffect} border-2 p-5 flex items-center justify-center rounded-2xl text-2xl text-white`}
+          >
+            <div>COMMENCEZ LES DÉMARCHES</div>
+          </button>
+        </div>
       </div>
       <div className=" flex flex-row justify-between mb-5">
-        <div className="w-full ml-5">
-          <img
-            src="/concierge1.jpeg"
-            alt="Concierge photo"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            className=""
-          />
-        </div>
-        <div className="w-full">
-          <img
-            src="/concierge3.jpeg"
-            alt="Image 2"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            className="pl-3 pr-3"
-          />
-        </div>
-        <div className="w-full mr-5">
-          <img
-            src="/concierge2.jpeg"
-            alt="Image 3"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </div>
-      </div>
-      <div
-        className="ml-5 mr-5 h-24 flex items-center justify-center text-2xl text-center"
-        style={{ backgroundColor: "#FFFFFF" }}
-      >
-        Explorez une nouvelle ère de services de conciergerie avec QUEST, qui
-        vous offre simplicité, flexibilité, qualité et paiement sécurisé.
-      </div>
-      <div className="flex items-center justify-center mt-10 mb-10">
-        <button>
-          <div
-            className="border-2 w-48 border-black p-5 flex items-center justify-center rounded-2xl text-2xl text-white"
-            style={{ backgroundColor: "#414141" }}
-          >
-            DÉMARRER
-          </div>
-        </button>
-      </div>
-      <div className="flex items-center justify-center mb-10">
-        <h1 className="text-3xl" style={{ color: "#68938B" }}>
-          Tentez l'expérience et faites nous confiance
-        </h1>
-      </div>
-      <div className="flex flex-row items-center justify-between">
         <div
-          className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5"
-          style={{ backgroundColor: "#FFFFFF" }}
+          className="w-full ml-5 text-white flex items-center justify-center"
+          style={{
+            backgroundImage: 'url("/backgroundconcierge1.png")',
+            backgroundSize: "cover",
+          }}
         >
-          <img src="/exp2.png" className="w-28 mb-5" />
+          <p className="text-2xl bg-neutral-800 font-semibold h-16 w-full mt-52 mb-12 items-center justify-between flex bg-opacity-70 pl-5 pr-5">
+            <p className="italic text-neutral-300 text-lg">Mike</p>{" "}
+            <div className="flex flex-row">
+              <p className="font-bold pr-2">192</p>
+              <p className="font-thin">requêtes réalisées</p>
+            </div>
+          </p>
+        </div>
+        <div
+          className="w-full ml-5 text-white flex items-center justify-center"
+          style={{
+            backgroundImage: 'url("/backgroundconcierge2.png")',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <p className="text-2xl bg-neutral-800 font-semibold h-16 w-full mt-52 mb-12 items-center justify-between pl-5 pr-5 flex bg-opacity-70">
+            <p className="italic text-neutral-300 text-lg">Terry</p>{" "}
+            <div className="flex flex-row">
+              <p className="font-bold pr-2">89</p>
+              <p className="font-thin">requêtes réalisées</p>
+            </div>
+          </p>
+        </div>
+        <div
+          className="w-full ml-5 mr-5 text-white flex items-center justify-center"
+          style={{
+            backgroundImage: 'url("/backgroundconcierge3.png")',
+            backgroundSize: "cover",
+          }}
+        >
+          <p className="text-2xl bg-neutral-800 font-semibold h-16 w-full mt-52 mb-12 items-center justify-between pr-5 pl-5 flex bg-opacity-70">
+            <p className="italic text-neutral-300 text-lg">Emilie</p>{" "}
+            <div className="flex flex-row">
+              <p className="font-bold pr-2">112</p>
+              <p className="font-thin">requêtes réalisées</p>
+            </div>
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-row mt-14 items-center justify-between">
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
+          <img src="/exchange.png" className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
             50 347
           </p>{" "}
           <p style={{ color: "#68938B" }}>transactions effectuées</p>
         </div>
-        <div
-          className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img src="/exp1.png" className="w-28 mb-5" />
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
+          <img src="/euro.png" className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-            10 062
+            80€
           </p>{" "}
-          <p style={{ color: "#68938B" }}>prestataires actifs</p>
+          <p style={{ color: "#68938B" }}>Prix moyen d'une transaction</p>
         </div>
-        <div
-          className="flex flex-col items-center w-full pt-10 pb-10 mr-3 ml-3"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img src="/exp4.png" className="w-28 mb-5" />
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
+          <img src="/commission.png" className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-            100%
+            28€
           </p>{" "}
-          <p style={{ color: "#68938B" }}>des prestations assurées</p>
+          <p style={{ color: "#68938B" }}>commission moyenne</p>
         </div>
-        <div
-          className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img src="/exp3.png" className="w-28 mb-5" />
-          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-            4.7/5
-          </p>{" "}
-          <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
-        </div>
+      </div>{" "}
+      <div className="flex items-center justify-center mb-2 mt-20">
+        <h1 className="text-3xl font-semibold" style={{ color: "#000000" }}>
+          Comment ça marche ?
+        </h1>
       </div>
-      <div className="flex ml-5 mt-10 mb-10 font-semibold">
-        <h1 className="text-3xl">Les clients nous font confiance</h1>
-      </div>
-      <div className="flex flex-row mb-10">
-        <div
-          className="flex flex-col w-full pt-3 pb-10 mr-3 ml-5 pl-3"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img
-            src="/trust.png"
-            className="pb-3"
-            style={{ height: "50%", width: "50%" }}
-          />
-          <p className="text-2xl font-semibold">Expérience concluante!</p>{" "}
-          <p>Super rapide pour trouver une personne, application géniale.</p>
-        </div>
-        <div
-          className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img
-            src="/trust.png"
-            className="pb-3"
-            style={{ height: "50%", width: "50%" }}
-          />
-          <p className="text-2xl font-semibold">Satisfait</p>{" "}
-          <p>
-            Le concierge à accompli la mission en moins de 20 minutes, super.
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 text-2xl text-center">
+          <p style={{ color: "#68938B" }}>
+            Créez un compte concierge et suivez les étapes de vérifications
           </p>
         </div>
-        <div
-          className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img
-            src="/trust.png"
-            className="pb-3"
-            style={{ height: "50%", width: "50%" }}
+        <div>
+          <FontAwesomeIcon
+            icon={faArrowRight}
+            className="h-8"
+            style={{ color: "#68938B" }}
           />
-          <p className="text-2xl font-semibold">Très pratique</p>{" "}
-          <p>Un ami m'a recommandé cette application, je suis content que...</p>
         </div>
-        <div
-          className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img
-            src="/trust.png"
-            className="pb-3"
-            style={{ height: "50%", width: "50%" }}
-          />
-          <p className="text-2xl font-semibold">Mieux que Uber Eats</p>{" "}
-          <p>Le concierge m'a livré en moins de 15 minutes.</p>
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 text-2xl  text-center">
+          <p style={{ color: "#68938B" }}>
+            Un client prend contact avec vous et vous convenez d'un accord
+          </p>
         </div>
-        <div
-          className="flex flex-col w-full pt-3 pb-10 mr-5 ml-3 pl-3"
-          style={{ backgroundColor: "#FFFFFF" }}
-        >
-          <img
-            src="/trust.png"
-            className="pb-3"
-            style={{ height: "50%", width: "50%" }}
+        <div>
+          <FontAwesomeIcon
+            icon={faArrowRight}
+            className="h-8"
+            style={{ color: "#68938B" }}
           />
-          <p className="text-2xl font-semibold">Je recommande</p>{" "}
-          <p>J'ai parlé de cette application à tous mes amis...</p>
+        </div>
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-3 ml-3 text-2xl text-center">
+          <p style={{ color: "#68938B" }}>
+            Effectuez la mission, vous êtes rémunéré instantanément
+          </p>
+        </div>
+      </div>{" "}
+      <div
+        className={`${styles.servicescontainer} flex h-full mt-10 pt-20 pb-20`}
+        style={{ backgroundColor: "#F0FDF6" }}
+      >
+        {" "}
+        <div
+          className={`${styles.servicedescription} w-6/12 text-lack pl-10 flex flex-col text-left`}
+          style={{ color: "#404145" }}
+        >
+          <div className="mb-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faStar} className="h-8 text-amber-400" />
+              <p className="text-2xl font-semibold pl-5">Flexibilité</p>
+            </div>
+            <p>Travaillez à votre rhythme quand vous voulez, ou vous voulez.</p>
+          </div>
+
+          <div className="mt-10 mb-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faStar} className="h-8 text-amber-400" />
+              <p className="text-2xl font-semibold pl-5">
+                Diversité des tâches
+              </p>
+            </div>
+            <p>
+              Les concierges sont souvent responsables d'une grande diversité de
+              tâches. Si vous aimez la variété dans votre travail, QUEST peut
+              vous offrir cela.
+            </p>
+          </div>
+          <div className="mt-10 mb-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faStar} className="h-8 text-amber-400" />
+              <p className="text-2xl font-semibold pl-5">Rémunération</p>
+            </div>
+            <p>
+              Soyez payés instantanément sur votre compte bancaire, dés que vous
+              finissez une mission.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faStar} className="h-8 text-amber-400" />
+              <p className="text-2xl font-semibold pl-5">
+                Comptez sur un support 24/7
+              </p>
+            </div>
+            <p>
+              Notre équipe de support disponible 24 heures sur 24 est là pour
+              vous aider à tout moment, où que vous soyez.
+            </p>
+          </div>
+        </div>
+        <div className={`${styles.service} w-6/12 ml-10 mr-10`}>
+          <img
+            src="/conciergehappy.png"
+            alt="Service"
+            style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          />
         </div>
       </div>
+      <div className="flex ml-5 mt-10 mb-5 font-semibold">
+        <h1 className="text-3xl">
+          Témoignagne de Johnny, un de nos concierges star...
+        </h1>
+      </div>
+      <div className="flex flex-row mb-10">
+        <p className="ml-10 mr-10 italic">
+          " Travailler en tant que concierge pour un service comme QUEST a été
+          une expérience incroyable. Chaque jour, je mets à profit ma passion
+          pour aider les gens à résoudre leurs besoins et à rendre leur vie plus
+          pratique. Que ce soit en livrant des courses, en prenant en charge des
+          tâches ménagères ou en organisant des services de proximité, je suis
+          fier de faire partie de cette équipe qui facilite la vie de nos
+          clients, et je trouve une grande satisfaction dans chaque sourire que
+          je peux apporter. "
+        </p>
+      </div>
+      <div className="flex items-center justify-center mt-10 mb-10">
+        <button
+          className={`${styles.hovereffect} border-2 p-5 flex items-center justify-center rounded-2xl text-2xl text-white`}
+        >
+          <div>COMMENCEZ LES DÉMARCHES</div>
+        </button>
+      </div>
+      {/* FOOTER */}
       <div
         className="w-full h-full pt-5 pl-5 flex flex-row justify-between"
         style={{ backgroundColor: "#33B49C" }}
@@ -187,15 +252,15 @@ function Concierge() {
           <div className="flex flex-row">
             <img src="/questlogowhite.png" className="h-8" />
           </div>
-          <div className="flex flex-col text-white pb-5 pl-5">
+          <div className="flex flex-col text-white text-sm pb-5 pl-5">
             <p>FAQ</p>
-            <p>CONTACTEZ-NOUS</p>
-            <p>MENTIONS LÉGALES</p>
+            <p>Contactez-nous</p>
+            <p>Mentions légales</p>
             <p>RGPD</p>
           </div>
         </div>
         <div className="flex flex-col justify-between pb-5">
-          <div className="mr-10 text-white">DEVENIR CONCIERGE</div>
+          <div className="mr-10 text-white text-sm">Devenir concierge</div>
           <div className="flex flex-row justify-end mr-10">
             <FontAwesomeIcon icon={faInstagram} className="h-6 text-white" />
             <FontAwesomeIcon
@@ -205,8 +270,9 @@ function Concierge() {
           </div>
         </div>
       </div>
+      {/* FOOTER END  */}
     </div>
   );
 }
 
-export default Concierge;
+export default Home;

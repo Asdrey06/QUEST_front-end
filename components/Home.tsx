@@ -1,61 +1,279 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import Link from "../node_modules/next/link";
 
-const Home = () => {
+function Home() {
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.headerleft}>
-          <h1>QUEST</h1>
-          <button>Devenir un concierge</button>
+    <div className="" style={{ backgroundColor: "#FFFFFF" }}>
+      <div
+        className="fixed top-0 w-full flex flex-row items-center justify-between pr-10 pl-10 pb-5 pt-5 mb-10"
+        style={{ backgroundColor: "#33B49C" }}
+      >
+        <div className="flex flex-row items-center">
+          <Link href="/">
+            <img
+              src="/questlogowhite.png"
+              className="h-10 mr-10 cursor-pointer"
+            />
+          </Link>
+          <button>
+            <div className="w-48 border-black pt-2 pb-2 flex items-center justify-center rounded-2xl text-sm text-white bg-neutral-800 hover:bg-neutral-600">
+              <Link href="/conciergewelcome">Devenir concierge</Link>
+            </div>
+          </button>
         </div>
-        <div className={styles.headerright}>
-          <i className={styles.awesomeicon}>Icon</i>
-        </div>
-      </header>
 
-      <main className={styles.main}>
-        <h1>CONCIERGERIE A LA CARTE</h1>
-        <div className={styles.servicescontainer}>
-          <div className={styles.service}>
-            <img src="/concierges.jpeg" alt="Service" />
+        <FontAwesomeIcon icon={faUser} className="h-6 text-white" />
+      </div>
+      <div
+        className="flex items-center justify-center mb-10 mt-28 h-24 ml-5 mr-5"
+        style={{ backgroundColor: "#FFFFFF" }}
+      >
+        <h1 className="text-5xl font-semibold" style={{ color: "#68938B" }}>
+          CONCIERGERIE À LA CARTE
+        </h1>
+      </div>
+      <div className=" flex flex-row justify-between mb-5">
+        <div className="w-full ml-5">
+          <img
+            src="/concierge1.jpeg"
+            alt="Concierge photo"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            className=""
+          />
+        </div>
+        <div className="w-full">
+          <img
+            src="/concierge3.jpeg"
+            alt="Image 2"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            className="pl-3 pr-3"
+          />
+        </div>
+        <div className="w-full mr-5">
+          <img
+            src="/concierge2.jpeg"
+            alt="Image 3"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+      </div>
+      <div
+        className="ml-5 mr-5 h-24 flex items-center justify-center text-2xl text-center"
+        style={{ backgroundColor: "#F3F3F3" }}
+      >
+        Explorez une nouvelle ère de services de conciergerie avec QUEST, qui
+        vous offre simplicité, flexibilité, qualité et paiement sécurisé.
+      </div>
+      <div className="flex items-center justify-center mt-10 mb-10">
+        <button>
+          <div
+            className="border-2 w-48 border-black p-5 flex items-center justify-center rounded-2xl text-2xl text-white"
+            style={{ backgroundColor: "#414141" }}
+          >
+            DÉMARRER
           </div>
-          <div className={styles.servicedescription}>
-      <p>DESCRIPTION DES SERVICES TYPES</p>
-      <ul>
-         <li>Réservation de restaurants, de spectacles, de billets de cinéma, de concerts, etc.</li>
-         <li>Organisation de visites touristiques et de transports.</li>
-         <li>Réception et envoi de colis et de lettres.</li>
-         <li>Réception des livraisons et gestion de leur distribution.</li>
-         <li>Informations et recommandations.</li>
-         <li>Assistance aux clients.</li>
-         <li>Réservation de transports.</li>
-         <li>Services de nettoyage et de blanchisserie.</li>
-         <li>Services de bien-être.</li>
-         <li>Services de secrétariat.</li>
-         <li>Gestion des clés.</li>
-         <li>Autres services sur demande.</li>
-      </ul>
-   </div>
+        </button>
+      </div>
+      <div className="flex items-center justify-center mb-10">
+        <h1 className="text-3xl" style={{ color: "#68938B" }}>
+          Tentez l'expérience et faites nous confiance
+        </h1>
+      </div>
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
+          <img src="/exp2.png" className="w-28 mb-5" />
+          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+            50 347
+          </p>{" "}
+          <p style={{ color: "#68938B" }}>transactions effectuées</p>
         </div>
-        <button className={styles.greenbutton}>DÉMARRER</button>
-      </main>
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
+          <img src="/exp1.png" className="w-28 mb-5" />
+          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+            10 062
+          </p>{" "}
+          <p style={{ color: "#68938B" }}>prestataires actifs</p>
+        </div>
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-3 ml-3 bg-neutral-100">
+          <img src="/exp4.png" className="w-28 mb-5" />
+          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+            100%
+          </p>{" "}
+          <p style={{ color: "#68938B" }}>des prestations assurées</p>
+        </div>
+        <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
+          <img src="/exp3.png" className="w-28 mb-5" />
+          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+            4.7/5
+          </p>{" "}
+          <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
+        </div>
+      </div>{" "}
+      <div
+        className={`${styles.servicescontainer} flex h-full mt-10 pt-20 pb-20`}
+        style={{ backgroundColor: "#F0FDF6" }}
+      >
+        <div className={`${styles.service} w-6/12 ml-10 mr-10`}>
+          <img
+            src="/introphoto.jpg"
+            alt="Service"
+            style={{ objectFit: "cover", width: "100%", height: "100%" }}
+          />
+        </div>
+        <div
+          className={`${styles.servicedescription} w-6/12 text-lack pr-10 flex flex-col text-left`}
+          style={{ color: "#404145" }}
+        >
+          <div className="mb-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-2xl font-semibold pl-5">
+                Respectez votre budget
+              </p>
+            </div>
+            <p>
+              Trouvez le bon service pour chaque fourchette de prix. Pas de
+              tarifs horaires, seulement une tarification basée sur vos
+              requêtes.
+            </p>
+          </div>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerleft}>
-          <p>FAQ</p>
-          <div className={styles.separator}></div>
-          <p>CONTACTEZ-NOUS</p>
+          <div className="mt-10 mb-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-2xl font-semibold pl-5">
+                Obtenez une réponse à votre requête rapidement
+              </p>
+            </div>
+            <p>
+              Confiez votre demande à un concierge de confiance disponible
+              immédiatement.
+            </p>
+          </div>
+          <div className="mt-10 mb-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-2xl font-semibold pl-5">
+                Payez quand vous êtes satisfait
+              </p>
+            </div>
+            <p>
+              Les devis préalables signifient aucune surprise. Les paiements ne
+              sont libérés que lorsque vous approuvez.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-2xl font-semibold pl-5">
+                Comptez sur un support 24/7
+              </p>
+            </div>
+            <p>
+              Notre équipe de support disponible 24 heures sur 24 est là pour
+              vous aider à tout moment, où que vous soyez.
+            </p>
+          </div>
         </div>
-        <div className={styles.footerright}>
-          <a href="/devenir-concierge">DEVENIR CONCIERGE</a>
+      </div>
+      <div className="flex ml-5 mt-10 mb-10 font-semibold">
+        <h1 className="text-3xl">Les clients nous font confiance</h1>
+      </div>
+      <div className="flex flex-row mb-10">
+        <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-5 pl-3 bg-neutral-100">
+          <img
+            src="/trust.png"
+            className="pb-3"
+            style={{ height: "50%", width: "50%" }}
+          />
+          <p className="text-xl font-semibold">Expérience concluante!</p>{" "}
+          <p>Super rapide pour trouver une personne, application géniale.</p>
         </div>
-      </footer>
+        <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3 bg-neutral-100">
+          <img
+            src="/trust.png"
+            className="pb-3"
+            style={{ height: "50%", width: "50%" }}
+          />
+          <p className="text-xl font-semibold">Satisfait</p>{" "}
+          <p>
+            Le concierge à accompli la mission en moins de 20 minutes, super.
+          </p>
+        </div>
+        <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3 bg-neutral-100">
+          <img
+            src="/trust.png"
+            className="pb-3"
+            style={{ height: "50%", width: "50%" }}
+          />
+          <p className="text-xl font-semibold">Très pratique</p>{" "}
+          <p>Un ami m'a recommandé cette application, je suis content que...</p>
+        </div>
+        <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3 bg-neutral-100">
+          <img
+            src="/trust.png"
+            className="pb-3"
+            style={{ height: "50%", width: "50%" }}
+          />
+          <p className="text-xl font-semibold">Mieux que Uber Eats</p>{" "}
+          <p>Le concierge m'a livré en moins de 15 minutes.</p>
+        </div>
+        <div className="flex flex-col w-full pt-3 pb-10 mr-5 ml-3 pl-3 bg-neutral-100 pr-2">
+          <img
+            src="/trust.png"
+            className="pb-3"
+            style={{ height: "50%", width: "50%" }}
+          />
+          <p className="text-xl font-semibold">Je recommande</p>{" "}
+          <p>J'ai parlé de cette application à tous mes amis...</p>
+        </div>
+      </div>
+      <div className="flex items-center justify-center mt-10 mb-10">
+        <button>
+          <div
+            className="border-2 w-48 border-black p-5 flex items-center justify-center rounded-2xl text-2xl text-white"
+            style={{ backgroundColor: "#414141" }}
+          >
+            DÉMARRER
+          </div>
+        </button>
+      </div>
+      {/* FOOTER */}
+      <div
+        className="w-full h-full pt-5 pl-5 flex flex-row justify-between"
+        style={{ backgroundColor: "#33B49C" }}
+      >
+        <div className="flex ">
+          <div className="flex flex-row">
+            <img src="/questlogowhite.png" className="h-8" />
+          </div>
+          <div className="flex flex-col text-white text-sm pb-5 pl-5">
+            <p>FAQ</p>
+            <p>Contactez-nous</p>
+            <p>Mentions légales</p>
+            <p>RGPD</p>
+          </div>
+        </div>
+        <div className="flex flex-col justify-between pb-5">
+          <div className="mr-10 text-white text-sm">Devenir concierge</div>
+          <div className="flex flex-row justify-end mr-10">
+            <FontAwesomeIcon icon={faInstagram} className="h-6 text-white" />
+            <FontAwesomeIcon
+              icon={faFacebook}
+              className="h-6 text-white ml-5"
+            />
+          </div>
+        </div>
+      </div>
+      {/* FOOTER END  */}
     </div>
   );
-};
+}
 
 export default Home;
-

@@ -3,8 +3,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #f4f4f4;
-  padding: 20px;
 }
 
 .header {
@@ -23,34 +21,36 @@
   font-size: 24px;
 }
 
-
 .main {
   text-align: center;
 }
 
-.servicescontainer {
+/* .servicescontainer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 20px 0;
-}
+} */
 
-.service {
+/* .service {
   flex: 1;
   padding: 20px;
-}
+} */
 
-.servicedescription {
-  flex: 1;
+/* .servicedescription {
+  display: flex;
+  flex-direction: column;
+
   background-color: white;
   padding: 20px;
   text-align: left;
-}
+  height: 100%;
+} */
 
 .greenbutton {
   background-color: green;
   color: white;
-  padding: 10px 20px;
+
   border: none;
   cursor: pointer;
 }
@@ -75,4 +75,14 @@
 
 .footerright a {
   text-decoration: none;
+}
+
+.hovereffect {
+  transition: background-color 0.3s;
+  background-color: #33b49c;
+}
+
+.hovereffect:hover {
+  background-color: #7eaba2;
+  color: rgb(255, 255, 255);
 }

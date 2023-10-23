@@ -6,7 +6,7 @@ function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Next.js App</title>
+        <title>QUEST</title>
       </Head>
       <Component {...pageProps} />
     </>
