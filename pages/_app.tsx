@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import Head from "next/head";
+import Head from "../node_modules/next/head";
 import React from "react";
 
 function App({ Component, pageProps }) {

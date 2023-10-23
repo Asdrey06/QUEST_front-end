@@ -1,13 +1,46 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
+import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
+import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
 import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
+import { useEffect, useState } from "react";
 
 function Home() {
+  const [number, setNumber] = useState(347);
+
+  const [numberWorker, setNumberWorker] = useState(62);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNumber(number + 1);
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [number]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNumberWorker(numberWorker + 1);
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [numberWorker]);
+
+  const openInsta = () => {
+    window.open("https://www.instagram.com", "_blank");
+  };
+
+  const openFb = () => {
+    window.open("https://www.facebook.com", "_blank");
+  };
+
   return (
     <div className="" style={{ backgroundColor: "#FFFFFF" }}>
       <div
@@ -89,14 +122,14 @@ function Home() {
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
           <img src="/exp2.png" className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-            50 347
+            50 {number}
           </p>{" "}
           <p style={{ color: "#68938B" }}>transactions effectuées</p>
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
           <img src="/exp1.png" className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-            10 062
+            10 0{numberWorker}
           </p>{" "}
           <p style={{ color: "#68938B" }}>prestataires actifs</p>
         </div>
@@ -251,22 +284,39 @@ function Home() {
       >
         <div className="flex ">
           <div className="flex flex-row">
-            <img src="/questlogowhite.png" className="h-8" />
+            <Link href="/">
+              <img src="/questlogowhite.png" className="h-8 cursor-pointer" />
+            </Link>
           </div>
           <div className="flex flex-col text-white text-sm pb-5 pl-5">
-            <p>FAQ</p>
-            <p>Contactez-nous</p>
-            <p>Mentions légales</p>
-            <p>RGPD</p>
+            <p className="w-3/12 hover:text-neutral-200">
+              <Link href="">FAQ</Link>
+            </p>
+            <p className="hover:text-neutral-200">
+              <Link href="">Contactez-nous</Link>
+            </p>
+            <p className="hover:text-neutral-200">
+              <Link href="">Mentions légales</Link>
+            </p>
+            <p className="w-4/12 hover:text-neutral-200">
+              <Link href="">RGPD</Link>
+            </p>
           </div>
         </div>
-        <div className="flex flex-col justify-between pb-5">
-          <div className="mr-10 text-white text-sm">Devenir concierge</div>
+        <div className="flex flex-col justify-around pb-5">
+          <div className="mr-10 text-white text-lg hover:text-neutral-200">
+            <Link href="/conciergewelcome">Devenir concierge</Link>
+          </div>
           <div className="flex flex-row justify-end mr-10">
-            <FontAwesomeIcon icon={faInstagram} className="h-6 text-white" />
+            <FontAwesomeIcon
+              icon={faInstagram}
+              className="h-6 text-white hover:text-neutral-200 cursor-pointer"
+              onClick={openInsta}
+            />
             <FontAwesomeIcon
               icon={faFacebook}
-              className="h-6 text-white ml-5"
+              className="h-6 text-white ml-5 hover:text-neutral-200 cursor-pointer"
+              onClick={openFb}
             />
           </div>
         </div>
