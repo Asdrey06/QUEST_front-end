@@ -1,0 +1,20 @@
+.requete {
+    font-size: 40px;
+}
+
+.rectangle {
+    width:400px;
+	height:200px;
+	border: solid;
+    text-align: center;
+    line-height: 180px;
+
+}
+
+.containerRequete {
+    margin-top: 80px;
+    position: absolute;
+    right: 0;
+    background-color: #f0f0f0; /* Couleur de fond pour illustrer */
+    padding: 20px; 
+}

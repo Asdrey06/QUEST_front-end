@@ -81,14 +81,13 @@ function Home() {
         vous offre simplicité, flexibilité, qualité et paiement sécurisé.
       </div>
       <div className="flex items-center justify-center mt-10 mb-10">
-        <button>
-          <div
+        <div
             className="border-2 w-48 border-black p-5 flex items-center justify-center rounded-2xl text-2xl text-white"
             style={{ backgroundColor: "#414141" }}
           >
-            DÉMARRER
+           <Link href="/clientwelcome">DÉMARRER</Link> 
+          
           </div>
-        </button>
       </div>
       <div className="flex items-center justify-center mb-10">
         <h1 className="text-3xl" style={{ color: "#68938B" }}>
@@ -245,14 +244,13 @@ function Home() {
         </div>
       </div>
       <div className="flex items-center justify-center mt-10 mb-10">
-        <button>
-          <div
+      <div
             className="border-2 w-48 border-black p-5 flex items-center justify-center rounded-2xl text-2xl text-white"
             style={{ backgroundColor: "#414141" }}
           >
-            DÉMARRER
+           <Link href="/clientwelcome">DÉMARRER</Link> 
+          
           </div>
-        </button>
       </div>
       {/* FOOTER START */}
       <Footer />
