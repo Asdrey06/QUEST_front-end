@@ -33,7 +33,7 @@ function Offer() {
         />
         <div className="mt-8">
           <div className="grid grid-cols-3 gap-6">
-       
+
             <div>
               <p>Pour quand ... ?</p>
               <div className="mt-2">
