@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Client.module.css";
 import React from "react";
 import Home from "../components/Home";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
@@ -31,29 +31,35 @@ function Client() {
 
 
 
-  return (
-<div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
-      {/* HEADER START */}
-      <Header />
-      {/* HEADER END */}
-     
-   
-      <div className="flex items-center justify-left mb-20">
-        <h1 className="text-3xl" style={{ color: "black" }}>
-          Bonjour Nikita Kofman, séléctionnez un concierge
-        </h1>
-      </div>
-        <div className="flex items-center justify-center mb-20">
-        Concierge à proximité:
+      return (
+        <div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
+          {/* HEADER START */}
+          <Header />
+          {/* HEADER END */}
+         
+          <div className="flex items-center justify-left mb-20">
+            <h1 className="text-3xl" style={{ color: "black" }}>
+              Bonjour Nikita Kofman, sélectionnez un concierge
+            </h1>
+          </div>
+          
+          <div className={styles.containerRequete}>
+            <h1 className={styles.requete}>REQUÊTES EN COURS...</h1>
+            <div className={styles.rectangle}>Aucune requête en cours pour le moment</div>
+          </div>
+          
+          <div className="flex items-center justify-center mb-20">
+            Concierge à proximité:
+          </div>
+          
+          <div className={styles.conciergesContainer}>
+            {concierge}
+          </div>
+          
+          <Footer />
         </div>
-        <div className={styles.conciergesContainer}>
-        {concierge}
-      </div>
-    <Footer />
-    </div>
-
-
-  );
+      );
+      
 }
 
 export default Client;
