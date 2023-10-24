@@ -371,11 +371,18 @@ function ConciergeSignUp() {
             </div>
             <div className="flex flex-col mt-5">
               <label
-                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200"
+                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
                 onClick={openCloudinaryWidgetPDF}
               >
-                Importez votre pièce d'identité
+                {!id && "Importez votre pièce d'identité"}
+
+                {id && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-emerald-500 h-6"
+                  />
+                )}
               </label>
             </div>
             <div className="flex flex-col mt-5">
