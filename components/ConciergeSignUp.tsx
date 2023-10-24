@@ -14,13 +14,98 @@ import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import dotenv from "dotenv";
+dotenv.config();
 
 function ConciergeSignUp() {
+  useEffect(() => {
+    // Load the Cloudinary widget script when the component is mounted
+    const script = document.createElement("script");
+    script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
+    script.type = "text/javascript";
+    script.async = true;
+    document.head.appendChild(script);
+
+    // Cleanup: Remove the script when the component unmounts
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
+  const openCloudinaryWidget = () => {
+    // Replace 'your_cloud_name' with your actual Cloudinary cloud name
+    cloudinary.openUploadWidget(
+      {
+        cloudName: process.env.NEXT_PUBLIC_CLOUD_NAME,
+        uploadPreset: process.env.NEXT_PUBLIC_UPLOAD_PRESET,
+        sources: ["local", "url", "camera", "image_search"],
+        showAdvancedOptions: true,
+        cropping: "server",
+        multiple: false,
+        defaultSource: "local",
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          // Check if the uploaded file format is allowed
+          const allowedFormats = ["jpg", "jpeg", "png"];
+          const format = result.info.format;
+          if (!allowedFormats.includes(format)) {
+            // Handle format validation error
+            setWrongFile("Format invalide");
+            // Optionally, you can reset the selected file input to prevent submission.
+            return;
+          }
+
+          // Handle the uploaded image or images, and store the necessary information.
+          const imageUrl = result.info.secure_url;
+          setPhoto(imageUrl);
+          setWrongFile("");
+        }
+      }
+    );
+  };
+
+  const openCloudinaryWidgetPDF = () => {
+    // Replace 'your_cloud_name' with your actual Cloudinary cloud name
+    cloudinary.openUploadWidget(
+      {
+        cloudName: process.env.NEXT_PUBLIC_CLOUD_NAME,
+        uploadPreset: process.env.NEXT_PUBLIC_UPLOAD_PRESET,
+        sources: ["local", "url"],
+        showAdvancedOptions: true,
+        cropping: "server",
+        multiple: false,
+        defaultSource: "local",
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          // Check if the uploaded file format is allowed
+          const allowedFormats = ["pdf"];
+          const format = result.info.format;
+          if (!allowedFormats.includes(format)) {
+            // Handle format validation error
+            setWrongFile("Format invalide");
+            // Optionally, you can reset the selected file input to prevent submission.
+            return;
+          }
+
+          // Handle the uploaded image or images, and store the necessary information.
+          const imageUrl = result.info.secure_url;
+          setId(imageUrl);
+          setWrongFile("");
+        }
+      }
+    );
+  };
+
+  // else {
+  //   setWrongFile("Format non autorisé");
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [birthday, setBirthday] = useState([]);
+  const [birthday, setBirthday] = useState("");
   const [nationality, setNationality] = useState("");
   const [address, setAddress] = useState("");
   const [zipcode, setZipcode] = useState("");
@@ -35,11 +120,17 @@ function ConciergeSignUp() {
   const [photo, setPhoto] = useState("");
   const [iban, setIban] = useState("");
 
+  console.log(photo);
+
   const [wrongpw, setWrongPw] = useState("");
 
-  const numericBirthday = parseInt(birthday, 10);
+  const [wrongFile, setWrongFile] = useState("");
 
-  console.log(numericBirthday);
+  const [id, setId] = useState("");
+
+  console.log(id);
+
+  const numericBirthday = parseInt(birthday, 10);
 
   const handleRegister = () => {
     fetch("http://localhost:3000/concierges/signupConcierge", {
@@ -63,7 +154,7 @@ function ConciergeSignUp() {
         languages: languages,
         aboutme: about,
         transport: moving,
-        documents: license,
+        documents: id,
       }),
     })
       .then((response) => response.json())
@@ -262,24 +353,29 @@ function ConciergeSignUp() {
             <h1 className="font-light text-lg mb-5 font-semibold">
               Vos documents
             </h1>
-            <div className="flex flex-col">
-              {" "}
-              <label
-                className="items-center text-xs flex-col flex justify-center text-center text-neutral-500 rounded-lg px-4 py-2 w-32 h-32 cursor-pointer hover:bg-neutral-200"
+            <div className="flex flex-row">
+              <div
+                className="items-center text-xs flex-col flex justify-center text-center text-neutral-500 rounded-lg w-32 h-32"
                 style={{ border: "3px solid #34B39C" }}
               >
-                <p className="mb-3">Enregistrer photo de profil</p>
-                <p>(format .JPG ou .PNG, moins de 2Mo)</p>
-                <input type="file" className="hidden" />
-              </label>
+                <img src={photo} className="h-full" />
+                {!photo && <p className="text-xs mb-12">JPG, JPEG ou PNG</p>}
+              </div>
+              <button
+                onClick={openCloudinaryWidget}
+                className="flex justify-end flex-col mb-1 ml-5 font-light"
+              >
+                <p>Upload</p>
+                <p className="text-red-500">{wrongFile}</p>
+              </button>
             </div>
             <div className="flex flex-col mt-5">
               <label
                 className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200"
                 style={{ border: "3px solid #34B39C" }}
+                onClick={openCloudinaryWidgetPDF}
               >
                 Importez votre pièce d'identité
-                <input type="file" className="hidden" />
               </label>
             </div>
             <div className="flex flex-col mt-5">

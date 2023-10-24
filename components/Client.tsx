@@ -10,56 +10,102 @@ import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import ProfileConcierge from './ProfileConcierge';
+import ProfileConcierge from "./ProfileConcierge";
 
 function Client() {
-    const conciergeData = [
-        { name: 'Max', poster: 'backgroundconcierge1.png', voteAverage: 9.2, langue: "Langue: France", overview: 'Compétences Principales: good' },
-        { name: 'Alex', poster: 'backgroundconcierge2.png', voteAverage: 8.5, langue: "Langue: France", overview: 'Compétences Principales: good' },
-        { name: 'Audrey', poster: 'backgroundconcierge3.png', voteAverage: 8.5, langue: "Langue: France", overview: 'Compétences Principales: good' },
-        { name: 'Will', poster: 'concierge3.jpeg', voteAverage: 7.6, langue: "Langue: France", overview: 'Compétences Principales: good' },
-        { name: 'Francis', poster: 'concierges.jpeg', voteAverage: 8.4, langue: "Langue: France", overview: 'Compétences Principales:good' },
-      ];
-    
-      
-      const concierge = conciergeData.map(data => {
-          return <ProfileConcierge name={data.name} poster={data.poster} voteAverage={data.voteAverage} langue={data.langue} overview={data.overview} 
-          
-        />;
+  const [conciergeList, setConciergeList] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/concierges/conciergeList")
+      .then((response) => response.json())
+      .then((data) => {
+        setConciergeList(data.result);
       });
+  }, []);
 
+  const allConcierge = [];
 
+  allConcierge.push(conciergeList);
 
+  console.log(conciergeList);
 
-      return (
-        <div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
-          {/* HEADER START */}
-          <Header />
-          {/* HEADER END */}
-         
-          <div className="flex items-center justify-left mb-20">
-            <h1 className="text-3xl" style={{ color: "black" }}>
-              Bonjour Nikita Kofman, sélectionnez un concierge
-            </h1>
-          </div>
-          
-          <div className={styles.containerRequete}>
-            <h1 className={styles.requete}>REQUÊTES EN COURS...</h1>
-            <div className={styles.rectangle}>Aucune requête en cours pour le moment</div>
-          </div>
-          
-          <div className="flex items-center justify-center mb-20">
-            Concierge à proximité:
-          </div>
-          
-          <div className={styles.conciergesContainer}>
-            {concierge}
-          </div>
-          
-          <Footer />
+  // const conciergeData = [
+  //   {
+  //     name: "Max",
+  //     poster: "backgroundconcierge1.png",
+  //     voteAverage: 9.2,
+  //     langue: "Langue: France",
+  //     overview: "Compétences Principales: good",
+  //   },
+  //   {
+  //     name: "Alex",
+  //     poster: "backgroundconcierge2.png",
+  //     voteAverage: 8.5,
+  //     langue: "Langue: France",
+  //     overview: "Compétences Principales: good",
+  //   },
+  //   {
+  //     name: "Audrey",
+  //     poster: "backgroundconcierge3.png",
+  //     voteAverage: 8.5,
+  //     langue: "Langue: France",
+  //     overview: "Compétences Principales: good",
+  //   },
+  //   {
+  //     name: "Will",
+  //     poster: "concierge3.jpeg",
+  //     voteAverage: 7.6,
+  //     langue: "Langue: France",
+  //     overview: "Compétences Principales: good",
+  //   },
+  //   {
+  //     name: "Francis",
+  //     poster: "concierges.jpeg",
+  //     voteAverage: 8.4,
+  //     langue: "Langue: France",
+  //     overview: "Compétences Principales:good",
+  //   },
+  // ];
+
+  const concierge = conciergeList.map((data, i) => {
+    console.log(data.photo);
+    return (
+      <ProfileConcierge
+        name={data.firstname}
+        poster={data.photo}
+        voteAverage={data.voteAverage}
+        langue={data.personalInfo[0].languages}
+        overview={data.personalInfo[0].aboutme}
+      />
+    );
+  });
+
+  return (
+    <div className="" style={{ backgroundColor: "#FFFFFF" }}>
+      {/* HEADER START */}
+      <Header />
+      {/* HEADER END */}
+
+      <div className="flex items-center justify-left mb-20">
+        <h1 className="mt-20 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
+          Bonjour *utilisateur*, veuillez sélectionnez un concierge à proximité
+        </h1>
+      </div>
+
+      <div className="flex">
+        <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 mr-10 flex-wrap">
+          {concierge}
         </div>
-      );
-      
+        <div className="flex flex-col">
+          <h1 className="text-3xl mt-10">Requêtes</h1>
+          <div className="border-2 rounded-2xl h-64 p-10 mt-5">
+            Aucune requête en cours pour le moment
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
 export default Client;
