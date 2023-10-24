@@ -22,26 +22,81 @@ function Offer() {
       <Header />
       {/* HEADER END */}
       <div className="h-full mt-20">
-        {" "}
+        {/* Contenu de la page */}
+        <p className="text-lg font-bold">
+          Faire une offre à 'nom du concierge'
+        </p>
         <input
-          type="textarea"
-          className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
-          placeholder="Compétences..."
+          type="text"
+          className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
+          placeholder="Détails / Instructions ... "
         />
-        <label
-          className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200"
-          style={{ border: "3px solid #34B39C" }}
+        <div className="mt-8">
+          <div className="grid grid-cols-3 gap-6">
+       
+            <div>
+              <p>Pour quand ... ?</p>
+              <div className="mt-2">
+                <label className="flex items-center space-x-2">
+                  <input type="radio" name="when" value="Aujourd'hui" />
+                  Aujourd'hui
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input type="radio" name="when" value="DateAVoir" />
+                  Date à voir
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input type="radio" name="when" value="DateIndeterminee" />
+                  Date indéterminée
+                </label>
+              </div>
+            </div>
+            <div>
+            <input
+          type="text"
+          className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
+          placeholder="Offre pour le service "
+        /><input
+        type="text"
+        className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
+        placeholder="Prix des produits (si applicable) "
+      />
+            </div>
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-2 gap-6">
+          <div>
+            <p>Choisir un mode de paiement</p>
+            <div className="mt-2">
+              <label className="flex items-center space-x-2">
+                <input type="radio" name="payment" value="Visa" />
+                Visa carte
+              </label>
+              <label className="flex items-center space-x-2">
+                <input type="radio" name="payment" value="PayPal" />
+                PayPal
+              </label>
+              <label className="flex items-center space-x-2">
+                <input type="radio" name="payment" value="Autre" />
+                Ajouter un mode de paiement
+              </label>
+            </div>
+          </div>
+        </div>
+        <button
+          className="mt-8 p-3 text-white rounded-xl float-right"
+          style={{ backgroundColor: "#33B49C" }}
         >
-          Importez votre pièce d'identité
-          <input type="file" className="hidden" />
-        </label>
+          Faire offre
+        </button>
       </div>
-
       {/* FOOTER */}
       <Footer />
-      {/* FOOTER END  */}
+      {/* FOOTER END */}
+  
     </div>
   );
 }
 
 export default Offer;
+
