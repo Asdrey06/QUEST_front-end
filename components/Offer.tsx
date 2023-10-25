@@ -99,8 +99,10 @@ function Offer() {
                 value={productFees}
               />
             </div>
+            hh
           </div>
         </div>
+
         <div className="mt-6 grid grid-cols-2 gap-6">
           <div>
             <p>Choisir un mode de paiement</p>
