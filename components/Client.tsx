@@ -11,9 +11,14 @@ import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import ProfileConcierge from "./ProfileConcierge";
+import { useSelector } from "react-redux";
 
 function Client() {
   const [conciergeList, setConciergeList] = useState([]);
+
+  const user = useSelector((state) => state.users.value);
+
+  console.log("this", user.firstname);
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/conciergeList")
@@ -87,8 +92,9 @@ function Client() {
       {/* HEADER END */}
 
       <div className="flex items-center justify-left mb-20">
-        <h1 className="mt-20 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
-          Bonjour *utilisateur*, veuillez sélectionnez un concierge à proximité
+        <h1 className="flex mt-20 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
+          <p>Bonjour</p> <p className="italic ml-2">{user.firstname}</p>,
+          veuillez sélectionnez un concierge à proximité
         </h1>
       </div>
 
