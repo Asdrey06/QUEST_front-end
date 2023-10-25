@@ -24,13 +24,6 @@ function Offer() {
   const [totalFees, setTotalFees] = useState("");
   const [selectedRadio, setSelectedRadio] = useState("");
 
-
-  const totalPrice = () => 
-
-  const handleRadioChange = (e) => {
-    setSelectedRadio(e.target.value);
-  };
-
   const newRequest = () => {
     fetch("http://localhost:3000/request/saveRequest", {
       method: "POST",
@@ -102,7 +95,6 @@ function Offer() {
                 value={productFees}
               />
             </div>
-            {totalPrice}
           </div>
         </div>
 
