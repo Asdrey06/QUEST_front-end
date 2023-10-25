@@ -11,12 +11,12 @@ const initialState = {
   },
 };
 
-export const userSlice = createSlice({
-  name: "users",
+export const conciergeSlice = createSlice({
+  name: "concierges",
   initialState,
   reducers: {
-    loginUser: (state, action) => {
-      // Use Immer to create a new state object with the desired changes
+    loginConcierge: (state, action) => {
+      console.log("redux", action.payload);
       state.value = {
         ...state.value,
         token: action.payload.token,
@@ -27,7 +27,7 @@ export const userSlice = createSlice({
         photo: action.payload.photo,
       };
     },
-    logoutUser: (state) => {
+    logoutConcierge: (state) => {
       // Use Immer to create a new state object with the desired changes
       state.value = {
         ...state.value,
@@ -42,5 +42,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { loginUser, logoutUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { loginConcierge, logoutConcierge } = conciergeSlice.actions;
+export default conciergeSlice.reducer;

@@ -12,12 +12,17 @@ import {
 // import { faSolid } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
+import { loginUser, logoutUser } from "../reducers/users";
+import { loginConcierge, logoutConcierge } from "../reducers/concierges";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import Footer from "./Footer";
 import dotenv from "dotenv";
 dotenv.config();
 
 function ConciergeSignUp() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // Load the Cloudinary widget script when the component is mounted
     const script = document.createElement("script");
@@ -128,7 +133,7 @@ function ConciergeSignUp() {
 
   const [id, setId] = useState("");
 
-  console.log(id);
+  console.log(birthday);
 
   const handleNumberChange = (e) => {
     const input = e.target.value;
@@ -164,7 +169,7 @@ function ConciergeSignUp() {
       body: JSON.stringify({
         firstname: firstName,
         lastname: lastName,
-        birthday: numericBirthday,
+        birthday: birthday,
         address: address,
         city: city,
         zipcode: zipcode,
@@ -180,15 +185,26 @@ function ConciergeSignUp() {
         aboutme: about,
         transport: moving,
         documents: id,
+        status: "concierge",
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("this", data);
         if (data.result === false) {
           console.log(data.error);
           setWrongPw(data.error);
         } else if (data.result === true) {
+          dispatch(
+            loginConcierge({
+              token: data.token,
+              firstname: data.data.firstname,
+              lastname: data.data.lastname,
+              username: data.data.username,
+              status: data.data.status,
+              photo: data.data.photo,
+            })
+          );
           window.location.href = "/dashconcierge";
         }
       });
@@ -263,13 +279,11 @@ function ConciergeSignUp() {
             <div className="mt-8">Informations sur vous</div>
             <div className="flex flex-row">
               <input
-                type="text"
+                type="date"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Date de naissance..."
                 onChange={(e) => {
-                  const inputValue = e.target.value;
-                  const validatedInput = inputValue.replace(/[^0-9/]/g, "");
-                  setBirthday(validatedInput);
+                  setBirthday(e.target.value);
                 }}
                 value={birthday}
               />
@@ -312,7 +326,7 @@ function ConciergeSignUp() {
                 type="textarea"
                 className="ml-3 mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Numéro de téléphone..."
-                onChange={(e) => setNumber(e.target.value)}
+                onChange={handleNumberChange}
                 value={number}
               />
             </div>
@@ -412,14 +426,7 @@ function ConciergeSignUp() {
                 className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                {!id && "Importez extrait de votre kbis"}
-
-                {id && (
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-emerald-500 h-6"
-                  />
-                )}
+                Importez extrait de votre kbis
               </label>
             </div>
             <div className="flex flex-col mt-5">
@@ -427,14 +434,7 @@ function ConciergeSignUp() {
                 className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                {!id && "Importez votre casier judiciare"}
-
-                {id && (
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-emerald-500 h-6"
-                  />
-                )}
+                Importez votre casier judiciare
               </label>
             </div>
             <div className="flex flex-col mt-5">
@@ -442,14 +442,7 @@ function ConciergeSignUp() {
                 className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                {!id && "Importez votre permis de conduire (si nécessaire)"}
-
-                {id && (
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-emerald-500 h-6"
-                  />
-                )}
+                Importez votre permis de conduire (si nécessaire)"
               </label>
             </div>
           </div>

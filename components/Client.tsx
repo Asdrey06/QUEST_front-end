@@ -17,8 +17,24 @@ function Client() {
   const [conciergeList, setConciergeList] = useState([]);
 
   const user = useSelector((state) => state.users.value);
+  const conciergeRedux = useSelector((state) => state.concierges.value);
 
-  console.log("this", user.firstname);
+  console.log("this 1", conciergeRedux.status);
+
+  useEffect(() => {
+    if (conciergeRedux.status === "concierge") {
+      window.location.href = "/dashconcierge";
+    }
+
+    if (conciergeRedux.status === null && user.status === null) {
+      window.location.href = "/";
+    }
+
+    if (user.status === null) {
+      alert("Vous n'êtes pas connecté sur un compte client.");
+      window.location.href = "/dashconcierge";
+    }
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/conciergeList")

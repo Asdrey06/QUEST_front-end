@@ -6,10 +6,11 @@ import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import users from "../reducers/users";
+import concierges from "../reducers/concierges";
 
 import { Provider } from "react-redux";
 
-const reducers = combineReducers({ users });
+const reducers = combineReducers({ users, concierges });
 
 const persistConfig = { key: "quest", storage };
 
