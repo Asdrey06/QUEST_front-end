@@ -119,7 +119,7 @@ function ConciergeSignUp() {
   const [license, setLicense] = useState("");
   const [photo, setPhoto] = useState("");
   const [iban, setIban] = useState("");
-
+ console.log(birthday)
   console.log(photo);
 
   const [wrongpw, setWrongPw] = useState("");
@@ -130,7 +130,25 @@ function ConciergeSignUp() {
 
   console.log(id);
 
-  const numericBirthday = parseInt(birthday, 10);
+  const handleNumberChange = (e) => {
+    const input = e.target.value;
+    const cleanedNumber = input.replace(/[^0-9]/g, '');
+    
+    if (cleanedNumber.length <= 10) {
+      setNumber(cleanedNumber);
+    }
+  };
+
+  const handleCodePostal = (e) => {
+    const input = e.target.value;
+    const cleanedCode = input.replace(/[^0-5]/g, '');
+    
+    if (cleanedCode.length <= 5) {
+      setZipcode(cleanedCode);
+    }
+  };
+
+
 
   const handleRegister = () => {
     fetch("http://localhost:3000/concierges/signupConcierge", {
@@ -139,7 +157,7 @@ function ConciergeSignUp() {
       body: JSON.stringify({
         firstname: firstName,
         lastname: lastName,
-        birthday: numericBirthday,
+        birthday: birthday,
         address: address,
         city: city,
         zipcode: zipcode,
@@ -236,13 +254,12 @@ function ConciergeSignUp() {
             <div className="mt-8">Informations sur vous</div>
             <div className="flex flex-row">
               <input
-                type="text"
+                type="date"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Date de naissance..."
                 onChange={(e) => {
-                  const inputValue = e.target.value;
-                  const validatedInput = inputValue.replace(/[^0-9/]/g, "");
-                  setBirthday(validatedInput);
+                  
+                  setBirthday(e.target.value);
                 }}
                 value={birthday}
               />
@@ -260,7 +277,7 @@ function ConciergeSignUp() {
                 type="textarea"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Code postal..."
-                onChange={(e) => setZipcode(e.target.value)}
+                onChange={handleCodePostal}
                 value={zipcode}
               />
 
@@ -285,7 +302,7 @@ function ConciergeSignUp() {
                 type="textarea"
                 className="ml-3 mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Numéro de téléphone..."
-                onChange={(e) => setNumber(e.target.value)}
+                onChange={handleNumberChange}
                 value={number}
               />
             </div>
