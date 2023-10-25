@@ -16,6 +16,40 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 function Offer() {
+  const [instruction, setInstruction] = useState("");
+  const [paymentInfo, setPaymentInfo] = useState("");
+  const [date, setDate] = useState("");
+  const [servicefees, setServicefees] = useState("");
+  const [productFees, setProductFees] = useState("");
+  const [totalFees, setTotalFees] = useState("");
+  const [selectedRadio, setSelectedRadio] = useState("");
+
+
+  const totalPrice = () => 
+
+  const handleRadioChange = (e) => {
+    setSelectedRadio(e.target.value);
+  };
+
+  const newRequest = () => {
+    fetch("http://localhost:3000/request/saveRequest", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        instruction: instruction,
+        paymentInfo: paymentInfo,
+        date: date,
+        servicefees: servicefees,
+        productFees: productFees,
+        totalFees: totalFees,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+  console.log(date);
   return (
     <div>
       {/* HEADER START */}
@@ -30,52 +64,52 @@ function Offer() {
           type="text"
           className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
           placeholder="Détails / Instructions ... "
+          onChange={(e) => setInstruction(e.target.value)}
+          value={instruction}
         />
         <div className="mt-8">
           <div className="grid grid-cols-3 gap-6">
-
             <div>
               <p>Pour quand ... ?</p>
               <div className="mt-2">
                 <label className="flex items-center space-x-2">
-                  <input type="radio" name="when" value="Aujourd'hui" />
-                  Aujourd'hui
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input type="radio" name="when" value="DateAVoir" />
-                  Date à voir
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input type="radio" name="when" value="DateIndeterminee" />
-                  Date indéterminée
+                  <input
+                    type="date"
+                    onChange={(e) => setDate(e.target.value)}
+                    name="when"
+                    value={date}
+                    disabled={
+                      selectedRadio === "Aujourdhui" ||
+                      selectedRadio === "DateIndeterminee"
+                    }
+                  />
                 </label>
               </div>
             </div>
             <div>
-            <input
-          type="text"
-          className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
-          placeholder="Offre pour le service "
-        /><input
-        type="text"
-        className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
-        placeholder="Prix des produits (si applicable) "
-      />
+              <input
+                type="text"
+                className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
+                placeholder="Offre pour le service "
+                onChange={(e) => setServicefees(e.target.value)}
+                value={servicefees}
+              />
+              <input
+                type="text"
+                className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
+                placeholder="Prix des produits (si applicable) "
+                onChange={(e) => setProductFees(e.target.value)}
+                value={productFees}
+              />
             </div>
+            {totalPrice}
           </div>
         </div>
+
         <div className="mt-6 grid grid-cols-2 gap-6">
           <div>
             <p>Choisir un mode de paiement</p>
             <div className="mt-2">
-              <label className="flex items-center space-x-2">
-                <input type="radio" name="payment" value="Visa" />
-                Visa carte
-              </label>
-              <label className="flex items-center space-x-2">
-                <input type="radio" name="payment" value="PayPal" />
-                PayPal
-              </label>
               <label className="flex items-center space-x-2">
                 <input type="radio" name="payment" value="Autre" />
                 Ajouter un mode de paiement
@@ -86,6 +120,7 @@ function Offer() {
         <button
           className="mt-8 p-3 text-white rounded-xl float-right"
           style={{ backgroundColor: "#33B49C" }}
+          onClick={newRequest}
         >
           Faire offre
         </button>
@@ -93,10 +128,8 @@ function Offer() {
       {/* FOOTER */}
       <Footer />
       {/* FOOTER END */}
-  
     </div>
   );
 }
 
 export default Offer;
-

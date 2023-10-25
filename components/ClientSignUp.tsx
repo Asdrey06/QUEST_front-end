@@ -17,7 +17,7 @@ import Footer from "./Footer";
 import dotenv from "dotenv";
 dotenv.config();
 
-function ConciergeSignUp() {
+function ClientSignUp() {
   useEffect(() => {
     // Load the Cloudinary widget script when the component is mounted
     const script = document.createElement("script");
@@ -119,7 +119,7 @@ function ConciergeSignUp() {
   const [license, setLicense] = useState("");
   const [photo, setPhoto] = useState("");
   const [iban, setIban] = useState("");
- console.log(birthday)
+
   console.log(photo);
 
   const [wrongpw, setWrongPw] = useState("");
@@ -130,34 +130,16 @@ function ConciergeSignUp() {
 
   console.log(id);
 
-  const handleNumberChange = (e) => {
-    const input = e.target.value;
-    const cleanedNumber = input.replace(/[^0-9]/g, '');
-    
-    if (cleanedNumber.length <= 10) {
-      setNumber(cleanedNumber);
-    }
-  };
-
-  const handleCodePostal = (e) => {
-    const input = e.target.value;
-    const cleanedCode = input.replace(/[^0-5]/g, '');
-    
-    if (cleanedCode.length <= 5) {
-      setZipcode(cleanedCode);
-    }
-  };
-
-
+  const numericBirthday = parseInt(birthday, 10);
 
   const handleRegister = () => {
-    fetch("http://localhost:3000/concierges/signupConcierge", {
+    fetch("http://localhost:3000/users/signUp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         firstname: firstName,
         lastname: lastName,
-        birthday: birthday,
+        birthday: numericBirthday,
         address: address,
         city: city,
         zipcode: zipcode,
@@ -181,8 +163,6 @@ function ConciergeSignUp() {
         if (data.result === false) {
           console.log(data.error);
           setWrongPw(data.error);
-        } else if (data.result === true) {
-          window.location.href = "/dashconcierge";
         }
       });
   };
@@ -199,7 +179,7 @@ function ConciergeSignUp() {
             className="pl-10  pb-5 pt-5 w-full mb-5 text-3xl font-semibold"
             style={{ color: "#68938B", backgroundColor: "#EFFDF5" }}
           >
-            Créez votre compte concierge
+            Créez votre compte client
           </h1>
         </div>
         <div className="flex flex-row mb-5">
@@ -256,12 +236,13 @@ function ConciergeSignUp() {
             <div className="mt-8">Informations sur vous</div>
             <div className="flex flex-row">
               <input
-                type="date"
+                type="text"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Date de naissance..."
                 onChange={(e) => {
-                  
-                  setBirthday(e.target.value);
+                  const inputValue = e.target.value;
+                  const validatedInput = inputValue.replace(/[^0-9/]/g, "");
+                  setBirthday(validatedInput);
                 }}
                 value={birthday}
               />
@@ -279,7 +260,7 @@ function ConciergeSignUp() {
                 type="textarea"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Code postal..."
-                onChange={handleCodePostal}
+                onChange={(e) => setZipcode(e.target.value)}
                 value={zipcode}
               />
 
@@ -304,7 +285,7 @@ function ConciergeSignUp() {
                 type="textarea"
                 className="ml-3 mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Numéro de téléphone..."
-                onChange={handleNumberChange}
+                onChange={(e) => setNumber(e.target.value)}
                 value={number}
               />
             </div>
@@ -472,4 +453,4 @@ function ConciergeSignUp() {
   );
 }
 
-export default ConciergeSignUp;
+export default ClientSignUp;
