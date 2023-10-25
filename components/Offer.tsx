@@ -24,6 +24,9 @@ function Offer() {
   const [totalFees, setTotalFees] = useState("");
   const [selectedRadio, setSelectedRadio] = useState("");
 
+
+  const totalPrice = () => 
+
   const handleRadioChange = (e) => {
     setSelectedRadio(e.target.value);
   };
@@ -99,7 +102,7 @@ function Offer() {
                 value={productFees}
               />
             </div>
-            hh
+            {totalPrice}
           </div>
         </div>
 
