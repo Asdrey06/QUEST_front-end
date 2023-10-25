@@ -143,8 +143,17 @@ function ConciergeSignUp() {
     const input = e.target.value;
     const cleanedCode = input.replace(/[^0-9]/g, '');
     
-    if (cleanedCode.length <= 10) {
+    if (cleanedCode.length <= 5) {
       setZipcode(cleanedCode);
+    }
+  };
+
+  const handleIban = (e) => {
+    const input = e.target.value;
+    const cleanedIban = input.replace(/[^0-9]/g, '');
+    
+    if (cleanedIban.length <= 25) {
+      setIban(cleanedIban);
     }
   };
 
@@ -343,21 +352,15 @@ function ConciergeSignUp() {
               />
             </div>
             <div className="flex flex-col">
-              <input
-                type="textarea"
-                className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
-                placeholder="Permis..."
-                onChange={(e) => setLicense(e.target.value)}
-                value={license}
-              />
-
+           <div className="flex flex-row">
+              <div className="mt-5 mr-3 ml-3">FR</div>
               <input
                 type="textarea"
                 className="mt-3 mb-3 border-2 w-8/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Relevé d'identité bancaire..."
-                onChange={(e) => setIban(e.target.value)}
+                onChange={handleIban}
                 value={iban}
-              />
+              /></div>
             </div>
             <div className="flex items-center">
               {" "}
@@ -405,30 +408,51 @@ function ConciergeSignUp() {
               </label>
             </div>
             <div className="flex flex-col mt-5">
-              <label
-                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200"
+            <label
+                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
+              
               >
-                Importez extrait de votre kbis
-                <input type="file" className="hidden" />
+                {!id && "Importez extrait de votre kbis"}
+
+                {id && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-emerald-500 h-6"
+                  />
+                )}
               </label>
             </div>
             <div className="flex flex-col mt-5">
-              <label
-                className="text-neutral-500 rounded-lg px-4 py-2 w-8/12 cursor-pointer hover:bg-neutral-200"
+            <label
+                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
+              
               >
-                Importez extrait de votre casier judiciaire
-                <input type="file" className="hidden" />
+                {!id && "Importez votre casier judiciare"}
+
+                {id && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-emerald-500 h-6"
+                  />
+                )}
               </label>
             </div>
             <div className="flex flex-col mt-5">
-              <label
-                className="text-neutral-500 rounded-lg px-4 py-2 w-9/12 cursor-pointer hover:bg-neutral-200"
+            <label
+                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
+                
               >
-                Importez permis de conduire (si applicable)
-                <input type="file" className="hidden" />
+                {!id && "Importez votre permis de conduire (si nécessaire)"}
+
+                {id && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-emerald-500 h-6"
+                  />
+                )}
               </label>
             </div>
           </div>
