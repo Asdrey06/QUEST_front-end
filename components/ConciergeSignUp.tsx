@@ -141,9 +141,9 @@ function ConciergeSignUp() {
 
   const handleCodePostal = (e) => {
     const input = e.target.value;
-    const cleanedCode = input.replace(/[^0-5]/g, '');
+    const cleanedCode = input.replace(/[^0-9]/g, '');
     
-    if (cleanedCode.length <= 5) {
+    if (cleanedCode.length <= 10) {
       setZipcode(cleanedCode);
     }
   };
