@@ -119,7 +119,7 @@ function ConciergeSignUp() {
   const [license, setLicense] = useState("");
   const [photo, setPhoto] = useState("");
   const [iban, setIban] = useState("");
- console.log(birthday)
+
   console.log(photo);
 
   const [wrongpw, setWrongPw] = useState("");
@@ -132,8 +132,8 @@ function ConciergeSignUp() {
 
   const handleNumberChange = (e) => {
     const input = e.target.value;
-    const cleanedNumber = input.replace(/[^0-9]/g, '');
-    
+    const cleanedNumber = input.replace(/[^0-9]/g, "");
+
     if (cleanedNumber.length <= 10) {
       setNumber(cleanedNumber);
     }
@@ -141,14 +141,21 @@ function ConciergeSignUp() {
 
   const handleCodePostal = (e) => {
     const input = e.target.value;
-    const cleanedCode = input.replace(/[^0-5]/g, '');
-    
+    const cleanedCode = input.replace(/[^0-9]/g, "");
+
     if (cleanedCode.length <= 5) {
       setZipcode(cleanedCode);
     }
   };
 
+  const handleIban = (e) => {
+    const input = e.target.value;
+    const cleanedIban = input.replace(/[^0-9]/g, "");
 
+    if (cleanedIban.length <= 25) {
+      setIban(cleanedIban);
+    }
+  };
 
   const handleRegister = () => {
     fetch("http://localhost:3000/concierges/signupConcierge", {
@@ -157,7 +164,7 @@ function ConciergeSignUp() {
       body: JSON.stringify({
         firstname: firstName,
         lastname: lastName,
-        birthday: birthday,
+        birthday: numericBirthday,
         address: address,
         city: city,
         zipcode: zipcode,
@@ -256,12 +263,13 @@ function ConciergeSignUp() {
             <div className="mt-8">Informations sur vous</div>
             <div className="flex flex-row">
               <input
-                type="date"
+                type="text"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Date de naissance..."
                 onChange={(e) => {
-                  
-                  setBirthday(e.target.value);
+                  const inputValue = e.target.value;
+                  const validatedInput = inputValue.replace(/[^0-9/]/g, "");
+                  setBirthday(validatedInput);
                 }}
                 value={birthday}
               />
@@ -279,7 +287,7 @@ function ConciergeSignUp() {
                 type="textarea"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Code postal..."
-                onChange={handleCodePostal}
+                onChange={(e) => setZipcode(e.target.value)}
                 value={zipcode}
               />
 
@@ -304,7 +312,7 @@ function ConciergeSignUp() {
                 type="textarea"
                 className="ml-3 mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Numéro de téléphone..."
-                onChange={handleNumberChange}
+                onChange={(e) => setNumber(e.target.value)}
                 value={number}
               />
             </div>
@@ -343,21 +351,16 @@ function ConciergeSignUp() {
               />
             </div>
             <div className="flex flex-col">
-              <input
-                type="textarea"
-                className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
-                placeholder="Permis..."
-                onChange={(e) => setLicense(e.target.value)}
-                value={license}
-              />
-
-              <input
-                type="textarea"
-                className="mt-3 mb-3 border-2 w-8/12 p-2 rounded-xl border-neutral-500"
-                placeholder="Relevé d'identité bancaire..."
-                onChange={(e) => setIban(e.target.value)}
-                value={iban}
-              />
+              <div className="flex flex-row">
+                <div className="mt-5 mr-3 ml-3">FR</div>
+                <input
+                  type="textarea"
+                  className="mt-3 mb-3 border-2 w-8/12 p-2 rounded-xl border-neutral-500"
+                  placeholder="Relevé d'identité bancaire..."
+                  onChange={handleIban}
+                  value={iban}
+                />
+              </div>
             </div>
             <div className="flex items-center">
               {" "}
@@ -406,29 +409,47 @@ function ConciergeSignUp() {
             </div>
             <div className="flex flex-col mt-5">
               <label
-                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200"
+                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                Importez extrait de votre kbis
-                <input type="file" className="hidden" />
+                {!id && "Importez extrait de votre kbis"}
+
+                {id && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-emerald-500 h-6"
+                  />
+                )}
               </label>
             </div>
             <div className="flex flex-col mt-5">
               <label
-                className="text-neutral-500 rounded-lg px-4 py-2 w-8/12 cursor-pointer hover:bg-neutral-200"
+                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                Importez extrait de votre casier judiciaire
-                <input type="file" className="hidden" />
+                {!id && "Importez votre casier judiciare"}
+
+                {id && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-emerald-500 h-6"
+                  />
+                )}
               </label>
             </div>
             <div className="flex flex-col mt-5">
               <label
-                className="text-neutral-500 rounded-lg px-4 py-2 w-9/12 cursor-pointer hover:bg-neutral-200"
+                className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                Importez permis de conduire (si applicable)
-                <input type="file" className="hidden" />
+                {!id && "Importez votre permis de conduire (si nécessaire)"}
+
+                {id && (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-emerald-500 h-6"
+                  />
+                )}
               </label>
             </div>
           </div>
