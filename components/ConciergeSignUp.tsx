@@ -163,6 +163,8 @@ function ConciergeSignUp() {
         if (data.result === false) {
           console.log(data.error);
           setWrongPw(data.error);
+        } else if (data.result === true) {
+          window.location.href = "/dashconcierge";
         }
       });
   };
