@@ -19,10 +19,18 @@ function Offer() {
   const [instruction, setInstruction] = useState("");
   const [paymentInfo, setPaymentInfo] = useState("");
   const [date, setDate] = useState("");
-  const [servicefees, setServicefees] = useState("");
-  const [productFees, setProductFees] = useState("");
-  const [totalFees, setTotalFees] = useState("");
+  const [serviceFees, setServiceFees] = useState(0);
+  const [productFees, setProductFees] = useState(0);
+  // const [totalFees, setTotalFees] = useState(0);
   const [selectedRadio, setSelectedRadio] = useState("");
+
+  const calculateTotalCosts = () => {
+    const valueServiceFees = serviceFees || 0;
+    const valueProductFees = productFees || 0;
+
+    const costsTotal = valueServiceFees + valueProductFees;
+    return costsTotal;
+  };
 
   const newRequest = () => {
     fetch("http://localhost:3000/request/saveRequest", {
@@ -32,9 +40,9 @@ function Offer() {
         instruction: instruction,
         paymentInfo: paymentInfo,
         date: date,
-        servicefees: servicefees,
+        serviceFees: serviceFees,
         productFees: productFees,
-        totalFees: totalFees,
+        totalFees: serviceFees + productFees,
       }),
     })
       .then((response) => response.json())
@@ -84,14 +92,14 @@ function Offer() {
                 type="text"
                 className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Offre pour le service "
-                onChange={(e) => setServicefees(e.target.value)}
-                value={servicefees}
+                onChange={(e) => setServiceFees(Number(e.target.value))}
+                value={serviceFees}
               />
               <input
                 type="text"
                 className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Prix des produits (si applicable) "
-                onChange={(e) => setProductFees(e.target.value)}
+                onChange={(e) => setProductFees(Number(e.target.value))}
                 value={productFees}
               />
             </div>
@@ -108,6 +116,7 @@ function Offer() {
               </label>
             </div>
           </div>
+          Total : {calculateTotalCosts()} €
         </div>
         <button
           className="mt-8 p-3 text-white rounded-xl float-right"
