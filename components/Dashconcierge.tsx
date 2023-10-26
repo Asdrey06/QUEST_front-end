@@ -51,7 +51,7 @@ function Dashconcierge() {
         instruction={data.instruction}
         paymentInfo={data.paymentInfo}
         date={data.date}
-        servicesFees={data.servicesFees}
+        serviceFees={data.serviceFees}
         productFees={data.productFees}
         totalFees={data.totalFees}
       />
