@@ -108,7 +108,7 @@ function Client() {
       {/* HEADER END */}
 
       <div className="flex items-center justify-left mb-20">
-        <h1 className="flex mt-20 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
+        <h1 className="flex mt-12 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
           <p>Bonjour</p> <p className="italic ml-2">{user.firstname}</p>,
           veuillez sélectionnez un concierge à proximité
         </h1>
