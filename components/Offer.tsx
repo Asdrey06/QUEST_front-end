@@ -18,22 +18,39 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
+import { useSelector } from "react-redux";
+
 const stripePromise = loadStripe(
   "pk_test_51O5Pe4EJfzDuDpS93P4i7BhpMBysfhQcCRTNy30RVe836BG28cefyxPx91pBFJlc3MN5k1yhA0kl9k2wciMApvoC007zqXOe23"
 );
 
 function Offer() {
+  const user = useSelector((state) => state.users.value);
+  const conciergeRedux = useSelector((state) => state.concierges.value);
+
   useEffect(() => {
-    // Make a GET request to your server to fetch the clientSecret
+    if (conciergeRedux.status === "concierge") {
+      window.location.href = "/dashconcierge";
+    }
+
+    if (conciergeRedux.status === null && user.status === null) {
+      window.location.href = "/";
+    }
+
+    if (user.status === null) {
+      alert("Vous n'êtes pas connecté sur un compte client.");
+      window.location.href = "/dashconcierge";
+    }
+  }, []);
+
+  useEffect(() => {
     fetch("http://localhost:3000/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // You can include any additional data in the request body if needed
-      body: JSON.stringify({
-        /* additional data */
-      }),
+
+      body: JSON.stringify({}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -89,7 +106,7 @@ function Offer() {
   };
   console.log(date);
   return (
-    <div>
+    <div className="h-full">
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
@@ -101,10 +118,13 @@ function Offer() {
         >
           Faire une offre à *nom concierge*
         </h1>
-        <div className="flex flex-row">
+        <div className="flex flex-row  pt-5 pb-5 rounded-2xl ml-10 mr-10">
           <div className="flex flex-col  w-6/12">
+            <p className="italic ml-20 pt-2">
+              Veuillez saisir les instructions pour votre concierge
+            </p>
             <textarea
-              className="ml-20 mt-3 mb-3 border-2 p-2 rounded-xl border-neutral-500 h-48 w-100"
+              className="shadow-xl ml-20 mt-3 mb-3 border-2 p-2 rounded-xl border-neutral-500 h-48 w-100"
               placeholder="Détails / Instructions ... "
               onChange={(e) => setInstruction(e.target.value)}
               value={instruction}
@@ -113,7 +133,7 @@ function Offer() {
               <div className="flex ">
                 <div>
                   <p className="ml-20 mb-5 text-2xl font-semibold text-emerald-600">
-                    Pour quand ... ?
+                    Pour quand ?
                   </p>
                   <div className="flex ml-20 mt-2">
                     <label className="flex items-center space-x-2">
@@ -123,33 +143,29 @@ function Offer() {
                         onChange={(e) => setDate(e.target.value)}
                         name="when"
                         value={date}
-                        disabled={
-                          selectedRadio === "Aujourdhui" ||
-                          selectedRadio === "DateIndeterminee"
-                        }
                       />
                     </label>
                   </div>
                 </div>
                 <div className="flex ml-20 flex-col w-64 mb-10">
+                  <p className="text-neutral-500 mt-5">Offre pour le service</p>
                   <input
                     type="text"
                     className="mt-3 mb-3 w-full border-2 p-2 rounded-xl border-neutral-500"
-                    placeholder="Offre pour le service "
+                    placeholder="Montant..."
                     onChange={(e) => setServiceFees(Number(e.target.value))}
                     value={serviceFees}
                   />
+                  <p className="mt-5 text-neutral-500">
+                    Prix des produits (si applicable)
+                  </p>
                   <input
                     type="text"
                     className="mt-3 mb-3 border-2 w-full p-2 rounded-xl border-neutral-500"
-                    placeholder="Prix des produits (si applicable) "
+                    placeholder="Montant..."
                     onChange={(e) => setProductFees(Number(e.target.value))}
                     value={productFees}
                   />
-                  <p className="mt-2  font-semibold flex items-center justify-end flex w-full">
-                    Total :{" "}
-                    <p className="text-2xl ml-2">{calculateTotalCosts()} €</p>
-                  </p>
                 </div>
               </div>
             </div>
@@ -165,13 +181,19 @@ function Offer() {
                 <Elements stripe={stripePromise}>
                   <CheckoutForm />
                 </Elements>
-                <button
+                <p className="mt-2 ml-10 text-2xl  justify-end pr-10 text-neutral-600 flex items-center flex w-full">
+                  Total :
+                  <p className="text-3xl ml-2 font-semibold">
+                    {calculateTotalCosts()} €
+                  </p>
+                </p>
+                {/* <button
                   className="mt-8 p-3 text-white rounded-xl float-right"
                   style={{ backgroundColor: "#33B49C" }}
                   onClick={newRequest}
                 >
                   Faire offre
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
