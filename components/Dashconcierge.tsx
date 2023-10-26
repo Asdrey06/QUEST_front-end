@@ -47,7 +47,9 @@ function Dashconcierge() {
 
       <div className="justify-between w-full flex flex-row h-full mb-10">
         <div className="flex flex-col w-5/12">
-          <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
+          <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10">
+            f
+          </div>
           <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
           <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
         </div>
