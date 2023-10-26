@@ -5,6 +5,7 @@ import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index"
 import { faStar } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
 import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
+import { loginUser, logoutUser } from "../reducers/users";
 import {
   faArrowRight,
   faCheck,
@@ -13,13 +14,17 @@ import { Modal } from "antd";
 // import { faSolid } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import Footer from "./Footer";
 import dotenv from "dotenv";
 dotenv.config();
 
+
+
 function ClientSignUp() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const showModal = () => {
@@ -54,12 +59,13 @@ function ClientSignUp() {
   console.log(id);
 
   const handleRegister = () => {
-    fetch("http://localhost:3000/clientsignuppage", {
+    fetch("http://localhost:3000/users/signUp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         firstname: firstName,
         lastname: lastName,
+        birthday: birthday,
         email: email,
         password: password,
       }),
@@ -71,7 +77,16 @@ function ClientSignUp() {
           console.log(data.error);
           setWrongPw(data.error);
         } else if (data.result === true) {
-          window.location.href = "/dashclient";
+          dispatch(
+            loginUser({
+              token: data.token,
+              firstname: data.data.firstname,
+              lastname: data.data.lastname,
+              status: data.data.status,
+              photo: data.data.photo,
+            })
+          );
+          window.location.href = "/clientwelcome";
         }
       });
   };
@@ -81,13 +96,27 @@ function ClientSignUp() {
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
-
+      <div
+        className="flex"
+        style={{
+          backgroundImage: "url(/backgroundtest.jpg)", // Assuming your image is in the public directory
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          minHeight: "calc(100vh - 100px)", // Adjust the value based on your header's height
+        }}
+      >
+      <div
+        className="flex"
+        style={{
+          backgroundImage: "url(public/allocab-chauffeur-vtc.jpg)"
+        }}
+      ></div>
       <div className="flex flex-col h-full mt-20">
         <div className="flex">
           {" "}
           <h1
             className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
-            style={{ color: "#68938B", backgroundColor: "#EFFDF5" }}
+            style={{ color: "#FFFFFF" }}
           >
             Créez votre compte client
           </h1>
@@ -110,17 +139,16 @@ function ClientSignUp() {
               onChange={(e) => setLastName(e.target.value)}
               value={lastName}
             />
-            <input
-              type="text"
-              className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
-              placeholder="Date de naissance"
-              onChange={(e) => {
-                const inputValue = e.target.value;
-                const validatedInput = inputValue.replace(/[^0-9/]/g, "");
-                setBirthday(validatedInput);
-              }}
-              value={birthday}
-            />
+              <input
+                type="date"
+                className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-500"
+                placeholder="Date de naissance..."
+                onChange={(e) => {
+                  setBirthday(e.target.value);
+                }}
+                value={birthday}
+              />
+      
             <input
               type="textarea"
               className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
@@ -146,17 +174,16 @@ function ClientSignUp() {
         </div>
       </div>
     </div>
+    <Footer />
+    </div> 
   );
+
   {
     /* END OF BLOC 3  */
   }
 }
-{
-  /* FOOTER */
-}
-<Footer />;
-{
-  /* FOOTER END  */
-}
+   
+ 
+
 
 export default ClientSignUp;
