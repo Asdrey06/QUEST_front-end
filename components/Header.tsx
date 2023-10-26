@@ -174,7 +174,7 @@ function Header() {
       .
       <div className="flex-col flex justify-start">
         <div
-          className={`fixed top-0 w-full flex flex-row justify-between pr-10 pl-10 pb-5 pt-5 mb-10 `}
+          className={`fixed top-0 z-50 w-full flex flex-row justify-between pr-10 pl-10 pb-5 pt-5`}
           style={{ backgroundColor: "#33B49C" }}
         >
           <div className="flex flex-row">
