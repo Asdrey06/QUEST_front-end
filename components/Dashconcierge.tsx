@@ -7,16 +7,39 @@ import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/i
 import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 // import Header from "./Header";
 import Footer from "./Footer";
 import Header from "./Header";
 
 function Dashconcierge() {
+  const concierge = useSelector((state) => state.concierges.value);
+
+  const user = useSelector((state) => state.users.value);
+
+  useEffect(() => {
+    if (concierge.status === null) {
+      alert("Vous n'êtes pas connecté sur un compte concierge.");
+      window.location.href = "/clientwelcome";
+    }
+
+    if (user.status === null && concierge.status === null) {
+      window.location.href = "/";
+    }
+  }, []);
+
   return (
     <div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
       <Header />
+      <p className="ml-10 mt-10 font-semibold text-xl flex items-center">
+        Bonjour{" "}
+        <p className="italic ml-1 text-2xl text-slate-500">
+          {concierge.firstname}
+        </p>
+        , bienvenue dans votre dashboard concierge
+      </p>
       <div className="flex flex-row justify-between">
-        <h3 className="ml-10 mt-14 mb-10 text-emerald-600 text-2xl font-semibold">
+        <h3 className="ml-10 mt-6 mb-10 text-emerald-600 text-2xl font-semibold">
           DEMANDES/MESSAGES REÇUES
         </h3>
         <p className="mt-16 mr-64 font-semibold">Vos statistiques</p>
@@ -24,7 +47,9 @@ function Dashconcierge() {
 
       <div className="justify-between w-full flex flex-row h-full mb-10">
         <div className="flex flex-col w-5/12">
-          <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
+          <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10">
+            f
+          </div>
           <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
           <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
         </div>

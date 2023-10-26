@@ -17,8 +17,24 @@ function Client() {
   const [conciergeList, setConciergeList] = useState([]);
 
   const user = useSelector((state) => state.users.value);
+  const conciergeRedux = useSelector((state) => state.concierges.value);
 
-  console.log("this", user.firstname);
+  console.log("this 1", conciergeRedux.status);
+
+  useEffect(() => {
+    if (conciergeRedux.status === "concierge") {
+      window.location.href = "/dashconcierge";
+    }
+
+    if (conciergeRedux.status === null && user.status === null) {
+      window.location.href = "/";
+    }
+
+    if (user.status === null) {
+      alert("Vous n'êtes pas connecté sur un compte client.");
+      window.location.href = "/dashconcierge";
+    }
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/conciergeList")
@@ -92,7 +108,7 @@ function Client() {
       {/* HEADER END */}
 
       <div className="flex items-center justify-left mb-20">
-        <h1 className="flex mt-20 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
+        <h1 className="flex mt-12 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
           <p>Bonjour</p> <p className="italic ml-2">{user.firstname}</p>,
           veuillez sélectionnez un concierge à proximité
         </h1>
