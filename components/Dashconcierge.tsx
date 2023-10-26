@@ -11,11 +11,27 @@ import { useSelector } from "react-redux";
 // import Header from "./Header";
 import Footer from "./Footer";
 import Header from "./Header";
+import RequestList from "./RequestList";
 
 function Dashconcierge() {
+  const [requests, setRequests] = useState([]);
+
   const concierge = useSelector((state) => state.concierges.value);
 
   const user = useSelector((state) => state.users.value);
+
+  useEffect(() => {
+    // Exemple de requête GET, assurez-vous de remplacer l'URL par votre propre endpoint
+    fetch("http://localhost:3000/request/requests")
+      .then((response) => response.json())
+      .then((data) => {
+        setRequests(data.allRequest);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Une erreur s'est produite : ", error);
+      });
+  }, []);
 
   useEffect(() => {
     if (concierge.status === null) {
@@ -27,6 +43,26 @@ function Dashconcierge() {
       window.location.href = "/";
     }
   }, []);
+
+  const requestList = requests.map((data, i) => {
+    console.log(data);
+    return (
+      <RequestList
+        instruction={data.instruction}
+        paymentInfo={data.paymentInfo}
+        date={data.date}
+        servicesFees={data.servicesFees}
+        productFees={data.productFees}
+        totalFees={data.totalFees}
+      />
+    );
+  });
+
+  // name={data.firstname}
+  // poster={data.photo}
+  // voteAverage={data.voteAverage}
+  // langue={data.personalInfo[0].languages}
+  // overview={data.personalInfo[0].aboutme}
 
   return (
     <div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
@@ -46,11 +82,7 @@ function Dashconcierge() {
       </div>
 
       <div className="justify-between w-full flex flex-row h-full mb-10">
-        <div className="flex flex-col w-5/12">
-          <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
-          <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
-          <div className="box-border rounded-2xl h-32 w-full p-4 border-4 mb-5 ml-10"></div>
-        </div>
+        <div className="flex flex-col w-5/12">{requestList}</div>
 
         <div className="flex flex-col">
           <div className="box-border h-56 w-64 p-4 border-4 mb-5 rounded-3xl float-right mr-32"></div>
