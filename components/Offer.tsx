@@ -56,14 +56,17 @@ function Offer() {
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
-      <div className="h-full mt-20">
+      <div className="h-full mt-20 ">
         {/* Contenu de la page */}
-        <p className="text-lg font-bold">
-          Faire une offre à 'nom du concierge'
-        </p>
+        <h1
+            className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
+            style={{ color: "#68938B", backgroundColor: "#EFFDF5" }}
+          >
+            Faire une offre à *nom concierge*
+          </h1>
         <input
           type="text"
-          className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500"
+          className="mt-3 mb-3 border-2 w-9/12 p-2 rounded-xl border-neutral-500 h-20 w-100"
           placeholder="Détails / Instructions ... "
           onChange={(e) => setInstruction(e.target.value)}
           value={instruction}
