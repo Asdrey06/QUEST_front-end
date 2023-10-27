@@ -18,20 +18,38 @@ function Dashconcierge() {
 
   const concierge = useSelector((state) => state.concierges.value);
 
+  console.log(concierge.token);
+
   const user = useSelector((state) => state.users.value);
 
   useEffect(() => {
-    // Exemple de requête GET, assurez-vous de remplacer l'URL par votre propre endpoint
-    fetch("http://localhost:3000/request/requests")
-      .then((response) => response.json())
-      .then((data) => {
-        setRequests(data.allRequest);
-        console.log(data);
+    const fetchRequests = () => {
+      fetch("http://localhost:3000/concierges/findRequests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: concierge.token,
+        }),
       })
-      .catch((error) => {
-        console.error("Une erreur s'est produite : ", error);
-      });
-  }, []);
+        .then((response) => response.json())
+        .then((data) => {
+          setRequests(data.result);
+        })
+        .catch((error) => {
+          console.error("An error occurred: ", error);
+        });
+    };
+
+    fetchRequests();
+
+    const intervalId = setInterval(fetchRequests, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [concierge.token]);
 
   useEffect(() => {
     if (concierge.status === null) {
@@ -54,6 +72,7 @@ function Dashconcierge() {
         serviceFees={data.serviceFees}
         productFees={data.productFees}
         totalFees={data.totalFees}
+        from={data.from}
       />
     );
   });

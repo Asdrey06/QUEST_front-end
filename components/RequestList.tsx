@@ -16,6 +16,7 @@ function RequestList(props) {
           <li className="font-bold">
             Instruction: <p className="text-3xl">{props.instruction}</p>
           </li>
+          <li>From: {props.from}</li>
           <li className="font-medium">Production: {props.productFees}</li>
           <li className="font-medium">Date: {newDate}</li>
           <div className="flex w-full">

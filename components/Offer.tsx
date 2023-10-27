@@ -93,6 +93,8 @@ function Offer() {
     clientSecret: clientSecret,
   };
 
+  console.log(user.firstname);
+
   // const [instruction, setInstruction] = useState("");
   // const [paymentInfo, setPaymentInfo] = useState("");
   // const [date, setDate] = useState("");
@@ -120,6 +122,7 @@ function Offer() {
         serviceFees: serviceFees,
         productFees: productFees,
         totalFees: serviceFees + productFees,
+        from: user.firstname,
       }),
     })
       .then((response) => response.json())

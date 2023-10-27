@@ -13,6 +13,7 @@ const CheckoutForm = () => {
   const date = useSelector((state) => state.createoffers.date);
   const serviceFees = useSelector((state) => state.createoffers.offer);
   const productFees = useSelector((state) => state.createoffers.goods);
+  const user = useSelector((state) => state.users.value);
 
   console.log(instructions);
   console.log(date);
@@ -63,6 +64,7 @@ const CheckoutForm = () => {
                 serviceFees: serviceFees,
                 productFees: productFees,
                 totalFees: serviceFees + productFees,
+                from: user.firstname,
                 id: offersRedux.id,
               }),
             })
