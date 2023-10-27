@@ -40,7 +40,6 @@ function Client() {
     fetch("http://localhost:3000/concierges/conciergeList")
       .then((response) => response.json())
       .then((data) => {
-        console.log("this", data.result[0]._id);
         // dispatch(
         //   offersConcierge({
         //     firstname: data.result[0].firstname,
