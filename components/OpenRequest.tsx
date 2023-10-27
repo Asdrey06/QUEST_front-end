@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import { faEuroSign } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 // import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
 // import { faStar } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 // import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
@@ -18,18 +19,31 @@ import Footer from "./Footer";
 import Header from "./Header";
 // import TypedInputNumber from "antd/es/input-number";
 
+// const [requests, setRequests] = useState(null);
+// const [phoneNumber, setPhoneNumber] = useState([]);
+// console.log(phoneNumber[5].phoneNumber);
+// const [email, setEmail] = useState([]);
+// console.log(email[5].email);
+// const [serviceFees, setServiceFees] = useState();
+// const [productFees, setProductFees] = useState();
+
+// const calculateTotalCosts = () => {
+//   const valueServiceFees = serviceFees || 0;
+//   const valueProductFees = productFees || 0;
+//   const costsTotal = valueServiceFees + valueProductFees;
+//   return costsTotal;
+
 function OpenRequest() {
-  const [instruction, setInstruction] = useState([]);
-  //   // const [requests, setRequests] = useState(null);
-  //   const [instruction, setInstruction] = useState("");
-  //   // const [serviceFees, setServiceFees] = useState(0);
-  // const [productFees, setProductFees] = useState(0);
-  // console.log(instruction[5].instruction);
-  // const calculateTotalCosts = () => {
-  //   const valueServiceFees = serviceFees || 0;
-  //   const valueProductFees = productFees || 0;
-  //   const costsTotal = valueServiceFees + valueProductFees;
-  //   return costsTotal;
+  const [instruction, setInstruction] = useState({});
+  console.log(instruction);
+  console.log(instruction[5].instruction);
+  const [totalFees, setTotalFees] = useState({});
+  console.log(totalFees[5].totalFees);
+  // console.log(totalFees);
+  // const [lastname, setLastname] = useState([]);
+  // console.log(lastname[5].lastname);
+  // const [firstname, setFirstname] = useState([]);
+  // console.log(firstname[5].firstname);
 
   useEffect(() => {
     // Exemple de requête GET, assurez-vous de remplacer l'URL par votre propre endpoint
@@ -38,6 +52,7 @@ function OpenRequest() {
       .then((data) => {
         console.log(data.allRequest);
         setInstruction(data.allRequest); // Stocke les données dans le state
+        setTotalFees(data.allRequest); // Stocke les données dans le state
       })
       .catch((error) => {
         console.error("Une erreur s'est produite : ", error);
@@ -81,8 +96,8 @@ function OpenRequest() {
             <h1 className=" ml-20 flex flex-col font-light text-lg  font-semibold">
               RAPPEL DES INSTRUCTIONS
             </h1>
-            <div className="flex flex-col ml-20 mt-5">
-              {/* /* value={instruction} */}
+            <div className="flex flex-col align-top text-lg w-80 h-40 mb-8 mt-5 ml-20 border-2 w-4/12 p-2 rounded-xl border-neutral-400">
+              {instruction[5].instruction}
             </div>
             <div className="flex flex-col">
               <h1 className="ml-20 flex flex-col font-light text-lg font-semibold">
@@ -92,23 +107,27 @@ function OpenRequest() {
             <div className="flex flex-col ml-20 mt-5">
               <input
                 type="text"
-                className="text-base w-80 h-7 border-2 w-4/12 p-2 rounded-xl border-neutral-400"
+                className="text-base w-80 h-8 border-2 p-2 rounded-xl
+              border-neutral-400"
                 placeholder="Nom/prénom"
+                // {lastname[5].lastname}
               />
             </div>
             <div className="flex flex-col ml-20 mt-5">
               <input
                 type="text"
-                className="text-base w-80 h-7 border-2 w-4/12 p-2 rounded-xl border-neutral-400"
+                className="text-base w-80 h-8 border-2 p-2 rounded-xl border-neutral-400"
                 placeholder="Téléphone/Email"
               />
             </div>
             <div className="flex flex-col ml-20 mt-5">
-              <input
-                type="text"
-                className="text-base mb-10 w-80 h-7 border-2 w-4/12 p-2 rounded-xl border-neutral-400"
-                placeholder="Montant total"
-              ></input>
+              <div className="text-base align-text-top mb-10 w-80 h-8 border-2 pl-2 rounded-xl border-neutral-400">
+                {totalFees[5].totalFees}
+                <FontAwesomeIcon
+                  icon={faEuroSign}
+                  className="svg-inline--fa fa-euro-sign pt-2 pl-2"
+                />
+              </div>
               <div
                 className={`${styles.hovereffect} flex cursor-pointer h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-xl text-white`}
                 // onClick={handleRegister}
@@ -123,4 +142,5 @@ function OpenRequest() {
     </div>
   );
 }
+
 export default OpenRequest;

@@ -6,8 +6,22 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import { useSelector } from "react-redux";
 
 const CheckoutForm = () => {
+  const instructions = useSelector((state) => state.createoffers.instructions);
+  const date = useSelector((state) => state.createoffers.date);
+  const serviceFees = useSelector((state) => state.createoffers.offer);
+  const productFees = useSelector((state) => state.createoffers.goods);
+
+  console.log(instructions);
+  console.log(date);
+  console.log(serviceFees);
+  console.log(productFees);
+
+  const offersRedux = useSelector((state) => state.offers.value);
+  console.log(offersRedux.id);
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -40,7 +54,23 @@ const CheckoutForm = () => {
         .then((response) => response.json())
         .then((data) => {
           if (data.success === true) {
-            window.location.href = "/clientwelcome";
+            fetch("http://localhost:3000/request/saveRequest", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                instruction: instructions,
+                date: date,
+                serviceFees: serviceFees,
+                productFees: productFees,
+                totalFees: serviceFees + productFees,
+                id: offersRedux.id,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                // window.location.href = "/clientwelcome";
+              });
           }
         })
         .catch((error) => {

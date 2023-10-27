@@ -18,7 +18,15 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setConcierge,
+  setInstructions,
+  setDate,
+  setOffer,
+  setGoods,
+  clearAll,
+} from "../reducers/createoffers";
 
 const stripePromise = loadStripe(
   "pk_test_51O5Pe4EJfzDuDpS93P4i7BhpMBysfhQcCRTNy30RVe836BG28cefyxPx91pBFJlc3MN5k1yhA0kl9k2wciMApvoC007zqXOe23"
@@ -27,6 +35,24 @@ const stripePromise = loadStripe(
 function Offer() {
   const user = useSelector((state) => state.users.value);
   const conciergeRedux = useSelector((state) => state.concierges.value);
+
+  const instructions = useSelector((state) => state.createoffers.instructions);
+  const date = useSelector((state) => state.createoffers.date);
+  const serviceFees = useSelector((state) => state.createoffers.offer);
+  const productFees = useSelector((state) => state.createoffers.goods);
+
+  const offersRedux = useSelector((state) => state.offers.value);
+
+  // console.log(instructions);
+  // console.log(date);
+  // console.log(serviceFees);
+  // console.log(productFees);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearAll());
+  }, []);
 
   useEffect(() => {
     if (conciergeRedux.status === "concierge") {
@@ -55,7 +81,6 @@ function Offer() {
       .then((response) => response.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
-        console.log(data.clientSecret);
       })
       .catch((error) => {
         console.error("Error fetching clientSecret:", error);
@@ -64,17 +89,15 @@ function Offer() {
 
   const [clientSecret, setClientSecret] = useState("");
 
-  console.log(clientSecret);
-
   const options = {
     clientSecret: clientSecret,
   };
 
-  const [instruction, setInstruction] = useState("");
-  const [paymentInfo, setPaymentInfo] = useState("");
-  const [date, setDate] = useState("");
-  const [serviceFees, setServiceFees] = useState("");
-  const [productFees, setProductFees] = useState("");
+  // const [instruction, setInstruction] = useState("");
+  // const [paymentInfo, setPaymentInfo] = useState("");
+  // const [date, setDate] = useState("");
+  // const [serviceFees, setServiceFees] = useState("");
+  // const [productFees, setProductFees] = useState("");
   // const [totalFees, setTotalFees] = useState(0);
   const [selectedRadio, setSelectedRadio] = useState("");
 
@@ -100,11 +123,9 @@ function Offer() {
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
+      .then((data) => {});
   };
-  console.log(date);
+
   return (
     <div className="h-full">
       {/* HEADER START */}
@@ -116,7 +137,7 @@ function Offer() {
           className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
           style={{ color: "#68938B", backgroundColor: "#EFFDF5" }}
         >
-          Faire une offre à *nom concierge*
+          Faire une offre à {offersRedux.firstname}
         </h1>
         <div className="flex flex-row  pt-5 pb-5 rounded-2xl ml-10 mr-10">
           <div className="flex flex-col  w-6/12">
@@ -126,8 +147,7 @@ function Offer() {
             <textarea
               className="shadow-xl ml-20 mt-3 mb-3 border-2 p-2 rounded-xl border-neutral-500 h-48 w-100"
               placeholder="Détails / Instructions ... "
-              onChange={(e) => setInstruction(e.target.value)}
-              value={instruction}
+              onChange={(e) => dispatch(setInstructions(e.target.value))}
             />
             <div className="mt-8 flex">
               <div className="flex ">
@@ -140,9 +160,8 @@ function Offer() {
                       <input
                         className="text-xl text-emerald-700 border-2 border-emerald-700 p-2 rounded-lg"
                         type="date"
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={(e) => dispatch(setDate(e.target.value))}
                         name="when"
-                        value={date}
                       />
                     </label>
                   </div>
@@ -153,8 +172,7 @@ function Offer() {
                     type="text"
                     className="mt-3 mb-3 w-full border-2 p-2 rounded-xl border-neutral-500"
                     placeholder="Montant..."
-                    onChange={(e) => setServiceFees(Number(e.target.value))}
-                    value={serviceFees}
+                    onChange={(e) => dispatch(setOffer(e.target.value))}
                   />
                   <p className="mt-5 text-neutral-500">
                     Prix des produits (si applicable)
@@ -163,8 +181,7 @@ function Offer() {
                     type="text"
                     className="mt-3 mb-3 border-2 w-full p-2 rounded-xl border-neutral-500"
                     placeholder="Montant..."
-                    onChange={(e) => setProductFees(Number(e.target.value))}
-                    value={productFees}
+                    onChange={(e) => dispatch(setGoods(e.target.value))}
                   />
                 </div>
               </div>

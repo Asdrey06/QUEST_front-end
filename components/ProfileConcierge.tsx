@@ -2,9 +2,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "../styles/Concierge.module.css";
 import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import { useSelector, useDispatch } from "react-redux";
+import { offersConcierge } from "../reducers/offers";
 
 function ProfileConcierge(props) {
+  const dispatch = useDispatch();
+
   const createOffer = () => {
+    dispatch(
+      offersConcierge({
+        id: props.id,
+        firstname: props.name,
+      })
+    );
     window.location.href = "/offerpage";
   };
 
