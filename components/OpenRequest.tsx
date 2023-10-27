@@ -20,24 +20,25 @@ import Header from "./Header";
 
 function OpenRequest() {
   const [instruction, setInstruction] = useState([]);
-  //   // const [requests, setRequests] = useState(null);
-  //   const [instruction, setInstruction] = useState("");
-  //   // const [serviceFees, setServiceFees] = useState(0);
-  // const [productFees, setProductFees] = useState(0);
-  // console.log(instruction[5].instruction);
-  // const calculateTotalCosts = () => {
-  //   const valueServiceFees = serviceFees || 0;
-  //   const valueProductFees = productFees || 0;
-  //   const costsTotal = valueServiceFees + valueProductFees;
-  //   return costsTotal;
+  const [requests, setRequests] = useState(null);
 
+  const [serviceFees, setServiceFees] = useState(0);
+  const [productFees, setProductFees] = useState(0);
+  console.log(instruction);
+  const calculateTotalCosts = () => {
+    const valueServiceFees = serviceFees || 0;
+    const valueProductFees = productFees || 0;
+    const costsTotal = valueServiceFees + valueProductFees;
+    return costsTotal;
+  };
   useEffect(() => {
     // Exemple de requête GET, assurez-vous de remplacer l'URL par votre propre endpoint
     fetch("http://localhost:3000/request/requests")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setInstruction(data.allRequest); // Stocke les données dans le state
+        setRequests(data.allRequests); // Stocke les données dans le state
+        setInstruction(data.instruction);
       })
       .catch((error) => {
         console.error("Une erreur s'est produite : ", error);
@@ -82,9 +83,7 @@ function OpenRequest() {
             <h1 className=" ml-20 flex flex-col font-light text-lg  font-semibold">
               RAPPEL DES INSTRUCTIONS
             </h1>
-            <div className="flex flex-col ml-20 mt-5">
-              {/* /* value={instruction} */}
-            </div>
+            <div className="flex flex-col ml-20 mt-5">{instruction}</div>
             <div className="flex flex-col">
               <h1 className="ml-20 flex flex-col font-light text-lg font-semibold">
                 COORDONNÉES CONCIERGE
