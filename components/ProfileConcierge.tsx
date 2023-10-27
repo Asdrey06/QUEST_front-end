@@ -2,10 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import styles from "../styles/Concierge.module.css";
 import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import { useSelector } from "react-redux";
 
 function ProfileConcierge(props) {
+  const offersRedux = useSelector((state) => state.offers.value);
+  console.log(offersRedux)
+  
   const createOffer = () => {
-    window.location.href = "/offerpage";
+    //window.location.href = "/offerpage";
   };
 
   return (
