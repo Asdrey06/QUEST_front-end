@@ -23,7 +23,7 @@ function RequestList(props) {
             {" "}
             <li className="font-bold">Total: {props.totalFees}</li>
             <li className="font-medium ml-80">
-              Commission: {props.serviceFees}
+              Commission: {props.serviceFees}€
             </li>
           </div>
         </ul>
