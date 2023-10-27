@@ -1,4 +1,7 @@
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   padding: 0;
   margin: 0;
 
@@ -8,6 +11,20 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* For webkit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #34b39c;
+  border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #639070;
 }
 
 @tailwind base;
