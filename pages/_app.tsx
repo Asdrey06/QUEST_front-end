@@ -7,10 +7,11 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import users from "../reducers/users";
 import concierges from "../reducers/concierges";
+import offers from "../reducers/offers";
 
 import { Provider } from "react-redux";
 
-const reducers = combineReducers({ users, concierges });
+const reducers = combineReducers({ users, concierges, offers });
 
 const persistConfig = { key: "quest", storage };
 
