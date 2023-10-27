@@ -364,7 +364,7 @@ function Header() {
                 {dropdownVisible && (
                   <div className="flex flex-col  w-28 mt-10 mr-9 font-semibold  absolute top-16 right-0 mt-2 p-2 bg-white border text-sm border-gray-300 rounded shadow-lg z-10 text-emerald-600">
                     <div className="p-1 hover:text-emerald-400 cursor-pointer">
-                      Paramètres
+                    <Link href="/settingsclient">Paramètres</Link>
                     </div>
                     <div
                       className="p-1 hover:text-emerald-400 cursor-pointer"
