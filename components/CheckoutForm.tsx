@@ -128,7 +128,7 @@ const CheckoutForm = () => {
               <img src="/visalogo.png" className="ml-3 h-4" />
             </div>
             <div className="flex items-center">
-              <img src="/stripe.png" className="pl-6 ml-10 h-9" />
+              <img src="/stripe.png" className="pl-6 ml-10 h-8 mr-16" />
             </div>
           </div>
         </form>

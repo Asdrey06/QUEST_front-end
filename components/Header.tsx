@@ -210,11 +210,11 @@ function Header() {
             )}
 
             {!conciergeLogout && !clientLogout ? (
-              <div className="w-48 border-emerald-100 border-2 h-10 pt-2 pb-2 flex items-center justify-center rounded-2xl text-sm text-white bg-transparent hover:bg-opacity-50 hover:text-slate-200">
+              <div className="w-48 border-emerald-100 border-2 h-10 pt-2 pb-2 flex items-center justify-center rounded-2xl text-sm text-slate-200 bg-transparent hover:text-white">
                 <Link href="/conciergewelcome">Devenir concierge</Link>
               </div>
             ) : (
-              <div className="w-48 border-black h-10 font-bold text-neutral-500 mr-10 pt-2 pb-2 flex items-center justify-center rounded-md text-md shadow-sm shadow-neutral-700 text-black bg-white hover:bg-neutral-200">
+              <div className={styles.button}>
                 {conciergeLogout && (
                   <Link href="/dashconcierge">Dashboard</Link>
                 )}
@@ -288,7 +288,7 @@ function Header() {
                   />
                 </GoogleOAuthProvider>
                 <p className="text-white mt-2 mb-2 text-center">ou</p>
-                <p className="text-cyan-100 hover:text-cyan-300 text-center">
+                <p className="text-white hover:text-blue-200 text-center">
                   <Link href="/clientsignuppage">Créez votre compte</Link>
                 </p>
               </div>
@@ -318,10 +318,10 @@ function Header() {
                 </button>
                 <div className="text-white mt-5">ou</div>
                 <button
-                  className="w-full pt-2 pb-2 flex items-center justify-center rounded-2xl text-cyan-100 hover:text-cyan-300"
+                  className="w-full pt-2 pb-2 flex items-center justify-center rounded-2xl text-white hover:text-blue-200"
                   style={{ marginBottom: "4mm" }}
                 >
-                  Devenir concierge
+                  <Link href="/conciergesignuppage">Devenir concierge</Link>
                 </button>
               </div>
               <div
@@ -355,7 +355,10 @@ function Header() {
                     {user.firstname}
                   </p>
                   {conciergeLogout && (
-                    <img src={concierge.photo} className="h-10 rounded-xl" />
+                    <img
+                      src={concierge.photo}
+                      className="h-10 w-10 object-cover rounded-full max-w-10 max-h-10"
+                    />
                   )}
                   {clientLogout && (
                     <FontAwesomeIcon icon={faUser} className="h-6" />
@@ -364,7 +367,7 @@ function Header() {
                 {dropdownVisible && (
                   <div className="flex flex-col  w-28 mt-10 mr-9 font-semibold  absolute top-16 right-0 mt-2 p-2 bg-white border text-sm border-gray-300 rounded shadow-lg z-10 text-emerald-600">
                     <div className="p-1 hover:text-emerald-400 cursor-pointer">
-                    <Link href="/settingsclient">Paramètres</Link>
+                      <Link href="/settingsclient">Paramètres</Link>
                     </div>
                     <div
                       className="p-1 hover:text-emerald-400 cursor-pointer"

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import styles from "../styles/Concierge.module.css";
+import styles from "../styles/Home.module.css";
 import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { useSelector, useDispatch } from "react-redux";
 import { offersConcierge } from "../reducers/offers";
@@ -20,15 +20,15 @@ function ProfileConcierge(props) {
   };
 
   return (
-    <div className="bg-neutral-100 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex">
-      <div className={styles.imagesContainer}>
+    <div className="bg-neutral-100 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex items-center">
+      <div className="h-28 w-32">
         <img
-          className="h-full w-full rounded-3xl"
+          className="h-full w-full rounded-[50%] object-cover"
           src={props.poster}
           alt={props.name}
         />
       </div>
-      <div className="pl-10 w-full">
+      <div className="pl-5 w-full">
         <div className="items-center flex flex-row w-full justify-between">
           <h4 className="text-2xl font-semibold">{props.name}</h4>
           <p className="text-lg mr-6 font-light">
@@ -41,7 +41,7 @@ function ProfileConcierge(props) {
         <div className="flex justify-between items-center">
           <FontAwesomeIcon className="" icon={faCommentDots} />
           <button
-            className="mr-4 border-2 border-neutral-300 font-semibold h-8 hover:text-white text-slate-200 rounded-2xl pl-4 pr-4"
+            className={`${styles.button2} mr-5 font-semibold`}
             style={{ backgroundColor: "#34B39C" }}
             onClick={createOffer}
           >

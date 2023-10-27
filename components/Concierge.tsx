@@ -59,7 +59,7 @@ function Home() {
         </div>
         <div className="flex items-center justify-center mt-14 mb-14">
           <button
-            className={`${styles.hovereffect} border-2 p-5 flex items-center justify-center rounded-2xl text-2xl text-white`}
+            className={`${styles.button} border-2 p-5 flex items-center justify-center rounded-2xl text-2xl text-white`}
           >
             <div>
               <Link href="/conciergesignuppage">COMMENCEZ LES DÉMARCHES</Link>
@@ -254,9 +254,12 @@ function Home() {
       </div>
       <div className="flex items-center justify-center mt-10 mb-10">
         <button
-          className={`${styles.hovereffect} border-2 p-5 flex items-center justify-center rounded-2xl text-2xl text-white`}
+          className={`${styles.button} border-2 p-5 flex items-center justify-center rounded-2xl text-2xl text-white`}
         >
-          <div>COMMENCEZ LES DÉMARCHES</div>
+          <div>
+            {" "}
+            <Link href="/conciergesignuppage">COMMENCEZ LES DÉMARCHES</Link>
+          </div>
         </button>
       </div>
       {/* FOOTER */}

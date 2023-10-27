@@ -211,18 +211,14 @@ function ConciergeSignUp() {
   };
 
   return (
-    <div>
+    <div className="bg-white">
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
-      <div className="h-full mt-20">
+      <div className="h-full mt-14">
         <div className="flex">
-          {" "}
-          <h1
-            className="pl-10  pb-5 pt-5 w-full mb-5 text-3xl font-semibold"
-            style={{ color: "#68938B", backgroundColor: "#EFFDF5" }}
-          >
-            Créez votre compte concierge
+          <h1 className="flex text-xl bg-neutral-800 mb-10 pl-10 pb-5 pt-5 text-white font-semibold w-full">
+            <p>Créez votre compte concierge</p>{" "}
           </h1>
         </div>
         <div className="flex flex-row mb-5">

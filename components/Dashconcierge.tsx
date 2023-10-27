@@ -84,27 +84,34 @@ function Dashconcierge() {
   // overview={data.personalInfo[0].aboutme}
 
   return (
-    <div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <p className="ml-10 mt-10 font-semibold text-xl flex items-center">
-        Bonjour{" "}
-        <p className="italic ml-1 text-2xl text-slate-500">
-          {concierge.firstname}
-        </p>
-        , bienvenue dans votre dashboard concierge
-      </p>
-      <div className="flex flex-row justify-between">
-        <h3 className="ml-10 mt-6 mb-10 text-emerald-600 text-2xl font-semibold">
-          DEMANDES/MESSAGES REÇUES
-        </h3>
-        <p className="mt-16 mr-64 font-semibold">Vos statistiques</p>
-      </div>
+      <div className="flex-grow mt-14" style={{ backgroundColor: "#FFFFFF" }}>
+        <h1 className="flex text-xl bg-neutral-800 pl-20 pb-5 pt-6 text-neutral-300 w-full">
+          <p>Bonjour</p>{" "}
+          <p className="italic ml-1 text-white font-bold">
+            {concierge.firstname}
+          </p>
+          , bienvenue sur votre espace personnel
+        </h1>
+        <div className="flex">
+          <div className="w-6/12">
+            <div className="flex flex-row justify-between">
+              <h3 className="ml-24 mt-6 mb-5 text-emerald-600 text-2xl font-semibold">
+                Demandes reçues
+              </h3>
+            </div>
 
-      <div className="justify-between w-full flex flex-row h-full mb-10">
-        <div className="flex flex-col w-5/12">{requestList}</div>
-
-        <div className="flex flex-col">
-          <div className="box-border h-56 w-64 p-4 border-4 mb-5 rounded-3xl float-right mr-32"></div>
+            <div className="justify-between w-full flex flex-row h-full mb-10">
+              <div className="flex flex-col w-full ">{requestList}</div>
+            </div>
+          </div>
+          <div className="flex flex-col w-5/12">
+            <h3 className="ml-24 mt-6 mb-5 text-emerald-600 text-2xl font-semibold">
+              Vos statistiques
+            </h3>
+            <div className="box-border h-full w-full p-4 border-4 mb-5 ml-20 rounded-3xl"></div>
+          </div>
         </div>
       </div>
       <Footer />

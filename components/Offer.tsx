@@ -129,18 +129,20 @@ function Offer() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
       <div className="flex-grow mt-14 ">
         {/* Contenu de la page */}
-        <h1
-          className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
-          style={{ color: "#68938B", backgroundColor: "#EFFDF5" }}
-        >
-          Faire une offre à {offersRedux.firstname}
-        </h1>
+        <div className="flex items-center justify-left mb-10">
+          <h1 className="flex text-xl bg-neutral-800 pl-32 pb-5 pt-5 text-neutral-300 w-full">
+            <p>Faire une offre à</p>{" "}
+            <p className="italic ml-2 text-white font-bold">
+              {offersRedux.firstname}
+            </p>
+          </h1>
+        </div>
         <div className="flex flex-row  pt-5 pb-5 rounded-2xl ml-10 mr-10">
           <div className="flex flex-col  w-6/12">
             <p className="italic ml-20 pt-2">

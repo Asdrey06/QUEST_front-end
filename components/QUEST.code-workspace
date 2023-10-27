@@ -1,11 +1,7 @@
 {
-	"folders": [
-		{
-			"path": "../.."
-		},
-		{
-			"path": "../../../NIkITAFULLSTACK"
-		}
-	],
-	"settings": {}
+  "folders": [
+	{
+		"path": "../.."
+	}
+]
 }

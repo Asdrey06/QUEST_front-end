@@ -13,6 +13,8 @@ import Footer from "./Footer";
 import ProfileConcierge from "./ProfileConcierge";
 import { useDispatch, useSelector } from "react-redux";
 import { offersConcierge } from "../reducers/offers";
+import { faBell } from "@fortawesome/free-regular-svg-icons";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
 
 function Client() {
   const [conciergeList, setConciergeList] = useState([]);
@@ -76,16 +78,67 @@ function Client() {
 
   allConcierge.push(conciergeList);
 
-  console.log(conciergeList);
+  console.log(activeRequests);
 
   const displayRequests = activeRequests.map((data, i) => {
+    const parsedDate = new Date(data.date);
+
+    const daysOfWeek = [
+      "Dimanche",
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+    ];
+    const months = [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre",
+    ];
+
+    const dayOfWeek = daysOfWeek[parsedDate.getDay()];
+    const month = months[parsedDate.getMonth()];
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+
+    const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
+
     return (
-      <div className="text-lg p-5 border-2 mt-2 mb-2">
-        Instructions: {data.instruction}, <p>Pour: {data.date.split("T")[0]}</p>
-        <p> Total payer: </p>
-        {data.totalFees}
-        <p>Concierge: {data.fromConcierge}</p>
-        <img src={data.photoConcierge} className="h-20" />
+      <div className="text-lg p-5 border-2 mt-2 mb-10 shadow-md shadow-neutral-400">
+        <div className="flex justify-between">
+          <div>
+            <p className="font-semibold text-xl">{data.instruction}</p>{" "}
+            <p className="italic flex font-extralight text-sm">
+              Pour le: <p className="ml-1 font-normal">{formattedDate}</p>
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="font-extralight"> Total reglé: </p>
+            <p className="text-xl font-bold">{data.totalFees} €</p>
+          </div>
+        </div>
+        <div className="flex mt-5 justify-between items-center">
+          <div className="flex items-center">
+            <img
+              src={data.photoConcierge}
+              className="h-10 w-10 rounded-[50px] object-cover"
+            />
+            <p className="ml-3 font-semibold text-neutral-500">
+              {data.fromConcierge}
+            </p>
+          </div>
+        </div>
       </div>
     );
   });
@@ -110,27 +163,32 @@ function Client() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <div className="flex-grow" style={{ backgroundColor: "#FFFFFF" }}>
+      <div
+        className="flex-grow min-h-screen"
+        style={{ backgroundColor: "#FFFFFF" }}
+      >
         {/* HEADER START */}
 
         {/* HEADER END */}
 
         <div className="flex items-center justify-left mb-10">
-          <h1 className="flex mt-12 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
-            <p>Bonjour</p> <p className="italic ml-2">{user.firstname}</p>,
-            veuillez sélectionnez un concierge à proximité
+          <h1 className="flex mt-12 text-xl bg-neutral-800 pl-20 pb-5 pt-8 text-neutral-300 w-full">
+            <p>Bonjour</p>{" "}
+            <p className="italic ml-2 text-white font-bold">{user.firstname}</p>
+            , veuillez sélectionnez un concierge à proximité
           </h1>
         </div>
 
         <div className="flex">
-          <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 flex-wrap h-1">
+          <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-20  flex-wrap">
             {concierge}
           </div>
-          <div className="w-6/12 shadow-xl h-96 shadow-neutral-300 border-2 border-neutral-400 p-5 mr-10 rounded-md overflow-auto mb-10">
-            <h1 className="text-3xl mt-3 font-bold text-neutral-600 border-emerald-700 text-center border-2 p-3 rounded-md">
+          <div className="w-6/12 h-full shadow-neutral-300border-neutral-400 mr-10 rounded-md overflow-auto ">
+            <h1 className="text-3xl mb-5 font-light text-neutral-600 border-emerald-700 text-left rounded-md">
+              <FontAwesomeIcon icon={faBell} className="mr-2 text-red-500" />{" "}
               Requêtes actives
             </h1>
-            <div className=" h-full p-10 mt-5">
+            <div className="h-full">
               {displayRequests}
               {!activeRequests && "Aucune requête en cours pour le moment"}
             </div>
