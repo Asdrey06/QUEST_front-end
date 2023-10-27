@@ -4,6 +4,7 @@ const initialState = {
   value: {
     id: null,
     firstname: null,
+    photo: null,
   },
 };
 
@@ -17,6 +18,7 @@ export const offersSlice = createSlice({
         ...state.value,
         id: action.payload.id,
         firstname: action.payload.firstname,
+        photo: action.payload.photo,
       };
     },
   },
