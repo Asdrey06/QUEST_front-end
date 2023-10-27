@@ -169,12 +169,18 @@ function Header() {
   //   }
   // };
 
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
   return (
     <GoogleOAuthProvider clientId="223748327128-45k1fpfnkvgbhl3u20aonb41lspthdlq.apps.googleusercontent.com">
       .
       <div className="flex-col flex justify-start">
         <div
-          className={`fixed top-0 w-full flex flex-row justify-between pr-10 pl-10 pb-5 pt-5 mb-10 `}
+          className={`fixed top-0 z-50 w-full flex flex-row justify-between pr-10 pl-10 pb-5 pt-5`}
           style={{ backgroundColor: "#33B49C" }}
         >
           <div className="flex flex-row">
@@ -208,7 +214,7 @@ function Header() {
                 <Link href="/conciergewelcome">Devenir concierge</Link>
               </div>
             ) : (
-              <div className="w-48 border-black h-10  mr-10 pt-2 pb-2 flex items-center justify-center rounded-2xl text-sm text-black bg-neutral-200 hover:bg-neutral-300">
+              <div className="w-48 border-black h-10 font-bold text-neutral-500 mr-10 pt-2 pb-2 flex items-center justify-center rounded-md text-md shadow-sm shadow-neutral-700 text-black bg-white hover:bg-neutral-200">
                 {conciergeLogout && (
                   <Link href="/dashconcierge">Dashboard</Link>
                 )}
@@ -324,36 +330,54 @@ function Header() {
               >
                 <FontAwesomeIcon
                   icon={faXmark}
-                  className="h-6 text-slate-200 hover:text-slate-700 cursor-pointer flex items-start"
+                  className="h-6 text-white mt-2 hover:text-slate-700 cursor-pointer flex items-start"
                 />
               </div>
             </div>
           ) : !conciergeLogout && !clientLogout ? (
-            <FontAwesomeIcon
-              icon={faUser}
+            <div
+              className="flex flex-row items-center cursor-pointer text-white hover:text-slate-300"
               onClick={toggleLogin}
-              className="h-6 text-white cursor-pointer hover:text-slate-300"
-            />
+            >
+              <p className="font-semibold mr-3">Connectez-vous</p>
+              <FontAwesomeIcon icon={faUser} className="h-6" />
+            </div>
           ) : (
             <div className="flex flex-row items-center">
-              <p
-                className="mr-16 text-white font-semibold flex pr-3 hover:text-slate-200 cursor-pointer items-center"
-                onClick={clearRedux}
-              >
-                Déconnexion
-              </p>
-              <div className="flex flex-row items-center cursor-pointer text-white hover:text-neutral-200">
-                <p className="mr-3">
-                  {concierge.firstname}
-                  {user.firstname}
-                </p>
-                {conciergeLogout && (
-                  <img src={concierge.photo} className="h-10 rounded-xl" />
-                )}
-                {clientLogout && (
-                  <img src={user.photo} className="h-10 rounded-xl" />
+              {/* DIV WHERE DROPDOWN SHOULD BE */}
+              <div className="flex flex-col items-center  text-white ">
+                <div
+                  className="flex flex-row items-center cursor-pointer hover:text-neutral-200"
+                  onClick={toggleDropdown}
+                >
+                  <p className="mr-3 font-semibold">
+                    {concierge.firstname}
+                    {user.firstname}
+                  </p>
+                  {conciergeLogout && (
+                    <img src={concierge.photo} className="h-10 rounded-xl" />
+                  )}
+                  {clientLogout && (
+                    <FontAwesomeIcon icon={faUser} className="h-6" />
+                  )}
+                </div>
+                {dropdownVisible && (
+                  <div className="flex flex-col  w-28 mt-10 mr-9 font-semibold  absolute top-16 right-0 mt-2 p-2 bg-white border text-sm border-gray-300 rounded shadow-lg z-10 text-emerald-600">
+                    <div className="p-1 hover:text-emerald-400 cursor-pointer">
+                      Paramètres
+                    </div>
+                    <div
+                      className="p-1 hover:text-emerald-400 cursor-pointer"
+                      onClick={clearRedux}
+                    >
+                      Déconnexion
+                    </div>
+                  </div>
                 )}
               </div>
+              <div></div>
+
+              {/* END DIV WHERE DROPDOWN SHOULD BE */}
             </div>
           )}
           {/* LOGINS END */}
