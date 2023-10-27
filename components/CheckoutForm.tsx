@@ -6,8 +6,19 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import { useSelector } from "react-redux";
 
 const CheckoutForm = () => {
+  const instructions = useSelector((state) => state.createoffers.instructions);
+  const date = useSelector((state) => state.createoffers.date);
+  const serviceFees = useSelector((state) => state.createoffers.offer);
+  const productFees = useSelector((state) => state.createoffers.goods);
+
+  console.log(instructions);
+  console.log(date);
+  console.log(serviceFees);
+  console.log(productFees);
+
   const stripe = useStripe();
   const elements = useElements();
 
