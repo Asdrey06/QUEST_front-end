@@ -61,14 +61,14 @@ const CheckoutForm = () => {
 
   return (
     <div
-      className="mb-10"
+      className="mb-10 bg-white rounded-3xl shadow-2xl"
       style={{
         backgroundImage: "url('/cardbackground.png')",
         backgroundPosition: "top",
         backgroundSize: "cover",
       }}
     >
-      <div className="flex items-center w-full justify-center  pr-48 text-center">
+      <div className=" pt-5 pb-5 flex items-center w-full justify-center  pr-48 text-center">
         <form onSubmit={handleSubmit} className="w-full">
           <CardNumberElement
             options={elementsOptions}
@@ -85,16 +85,18 @@ const CheckoutForm = () => {
           <div className="ml-10 flex flex-row">
             <button
               type="submit"
-              className="font-semibold pl-6 w-36 text-center text-white h-9 text-sm pr-6 border-2 rounded-xl bg-indigo-400"
+              className="flex flex-row items-center justify-center font-semibold pl-6 w-36 text-center text-white h-10 text-sm pr-6 border-2 rounded-xl bg-indigo-400 hover:bg-indigo-300"
             >
-              Faire offre
+              <p className="flex flex-row">
+                Faire <p className="ml-1">offre</p>
+              </p>
             </button>
             <div className="flex items-center">
               <img src="/mastercardlogo.png" className="ml-3 h-6" />
               <img src="/visalogo.png" className="ml-3 h-4" />
             </div>
             <div className="flex items-center">
-              <img src="/stripe.png" className="pl-7 ml-16 h-9" />
+              <img src="/stripe.png" className="pl-6 ml-10 h-9" />
             </div>
           </div>
         </form>

@@ -107,7 +107,7 @@ function Client() {
       <Header />
       {/* HEADER END */}
 
-      <div className="flex items-center justify-left mb-20">
+      <div className="flex items-center justify-left mb-10">
         <h1 className="flex mt-12 text-3xl font-semibold bg-neutral-800 pl-20 pb-5 pt-8 text-white w-full">
           <p>Bonjour</p> <p className="italic ml-2">{user.firstname}</p>,
           veuillez sélectionnez un concierge à proximité
@@ -118,9 +118,11 @@ function Client() {
         <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 mr-10 flex-wrap">
           {concierge}
         </div>
-        <div className="flex flex-col">
-          <h1 className="text-3xl mt-10">Requêtes</h1>
-          <div className="border-2 rounded-2xl h-64 p-10 mt-5">
+        <div className="flex flex-col shadow-xl shadow-neutral-300 border-2 border-neutral-400 p-5 mr-10 rounded-md h-full">
+          <h1 className="text-3xl mt-3 font-bold text-neutral-600 border-emerald-700 text-center border-2 p-3 rounded-md">
+            Requêtes actives
+          </h1>
+          <div className="border-2 h-full p-10 mt-5">
             Aucune requête en cours pour le moment
           </div>
         </div>
