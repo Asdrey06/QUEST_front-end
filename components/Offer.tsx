@@ -41,6 +41,8 @@ function Offer() {
   const serviceFees = useSelector((state) => state.createoffers.offer);
   const productFees = useSelector((state) => state.createoffers.goods);
 
+  const offersRedux = useSelector((state) => state.offers.value);
+
   // console.log(instructions);
   // console.log(date);
   // console.log(serviceFees);
@@ -135,7 +137,7 @@ function Offer() {
           className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
           style={{ color: "#68938B", backgroundColor: "#EFFDF5" }}
         >
-          Faire une offre à *nom concierge*
+          Faire une offre à {offersRedux.firstname}
         </h1>
         <div className="flex flex-row  pt-5 pb-5 rounded-2xl ml-10 mr-10">
           <div className="flex flex-col  w-6/12">

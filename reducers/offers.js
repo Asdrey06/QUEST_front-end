@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    username: null,
+    id: null,
     firstname: null,
   },
 };
@@ -12,14 +12,12 @@ export const offersSlice = createSlice({
   initialState,
   reducers: {
     offersConcierge: (state, action) => {
-      console.log("redux", action.payload);
-      if (action.payload && action.payload.username) {
-        state.value = {
-          ...state.value,
-          username: action.payload.username,
-          firstname: action.payload.firstname,
-        };
-      }
+      console.log(action.payload);
+      state.value = {
+        ...state.value,
+        id: action.payload.id,
+        firstname: action.payload.firstname,
+      };
     },
   },
 });

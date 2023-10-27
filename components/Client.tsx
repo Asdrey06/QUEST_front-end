@@ -40,13 +40,13 @@ function Client() {
     fetch("http://localhost:3000/concierges/conciergeList")
       .then((response) => response.json())
       .then((data) => {
-        console.log("this", data.result[0].firstname);
-        dispatch(
-          offersConcierge({
-            firstname: data.result[0].firstname,
-            username: data.result[0].username,
-          })
-        );
+        console.log("this", data.result[0]._id);
+        // dispatch(
+        //   offersConcierge({
+        //     firstname: data.result[0].firstname,
+        //     username: data.result[0].username,
+        //   })
+        // );
 
         setConciergeList(data.result);
       });
@@ -97,7 +97,7 @@ function Client() {
   // ];
 
   const concierge = conciergeList.map((data, i) => {
-    console.log(data.photo);
+    // console.log(data._id);
     return (
       <ProfileConcierge
         name={data.firstname}
@@ -105,6 +105,7 @@ function Client() {
         voteAverage={data.voteAverage}
         langue={data.personalInfo[0].languages}
         overview={data.personalInfo[0].aboutme}
+        id={data._id}
       />
     );
   });
