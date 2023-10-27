@@ -93,6 +93,8 @@ function Offer() {
     clientSecret: clientSecret,
   };
 
+  console.log(user.firstname);
+
   // const [instruction, setInstruction] = useState("");
   // const [paymentInfo, setPaymentInfo] = useState("");
   // const [date, setDate] = useState("");
@@ -127,11 +129,11 @@ function Offer() {
   };
 
   return (
-    <div className="h-full">
+    <div className="flex flex-col min-h-screen">
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
-      <div className="h-screen mb-20 mt-14 ">
+      <div className="flex-grow mt-14 ">
         {/* Contenu de la page */}
         <h1
           className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"

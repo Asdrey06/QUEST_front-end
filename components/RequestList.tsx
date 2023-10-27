@@ -11,18 +11,19 @@ function RequestList(props) {
     <div className="outline-black border-emerald-200 flex w-11/12 ml-10 mr-10 flex-wrap">
       {/* <div className={styles.imagesContainer}></div> */}
       {/* <div className={styles.textContainer}> */}
-      <div className="bg-neutral-100 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex ">
+      <div className="bg-neutral-100 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-4 flex ">
         <ul>
           <li className="font-bold">
             Instruction: <p className="text-3xl">{props.instruction}</p>
           </li>
+          <li>From: {props.from}</li>
           <li className="font-medium">Production: {props.productFees}</li>
           <li className="font-medium">Date: {newDate}</li>
           <div className="flex w-full">
             {" "}
             <li className="font-bold">Total: {props.totalFees}</li>
             <li className="font-medium ml-80">
-              Commission: {props.serviceFees}
+              Commission: {props.serviceFees}€
             </li>
           </div>
         </ul>

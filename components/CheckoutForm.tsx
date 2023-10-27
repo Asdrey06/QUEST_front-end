@@ -13,14 +13,13 @@ const CheckoutForm = () => {
   const date = useSelector((state) => state.createoffers.date);
   const serviceFees = useSelector((state) => state.createoffers.offer);
   const productFees = useSelector((state) => state.createoffers.goods);
+  const user = useSelector((state) => state.users.value);
 
-  console.log(instructions);
-  console.log(date);
-  console.log(serviceFees);
-  console.log(productFees);
+  console.log(user.token);
 
   const offersRedux = useSelector((state) => state.offers.value);
-  console.log(offersRedux.id);
+
+  console.log(offersRedux.photo);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -40,8 +39,6 @@ const CheckoutForm = () => {
     if (error) {
       console.error("Error creating payment method:", error);
     } else {
-      console.log("Payment method:", paymentMethod);
-
       fetch("http://localhost:3000/processpayment", {
         method: "POST",
         headers: {
@@ -63,15 +60,20 @@ const CheckoutForm = () => {
                 serviceFees: serviceFees,
                 productFees: productFees,
                 totalFees: serviceFees + productFees,
+                from: user.firstname,
+                fromConcierge: offersRedux.firstname,
+                photoConcierge: offersRedux.photo,
                 id: offersRedux.id,
+                idClient: user.token,
               }),
             })
               .then((response) => response.json())
               .then((data) => {
                 console.log(data);
-                // window.location.href = "/clientwelcome";
+                window.location.href = "/clientwelcome";
               });
           }
+          t;
         })
         .catch((error) => {
           console.error("Error sending payment method to server:", error);
