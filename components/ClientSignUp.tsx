@@ -20,8 +20,6 @@ import Footer from "./Footer";
 import dotenv from "dotenv";
 dotenv.config();
 
-
-
 function ClientSignUp() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
@@ -99,46 +97,46 @@ function ClientSignUp() {
       <div
         className="flex"
         style={{
+          opacity: 0.6,
           backgroundImage: "url(/backgroundtest.jpg)", // Assuming your image is in the public directory
           backgroundSize: "cover",
           backgroundPosition: "center",
           minHeight: "calc(100vh - 100px)", // Adjust the value based on your header's height
         }}
       >
-      <div
-        className="flex"
-        style={{
-          backgroundImage: "url(public/allocab-chauffeur-vtc.jpg)"
-        }}
-      ></div>
-      <div className="flex flex-col h-full mt-20">
-        <div className="flex">
-          {" "}
-          <h1
-            className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
-            style={{ color: "#FFFFFF" }}
-          >
-            Créez votre compte client
-          </h1>
-        </div>
-        <div className="flex flex-col items-center justify-center w-full mb-5">
-          {/* BLOC 1 */}
-          <div className="flex items-center justify-center ml-15 w-80 mb-5 flex-col shadow-md p-3 bg-neutral-100 rounded-3xl">
-            <input
-              type="text"
-               
-              className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
-              placeholder="Prénom"
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstName}
-            />
-            <input
-              type="text"
-              className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
-              placeholder="Nom"
-              onChange={(e) => setLastName(e.target.value)}
-              value={lastName}
-            />
+        <div
+          className="flex"
+          style={{
+            backgroundImage: "url(public/allocab-chauffeur-vtc.jpg)",
+          }}
+        ></div>
+        <div className="flex flex-col h-full mt-20">
+          <div className="flex">
+            {" "}
+            <h1
+              className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
+              style={{ color: "#FFFFFF" }}
+            >
+              Créez votre compte client
+            </h1>
+          </div>
+          <div className="flex flex-col items-center justify-center w-full mb-5">
+            {/* BLOC 1 */}
+            <div className="flex items-center justify-center ml-15 w-80 mb-5 flex-col shadow-md p-3 bg-neutral-100 rounded-3xl">
+              <input
+                type="text"
+                className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
+                placeholder="Prénom"
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstName}
+              />
+              <input
+                type="text"
+                className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
+                placeholder="Nom"
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
+              />
               <input
                 type="date"
                 className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-500"
@@ -148,42 +146,72 @@ function ClientSignUp() {
                 }}
                 value={birthday}
               />
-      
-            <input
-              type="textarea"
-              className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
-              placeholder="E-mail"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />{" "}
-            <input
-              type="password"
-              className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
-              placeholder="Mot de passe"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-            {/* <div className="cursor-pointer border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-full text-xl text-white"> */}
+              <input
+                type="textarea"
+                className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
+                placeholder="E-mail"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />{" "}
+              <input
+                type="password"
+                className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
+                placeholder="Mot de passe"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+              {/* <div className="cursor-pointer border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-full text-xl text-white"> */}
+            </div>
+            <div
+              className={`${styles.hovereffect} flex flex-col shadow-md  items-center justify-center text-center mt-5 cursor-pointer border-2  pt-2 pb-2 mb-3 rounded-2xl w-60 text-xl text-white`}
+              onClick={handleRegister}
+            >
+              Envoyer
+            </div>
           </div>
-          <div
-            className={`${styles.hovereffect} flex flex-col shadow-md  items-center justify-center text-center mt-5 cursor-pointer border-2  pt-2 pb-2 mb-3 rounded-2xl w-60 text-xl text-white`}
-            onClick={handleRegister}
-          >
-            Envoyer
+        </div>
+        <div className="flex flex-col h-full mt-20">
+          <div className="flex-col space-between">
+            <div className="flex flex-col items-center justify-between">
+              <div className="flex flex-col items-center w-full h-40 pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
+                <img src="/exp2.png" className="w-28 mb-5" />
+                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+                  150
+                </p>{" "}
+                <p style={{ color: "#68938B" }}>transactions effectuées</p>
+              </div>
+              <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
+                <img src="/exp1.png" className="w-28 mb-5" />
+                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+                  10 0
+                </p>{" "}
+                <p style={{ color: "#68938B" }}>prestataires actifs</p>
+              </div>
+              <div className="flex flex-col items-center w-full pt-10 pb-10 mr-3 ml-3 bg-neutral-100">
+                <img src="/exp4.png" className="w-28 mb-5" />
+                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+                  100%
+                </p>{" "}
+                <p style={{ color: "#68938B" }}>des prestations assurées</p>
+              </div>
+              <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
+                <img src="/exp3.png" className="w-28 mb-5" />
+                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+                  4.7/5
+                </p>{" "}
+                <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
-    <Footer />
-    </div> 
   );
 
   {
     /* END OF BLOC 3  */
   }
 }
-   
- 
-
 
 export default ClientSignUp;

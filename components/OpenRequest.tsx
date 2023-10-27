@@ -5,60 +5,86 @@ import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { faEuroSign } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-// import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-// import { faStar } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-// import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-// import {
-//   faArrowRight,
-//   faCheck,
-// } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-// import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
-// import Header from "./Header";
 import Footer from "./Footer";
 import Header from "./Header";
-// import TypedInputNumber from "antd/es/input-number";
+import { useRouter } from "next/router"; // Importez le hook useRouter
+import { useSelector } from "react-redux";
 
-// const [requests, setRequests] = useState(null);
-// const [phoneNumber, setPhoneNumber] = useState([]);
-// console.log(phoneNumber[5].phoneNumber);
-// const [email, setEmail] = useState([]);
-// console.log(email[5].email);
-// const [serviceFees, setServiceFees] = useState();
-// const [productFees, setProductFees] = useState();
-
-// const calculateTotalCosts = () => {
-//   const valueServiceFees = serviceFees || 0;
-//   const valueProductFees = productFees || 0;
-//   const costsTotal = valueServiceFees + valueProductFees;
-//   return costsTotal;
-
-function OpenRequest() {
+function MyComponent() {
   const [instruction, setInstruction] = useState({});
-  console.log(instruction);
-  console.log(instruction[5].instruction);
   const [totalFees, setTotalFees] = useState({});
-  console.log(totalFees[5].totalFees);
-  // console.log(totalFees);
-  // const [lastname, setLastname] = useState([]);
-  // console.log(lastname[5].lastname);
-  // const [firstname, setFirstname] = useState([]);
-  // console.log(firstname[5].firstname);
 
   useEffect(() => {
-    // Exemple de requête GET, assurez-vous de remplacer l'URL par votre propre endpoint
-    fetch("http://localhost:3000/request/requests")
+    // Utilisez l'ID pour faire votre requête
+    fetch(`http://localhost:3000/request/requests}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.allRequest);
-        setInstruction(data.allRequest); // Stocke les données dans le state
-        setTotalFees(data.allRequest); // Stocke les données dans le state
+        console.log(data);
+        setInstruction(data); // Stocke les données dans le state
+        setTotalFees(data); // Stocke les données dans le state
       })
       .catch((error) => {
         console.error("Une erreur s'est produite : ", error);
       });
-  }, []);
+  }, []); // Ajoutez id comme dépendance pour que l'effet se déclenche chaque fois que l'ID change
 
+  // ...
+
+  function useDeleteRequest() {
+    if (request.status) {
+      router.push("/Home"); // Utilisez router.push au lieu de window.location.href
+    } else {
+      router.push("/OpenRequest"); // Utilisez router.push au lieu de window.location.href
+    }
+  }
+  // const [phoneNumber, setPhoneNumber] = useState([]);
+  // console.log(phoneNumber[5].phoneNumber);
+  // const [email, setEmail] = useState([]);
+  // console.log(email[5].email);
+  // const [serviceFees, setServiceFees] = useState();
+  // const [productFees, setProductFees] = useState();
+
+  // const calculateTotalCosts = () => {
+  //   const valueServiceFees = serviceFees || 0;
+  //   const valueProductFees = productFees || 0;
+  //   const costsTotal = valueServiceFees + valueProductFees;
+  //   return costsTotal;
+  // }
+  // function OpenRequest() {
+  //   const [instruction, setInstruction] = useState({});
+  //   console.log(instruction);
+  //   const [totalFees, setTotalFees] = useState({});
+  //   console.log(totalFees);
+  //   // const [lastname, setLastname] = useState([]);
+  //   // console.log(lastname[5].lastname);
+  //   // const [firstname, setFirstname] = useState([]);
+  //   // console.log(firstname[5].firstname);
+
+  //   useEffect(() => {
+  //     // Exemple de requête GET, assurez-vous de remplacer l'URL par votre propre endpoint
+  //     fetch("http://localhost:3000/request/requests")
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         setInstruction(data); // Stocke les données dans le state
+  //         setTotalFees(data); // Stocke les données dans le state
+  //       })
+  //       .catch((error) => {
+  //         console.error("Une erreur s'est produite : ", error);
+  //       });
+  //   }, []);
+
+  //   function DeleteRequest() {
+  //     const request = useSelector((state) => state.request.status);
+  //     useEffect(() => {
+  //       if (request.status) {
+  //         window.location.href = "/Home";
+  //       } else {
+  //         window.location.href = "/OpenRequest";
+  //       }
+  //     });
+  //   }
   return (
     <div
       className="flex flex-col"
@@ -97,7 +123,7 @@ function OpenRequest() {
               RAPPEL DES INSTRUCTIONS
             </h1>
             <div className="flex flex-col align-top text-lg w-80 h-40 mb-8 mt-5 ml-20 border-2 w-4/12 p-2 rounded-xl border-neutral-400">
-              {instruction[5].instruction}
+              {instruction.instruction}
             </div>
             <div className="flex flex-col">
               <h1 className="ml-20 flex flex-col font-light text-lg font-semibold">
@@ -122,18 +148,18 @@ function OpenRequest() {
             </div>
             <div className="flex flex-col ml-20 mt-5">
               <div className="text-base align-text-top mb-10 w-80 h-8 border-2 pl-2 rounded-xl border-neutral-400">
-                {totalFees[5].totalFees}
+                {totalFees.totalFees}
                 <FontAwesomeIcon
                   icon={faEuroSign}
                   className="svg-inline--fa fa-euro-sign pt-2 pl-2"
                 />
               </div>
-              <div
+              <button
                 className={`${styles.hovereffect} flex cursor-pointer h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-xl text-white`}
-                // onClick={handleRegister}
+                onClick={useDeleteRequest}
               >
                 Annuler la requête
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -143,4 +169,4 @@ function OpenRequest() {
   );
 }
 
-export default OpenRequest;
+export default MyComponent;
