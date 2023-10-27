@@ -97,7 +97,7 @@ function ClientSignUp() {
           <div className="flex items-center justify-center ml-15 w-80 mb-5 flex-col shadow-md p-3 bg-neutral-100 rounded-3xl">
             <input
               type="text"
-              s
+               
               className="mt-3 mb-3 border-2 w-60 p-2 rounded-xl border-neutral-400"
               placeholder="Prénom"
               onChange={(e) => setFirstName(e.target.value)}
