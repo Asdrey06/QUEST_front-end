@@ -36,15 +36,13 @@ function OpenRequest() {
     fetch("http://localhost:3000/request/requests")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setRequests(data.allRequests); // Stocke les données dans le state
-        setInstruction(data.instruction);
+        console.log(data.allRequest);
+        setInstruction(data.allRequest); // Stocke les données dans le state
       })
       .catch((error) => {
         console.error("Une erreur s'est produite : ", error);
       });
-    [];
-  });
+  }, []);
 
   return (
     <div
