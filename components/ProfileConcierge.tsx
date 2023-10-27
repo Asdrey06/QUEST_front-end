@@ -13,6 +13,7 @@ function ProfileConcierge(props) {
       offersConcierge({
         id: props.id,
         firstname: props.name,
+        photo: props.photo,
       })
     );
     window.location.href = "/offerpage";
