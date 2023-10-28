@@ -114,7 +114,7 @@ function ConciergeSignUp() {
   const [password, setPassword] = useState("");
   const [birthday, setBirthday] = useState("");
   const [nationality, setNationality] = useState("");
-  const [address, setAddress] = useState("");
+  const [addressAPI, setAddressAPI] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [city, setCity] = useState("");
   const [email, setEmail] = useState("");
@@ -172,7 +172,7 @@ function ConciergeSignUp() {
         firstname: firstName,
         lastname: lastName,
         birthday: birthday,
-        address: address,
+        address: addressAPI,
         city: city,
         zipcode: zipcode,
         photo: photo,
@@ -212,6 +212,68 @@ function ConciergeSignUp() {
       });
   };
 
+  const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchAddressSuggestions = async (query) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `https://api-adresse.data.gouv.fr/search/?q=${query}`
+      );
+      if (!response.ok) {
+        throw new Error("Erreur de réseau");
+      }
+      const data = await response.json();
+      const suggestionAddresses = data.features.map(
+        (feature) => feature.properties.label
+      );
+      setSuggestions(suggestionAddresses);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+
+  const handleAddressChange = (event) => {
+    const inputValue = event.target.value;
+    setAddressAPI(inputValue);
+
+    if (inputValue.length >= 3) {
+      fetchAddressSuggestions(inputValue);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (selectedAddress) => {
+    setAddressAPI(selectedAddress);
+    setSuggestions([]);
+
+    fetch(`https://api-adresse.data.gouv.fr/search/?q=${selectedAddress}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.features && data.features.length > 0) {
+          const firstFeature = data.features[0];
+          setZipcode(firstFeature.properties.postcode);
+          setCity(firstFeature.properties.city);
+          setAddressAPI(
+            firstFeature.properties.housenumber +
+              " " +
+              firstFeature.properties.street
+          );
+          console.log("this", firstFeature.properties.street);
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors de la récupération du code postal et de la ville :",
+          error
+        );
+      });
+  };
+
   return (
     <div className="bg-white">
       {/* HEADER START */}
@@ -226,7 +288,7 @@ function ConciergeSignUp() {
         </div>
         <div className="flex flex-row mb-5">
           {/* BLOC 1 */}
-          <div className="ml-10 flex flex-col p-3 w-4/12 bg-neutral-100 rounded-3xl">
+          <div className="ml-10 flex flex-col p-3 w-6/12 bg-neutral-100 rounded-3xl">
             <h1 className="font-light text-lg mb-5 font-semibold">
               Vos coordonnées
             </h1>
@@ -266,7 +328,7 @@ function ConciergeSignUp() {
                 value={password}
               />
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row w-full">
               <input
                 type="textarea"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
@@ -276,7 +338,7 @@ function ConciergeSignUp() {
               />{" "}
             </div>
             <div className="mt-8">Informations sur vous</div>
-            <div className="flex flex-row">
+            <div className="flex flex-col">
               <input
                 type="date"
                 className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
@@ -287,13 +349,35 @@ function ConciergeSignUp() {
                 value={birthday}
               />
 
-              <input
+              {/* <input
                 type="textarea"
                 className="ml-3 mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Adresse..."
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
+              /> */}
+
+              <input
+                type="text"
+                placeholder="Saisissez une adresse..."
+                value={addressAPI}
+                onChange={handleAddressChange}
+                className="mb-3 mt-3 border-2 w-8/12 p-2 rounded-xl border-neutral-500"
               />
+              {loading && <p>Chargement en cours...</p>}
+              {suggestions.length > 0 && (
+                <ul>
+                  {suggestions.map((suggestion) => (
+                    <li
+                      className="mb-1 mt-1 bg-white rounded-xl cursor-pointer w-8/12 border-neutral-300 p-1  hover:bg-neutral-100 border-2"
+                      key={suggestion}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div className="flex flex-row">
               <input
