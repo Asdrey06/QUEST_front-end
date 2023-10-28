@@ -17,6 +17,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { openConcierge } from "../reducers/conciergeProfile";
 
 function Header() {
   const [login, setLogin] = useState(false);
@@ -87,7 +88,6 @@ function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result) {
           dispatch(
             loginUser({
@@ -99,6 +99,7 @@ function Header() {
               photo: data.data.photo,
             })
           );
+
           window.location.href = "/clientwelcome";
           setSignInEmail("");
           setSignInPassword("");
@@ -140,6 +141,12 @@ function Header() {
               photo: data.data.photo,
             })
           );
+          dispatch(
+            openConcierge({
+              id: data.data._id,
+            })
+          );
+
           window.location.href = "/dashconcierge";
           setSignInEmailConcierge("");
           setSignInPasswordConcierge("");
@@ -194,6 +201,8 @@ function Header() {
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
+
+  console.log(concierge);
 
   return (
     <GoogleOAuthProvider clientId="223748327128-45k1fpfnkvgbhl3u20aonb41lspthdlq.apps.googleusercontent.com">
@@ -362,13 +371,15 @@ function Header() {
               <FontAwesomeIcon icon={faUser} className="h-6" />
             </div>
           ) : (
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row cursor-pointer items-center">
               {/* DIV WHERE DROPDOWN SHOULD BE */}
-              <div className="flex flex-col items-center  text-white ">
-                <div
-                  className="flex flex-row items-center cursor-pointer hover:text-neutral-200"
-                  onClick={toggleDropdown}
-                >
+              <div
+                className="flex flex-col items-center text-white relative"
+                onMouseEnter={() => setDropdownVisible(true)}
+                onMouseLeave={() => setDropdownVisible(false)}
+                style={{ position: "relative" }}
+              >
+                <div className="flex flex-row items-center cursor-pointer hover:text-neutral-200">
                   <p className="mr-3 font-semibold">
                     {concierge.firstname}
                     {user.firstname}
@@ -384,19 +395,39 @@ function Header() {
                   )}
                 </div>
                 {dropdownVisible && (
-                  <div className="flex flex-col  w-28 mt-10 mr-9 font-semibold  absolute top-16 right-0 mt-2 p-2 bg-white border text-sm border-gray-300 rounded shadow-lg z-10 text-emerald-600">
-                    <div className="p-1 hover:text-emerald-400 cursor-pointer">
+                  <div
+                    className="flex flex-col w-28 mt-4 font-semibold absolute cursor-pointer top-9 p-1 bg-[#33B49C] rounded-b-xl text-sm border-gray-300 z-10 text-white"
+                    onMouseEnter={() => setDropdownVisible(true)}
+                    onMouseLeave={() => setDropdownVisible(false)}
+                  >
+                    <div className="p-2 hover:text-neutral-200 cursor-pointer">
+                      {/* <Link href="/conciergeprofilepage"> */}
+                      Profil
+                      {/* </Link> */}
+                    </div>
+                    <div className="p-2 hover:text-neutral-200 cursor-pointer">
                       <Link href="/settingsclient">Paramètres</Link>
                     </div>
+                    <div className="p-2 hover:text-neutral-200 cursor-pointer">
+                      Finance
+                    </div>
                     <div
-                      className="p-1 hover:text-emerald-400 cursor-pointer"
+                      className="p-2 border-t hover:text-neutral-200 cursor-pointer"
                       onClick={clearRedux}
                     >
                       Déconnexion
                     </div>
                   </div>
                 )}
+                {dropdownVisible && (
+                  <div
+                    className="absolute top-0 left-0 w-full h-20"
+                    onMouseEnter={() => setDropdownVisible(true)}
+                    onMouseLeave={() => setDropdownVisible(false)}
+                  />
+                )}
               </div>
+
               <div></div>
 
               {/* END DIV WHERE DROPDOWN SHOULD BE */}

@@ -111,7 +111,7 @@ function Dashconcierge() {
   const springApi = useSpringRef();
   const { size, ...rest } = useSpring({
     ref: springApi,
-    config: config.slow,
+    config: config.gentle,
     from: { size: "20%", background: "#34B39C" },
     to: {
       size: open ? "100%" : "20%",
@@ -235,7 +235,7 @@ function Dashconcierge() {
               <animated.div
                 style={{ ...rest, width: size, height: size }}
                 className={styles.container}
-                onClick={() => set((open) => !open)}
+                onClick={() => set((open) => true)}
               >
                 {open ? (
                   ""
@@ -260,7 +260,7 @@ function Dashconcierge() {
                 ))}
               </animated.div>
             </div>
-            <div className="w-full h-64 mt-10 flex flex-col items-center">
+            <div className="w-full h-64 mt-10 mb-10 flex flex-col items-center">
               <h1 className="text-2xl font-light mb-3 mt-3">
                 3 conseils pour devenir un concierge au top
               </h1>
