@@ -7,8 +7,12 @@ import {
   CardCvcElement,
 } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CheckoutForm = () => {
+  const notify = () => toast("Wow so easy!");
+
   const instructions = useSelector((state) => state.createoffers.instructions);
   const date = useSelector((state) => state.createoffers.date);
   const serviceFees = useSelector((state) => state.createoffers.offer);
@@ -37,6 +41,11 @@ const CheckoutForm = () => {
     });
 
     if (error) {
+      toast.error(
+        <p className="text-red-500 text-sm">
+          Informations de paiement incomplètes
+        </p>
+      );
       console.error("Error creating payment method:", error);
     } else {
       fetch("http://localhost:3000/processpayment", {
@@ -70,12 +79,20 @@ const CheckoutForm = () => {
               .then((response) => response.json())
               .then((data) => {
                 console.log(data);
-                window.location.href = "/clientwelcome";
+
+                toast.success(`Requête envoyé à ${offersRedux.firstname} !`);
+
+                setTimeout(() => {
+                  window.location.href = "/clientwelcome";
+                }, 4000);
               });
           }
-          t;
         })
         .catch((error) => {
+          toast(
+            <p className="text-red-500">Informations de paiement incomplètes</p>
+          );
+
           console.error("Error sending payment method to server:", error);
         });
     }
@@ -100,6 +117,8 @@ const CheckoutForm = () => {
         backgroundSize: "cover",
       }}
     >
+      {" "}
+      <ToastContainer />
       <div className=" pt-5 pb-5 flex items-center w-full justify-center  pr-48 text-center">
         <form onSubmit={handleSubmit} className="w-full">
           <CardNumberElement

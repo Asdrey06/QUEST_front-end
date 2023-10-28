@@ -19,6 +19,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import dotenv from "dotenv";
 dotenv.config();
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ConciergeSignUp() {
   const dispatch = useDispatch();
@@ -193,7 +195,7 @@ function ConciergeSignUp() {
         console.log("this", data);
         if (data.result === false) {
           console.log(data.error);
-          setWrongPw(data.error);
+          toast.error(<p className="text-red-500">{data.error}</p>);
         } else if (data.result === true) {
           dispatch(
             loginConcierge({
@@ -216,6 +218,7 @@ function ConciergeSignUp() {
       <Header />
       {/* HEADER END */}
       <div className="h-full mt-14">
+        <ToastContainer />
         <div className="flex">
           <h1 className="flex text-xl bg-neutral-800 mb-10 pl-10 pb-5 pt-5 text-white font-semibold w-full">
             <p>Créez votre compte concierge</p>{" "}

@@ -9,10 +9,17 @@ import users from "../reducers/users";
 import concierges from "../reducers/concierges";
 import offers from "../reducers/offers";
 import createoffers from "../reducers/createoffers";
+import conciergeProfile from "../reducers/conciergeProfile";
 
 import { Provider } from "react-redux";
 
-const reducers = combineReducers({ users, concierges, offers, createoffers });
+const reducers = combineReducers({
+  users,
+  concierges,
+  offers,
+  createoffers,
+  conciergeProfile,
+});
 
 const persistConfig = { key: "quest", storage };
 

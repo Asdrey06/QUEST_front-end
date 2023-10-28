@@ -15,6 +15,8 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import { useGoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Header() {
   const [login, setLogin] = useState(false);
@@ -102,7 +104,16 @@ function Header() {
           setSignInPassword("");
         } else {
           console.log(data.error);
-          setSignError(data.error);
+          toast.error(data.error, {
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
       });
   };
@@ -134,7 +145,16 @@ function Header() {
           setSignInPasswordConcierge("");
         } else {
           console.log(data.error);
-          setSignError(data.error);
+          toast.error(data.error, {
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
       });
   };
@@ -179,6 +199,7 @@ function Header() {
     <GoogleOAuthProvider clientId="223748327128-45k1fpfnkvgbhl3u20aonb41lspthdlq.apps.googleusercontent.com">
       .
       <div className="flex-col flex justify-start">
+        <ToastContainer />
         <div
           className={`fixed top-0 z-50 w-full flex flex-row justify-between pr-10 pl-10 pb-5 pt-5`}
           style={{ backgroundColor: "#33B49C" }}
@@ -225,11 +246,9 @@ function Header() {
           {/* LOGINS START */}
           {login ? (
             <div className="flex flex-row w-9/12 items-center justify-end">
-              <div className="text-red-500 mt-5 mb-5 h-full pt-16 pr-3">
-                {signError}
-              </div>
+              <div className="text-red-500 mt-5 mb-5 h-full pt-16 pr-3"></div>
               <div className="w-4/12 p-4 flex flex-col items-center justify-start border-r-2 border-r-emerald-200 pr-14">
-                <div className="text-white text-xl mb-3 mb-2">
+                <div className="text-white font-extralight text-xl mb-3 mb-2">
                   Connexion compte client
                 </div>
                 <input
@@ -293,7 +312,7 @@ function Header() {
                 </p>
               </div>
               <div className="w-4/12 p-4 mb-4 flex flex-col items-center justify-start pl-14">
-                <div className="text-white mb-2 text-xl mb-3 ">
+                <div className="text-white font-extralight mb-2 text-xl mb-3 ">
                   Connexion compte concierge
                 </div>
                 <input

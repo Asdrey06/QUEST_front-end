@@ -16,7 +16,6 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      // Use Immer to create a new state object with the desired changes
       state.value = {
         ...state.value,
         token: action.payload.token,
@@ -28,7 +27,6 @@ export const userSlice = createSlice({
       };
     },
     logoutUser: (state) => {
-      // Use Immer to create a new state object with the desired changes
       state.value = {
         ...state.value,
         token: null,
