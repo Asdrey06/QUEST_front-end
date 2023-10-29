@@ -9,22 +9,24 @@ import { useEffect, useState } from "react";
 function SettingsClient() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.users.value);
+  const conciergeInfo = useSelector((state) => state.concierges.value);
+
+  console.log(conciergeInfo.token);
 
   const [userInfo, setUserInfo] = useState([]);
 
-  console.log(userInfo);
+  console.log("this", userInfo);
 
   const [birthday, setBirthday] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/users/findUserInfo", {
+    fetch("http://localhost:3000/concierges/findInfoToken", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify({ token: user.token }),
+      body: JSON.stringify({ token: conciergeInfo.token }),
     })
       .then((response) => response.json())
       .then((data) => {

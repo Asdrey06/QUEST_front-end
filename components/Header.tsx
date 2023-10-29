@@ -406,7 +406,12 @@ function Header() {
                       {/* </Link> */}
                     </div>
                     <div className="p-2 hover:text-neutral-200 cursor-pointer">
-                      <Link href="/settingsclient">Paramètres</Link>
+                      {clientLogout && (
+                        <Link href="/settingsclient">Paramètres</Link>
+                      )}
+                      {conciergeLogout && (
+                        <Link href="/settingsconcierge">Paramètres</Link>
+                      )}
                     </div>
                     <div className="p-2 hover:text-neutral-200 cursor-pointer">
                       Finance

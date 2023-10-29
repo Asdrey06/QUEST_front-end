@@ -132,7 +132,7 @@ function ConciergeSignUp() {
           const format = result.info.format;
           if (!allowedFormats.includes(format)) {
             // Handle format validation error
-            setWrongFile("Format invalide");
+            toast.error("Format du fichier invalide");
             // Optionally, you can reset the selected file input to prevent submission.
             return;
           }
