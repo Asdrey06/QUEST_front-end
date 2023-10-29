@@ -50,6 +50,27 @@ function ConciergeSignUp() {
         cropping: "server",
         multiple: false,
         defaultSource: "local",
+        styles: {
+          palette: {
+            window: "#34B39C",
+            windowBorder: "#34B39C",
+            tabIcon: "#FFFFFF",
+            menuIcons: "#5A6169",
+            textDark: "#000000",
+            textLight: "#FFFFFF",
+            link: "#34B39C",
+            action: "#FFFFFF",
+            inactiveTabIcon: "#000000",
+            error: "#FF0000",
+            inProgress: "#0078FF",
+            complete: "#20B832",
+            sourceBg: "#E4E6E7",
+          },
+          fonts: {
+            default: "Verdana",
+          },
+        },
+        locale: "fr",
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
@@ -83,6 +104,26 @@ function ConciergeSignUp() {
         cropping: "server",
         multiple: false,
         defaultSource: "local",
+        styles: {
+          palette: {
+            window: "#34B39C",
+            windowBorder: "#34B39C",
+            tabIcon: "#FFFFFF",
+            menuIcons: "#5A6169",
+            textDark: "#000000",
+            textLight: "#FFFFFF",
+            link: "#34B39C",
+            action: "#FFFFFF",
+            inactiveTabIcon: "#000000",
+            error: "#FF0000",
+            inProgress: "#0078FF",
+            complete: "#20B832",
+            sourceBg: "#E4E6E7",
+          },
+          fonts: {
+            default: "Verdana",
+          },
+        },
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
@@ -494,7 +535,7 @@ function ConciergeSignUp() {
                 style={{ border: "3px solid #34B39C" }}
                 onClick={openCloudinaryWidgetPDF}
               >
-                {!id && "Importez votre pièce d'identité"}
+                {!id && "Importez votre pièce d'identité (PDF)"}
 
                 {id && (
                   <FontAwesomeIcon
@@ -509,7 +550,7 @@ function ConciergeSignUp() {
                 className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                Importez extrait de votre kbis
+                Importez extrait de votre kbis (PDF)
               </label>
             </div>
             <div className="flex flex-col mt-5">
@@ -517,7 +558,7 @@ function ConciergeSignUp() {
                 className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                Importez votre casier judiciare
+                Importez votre casier judiciare (PDF)
               </label>
             </div>
             <div className="flex flex-col mt-5">
@@ -525,7 +566,7 @@ function ConciergeSignUp() {
                 className="text-neutral-500 rounded-lg px-4 py-2 w-7/12 cursor-pointer hover:bg-neutral-200 flex items-center text-center justify-center"
                 style={{ border: "3px solid #34B39C" }}
               >
-                Importez votre permis de conduire (si nécessaire)"
+                Importez votre permis de conduire (si nécessaire) (PDF)
               </label>
             </div>
           </div>

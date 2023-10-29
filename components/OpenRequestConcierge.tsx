@@ -169,24 +169,18 @@ function MyComponent() {
         <div className=" flex-col ml-16 w-5/12 h-full flex text-emerald-600 font-semibold font-light text-lg mb-3 font-semibold">
           <div className="flex items-center text-black ml-6">
             <FontAwesomeIcon icon={faCommentDots} className="mr-3" />
-            <p> Communiquez avec {currentRequest.fromConcierge}</p>
-            <p>
-              <img
-                src={currentRequest.photoConcierge}
-                className="h-10 w-10 rounded-[50%] ml-2 object-cover"
-              />
-            </p>
+            <p> Communiquez avec {currentRequest.from}</p>
           </div>
           <div className="flex flex-col h-full ml-5 mt-5">
-            <div className="flex flex-col align-top text-lg h-40 mb-8 border-2 w-full p-2 rounded-xl border-neutral-400">
+            <div className="flex flex-col align-top text-lg h-96 mb-8 border-2 w-full p-2 rounded-xl border-neutral-400">
               LIVE CHAT
             </div>
           </div>
           <div className="flex flex-col mt-5">
-            <iframe
-              className="h-48 w-full ml-4 rounded-xl  "
+            {/* <iframe
+              className="h-48 w-96 p-2 rounded-xl  "
               src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11537.773383415211!2d7.29766255!3d43.7013348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1698325376308!5m2!1sfr!2sfr"
-            ></iframe>
+            ></iframe> */}
           </div>
         </div>
         <div className="ml-15 flex-row flex w-5/12 text-emerald-600 text-2xl font-semibold ml-5">
@@ -208,11 +202,11 @@ function MyComponent() {
               </p>
               <p className="flex items-center">
                 {" "}
-                Commission du concierge:{" "}
+                Votre commission:{" "}
                 <p className="font-bold pl-1"> {currentRequest.serviceFees}€</p>
               </p>
               <p className="flex">
-                Total payé par vous:{" "}
+                Total payé par le client:{" "}
                 <p className="font-bold pl-1"> {currentRequest.totalFees}€</p>
               </p>
             </div>
@@ -221,15 +215,15 @@ function MyComponent() {
               <div className="">
                 <div className="flex flex-col">
                   <h1 className="ml-20 flex flex-col font-light text-lg font-semibold">
-                    Votre concierge
+                    Votre client
                   </h1>
                 </div>
                 <div className="flex flex-col ml-20 text-black">
-                  {currentRequest.fromConcierge}
+                  {currentRequest.from}
                 </div>
                 <div className="flex flex-col ml-20 cursor-pointer mt-2">
                   <div className="flex flex-col items-center justify-center text-base text-sm text-center w-48 h-8 border-2 p-2 rounded-xl bg-black text-white hover:bg-neutral-700 border-neutral-400">
-                    Appeler le concierge
+                    Appeler le client
                   </div>
                 </div>
               </div>
@@ -239,7 +233,7 @@ function MyComponent() {
                   className={`${styles.hovereffect} text-base flex cursor-pointer w-56 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}
                   // onClick={useDeleteRequest}
                 >
-                  Annuler la requête
+                  Terminer la requête
                 </button>
                 <button
                   className={`text-xs flex cursor-pointer w-full mt-2 bg-red-500 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}

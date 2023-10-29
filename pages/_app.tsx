@@ -10,6 +10,7 @@ import concierges from "../reducers/concierges";
 import offers from "../reducers/offers";
 import createoffers from "../reducers/createoffers";
 import conciergeProfile from "../reducers/conciergeProfile";
+import openrequest from "../reducers/openrequest";
 
 import { Provider } from "react-redux";
 
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   offers,
   createoffers,
   conciergeProfile,
+  openrequest,
 });
 
 const persistConfig = { key: "quest", storage };

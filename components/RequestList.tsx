@@ -5,6 +5,8 @@ import { faCommentDots } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { openRequest } from "../reducers/openrequest";
 
 function CountdownTimer({ date }) {
   const targetDate = new Date(date);
@@ -47,6 +49,8 @@ function CountdownTimer({ date }) {
 }
 
 function RequestList(props) {
+  const dispatch = useDispatch();
+
   const parsedDate = new Date(props.date);
 
   const daysOfWeek = [
@@ -79,9 +83,22 @@ function RequestList(props) {
   const year = parsedDate.getFullYear();
 
   const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
+
+  const openRequestPage = () => {
+    dispatch(
+      openRequest({
+        id: props.id,
+      })
+    );
+    window.location.href = "/openrequestpageconcierge";
+  };
+
   return (
     <div className="w-full border-emerald-200 flex w-11/12 ml-12 mr-10 mb-3 flex-wrap">
-      <div className="bg-neutral-100 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex ">
+      <div
+        className="cursor-pointer bg-neutral-100 hover:bg-neutral-200 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex"
+        onClick={openRequestPage}
+      >
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="flex flex-row items-center">

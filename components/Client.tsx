@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { offersConcierge } from "../reducers/offers";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { openRequest } from "../reducers/openrequest";
 
 function Client() {
   const [conciergeList, setConciergeList] = useState([]);
@@ -83,6 +84,8 @@ function Client() {
   const displayRequests = activeRequests.map((data, i) => {
     const parsedDate = new Date(data.date);
 
+    console.log("this", data);
+
     const daysOfWeek = [
       "Dimanche",
       "Lundi",
@@ -114,8 +117,20 @@ function Client() {
 
     const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
 
+    const openRequestClient = () => {
+      dispatch(
+        openRequest({
+          id: data._id,
+        })
+      );
+      window.location.href = "/openrequestpage";
+    };
+
     return (
-      <div className="text-lg p-5 border-2 mt-2 mb-10 shadow-md shadow-neutral-400">
+      <div
+        className="cursor-pointer hover:bg-neutral-100 text-lg p-5 border-2 mt-2 mb-10 shadow-md shadow-neutral-400"
+        onClick={openRequestClient}
+      >
         <div className="flex justify-between">
           <div>
             <p className="font-semibold text-xl">{data.instruction}</p>{" "}

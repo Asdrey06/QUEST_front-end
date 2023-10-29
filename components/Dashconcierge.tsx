@@ -184,7 +184,7 @@ function Dashconcierge() {
   }, []);
 
   const requestList = requests.map((data, i) => {
-    console.log(data);
+    console.log(data._id);
     return (
       <RequestList
         instruction={data.instruction}
@@ -194,6 +194,7 @@ function Dashconcierge() {
         productFees={data.productFees}
         totalFees={data.totalFees}
         from={data.from}
+        id={data._id}
       />
     );
   });

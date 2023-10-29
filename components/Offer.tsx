@@ -136,10 +136,16 @@ function Offer() {
       <div className="flex-grow mt-14 ">
         {/* Contenu de la page */}
         <div className="flex items-center justify-left mb-10">
-          <h1 className="flex text-xl bg-neutral-800 pl-32 pb-5 pt-5 text-neutral-300 w-full">
+          <h1 className="flex text-xl items-center bg-neutral-800 pl-32 pb-5 pt-5 text-neutral-300 w-full">
             <p>Faire une offre à</p>{" "}
             <p className="italic ml-2 text-white font-bold">
               {offersRedux.firstname}
+            </p>
+            <p>
+              <img
+                src={offersRedux.photo}
+                className="ml-2 w-10 h-10 object-cover rounded-[50%]"
+              />
             </p>
           </h1>
         </div>
