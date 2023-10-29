@@ -81,7 +81,7 @@ function SettingsClient() {
             <p className="italic ml-1 text-white font-bold"></p>
           </h1>
         </div>
-        <div className="flex flex-row mb-5">
+        <div className="flex flex-row ">
           <div className="ml-10 flex flex-col mb-10 p-3 shadow-xl w-4/12 bg-neutral-100">
             <div className="font-semibold">Vos identifiants</div>
             <div className="flex flex-col">
@@ -101,7 +101,7 @@ function SettingsClient() {
                 ************
               </div>
               <input
-                type="text"
+                type="password"
                 className="mt-1 mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Nouveau mot de passe..."
               />
@@ -143,6 +143,12 @@ function SettingsClient() {
               {" "}
               <p className="text-red-500 mt-2 text-cente w-64"></p>
             </div>
+          </div>
+          <div className="flex justify-end ml-40">
+            <img
+              src="/update.png"
+              className="ml-96 mt-72 w-96 h-96 opacity-50"
+            />
           </div>
         </div>
       </div>
