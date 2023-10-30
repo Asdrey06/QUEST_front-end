@@ -22,90 +22,13 @@ import {
 } from "@react-spring/web";
 import { faHandPointer } from "@fortawesome/free-regular-svg-icons";
 
-const data = [
-  {
-    id: 1,
-    css: "red",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">3</p>
-        <p className="text-sm">requêtes en cours</p>
-      </p>
-    ),
-  },
-  {
-    id: 2,
-    css: "blue",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">6</p>
-        <p className="text-sm">requêtes effectuées</p>
-      </p>
-    ),
-  },
-  {
-    id: 3,
-    css: "green",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">100%</p>{" "}
-        <p className="text-sm">taux de complétion</p>
-      </p>
-    ),
-  },
-  {
-    id: 4,
-    css: "green",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">4.3/5</p>{" "}
-        <p className="text-sm">note moyenne</p>
-      </p>
-    ),
-  },
-  {
-    id: 5,
-    css: "green",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">342€</p>{" "}
-        <p className="text-sm">gagné ce mois-ci</p>
-      </p>
-    ),
-  },
-  {
-    id: 6,
-    css: "green",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">1832€</p>{" "}
-        <p className="text-sm">revenu total</p>
-      </p>
-    ),
-  },
-  {
-    id: 7,
-    css: "green",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">2</p>{" "}
-        <p className="text-sm">requêtes annulées</p>
-      </p>
-    ),
-  },
-  {
-    id: 8,
-    css: "green",
-    text: (
-      <p className="flex flex-col text-center items-center">
-        <p className="font-bold text-2xl">0</p>{" "}
-        <p className="text-sm">avertissements</p>
-      </p>
-    ),
-  },
-];
-
 function Dashconcierge() {
+  const [requests, setRequests] = useState([]);
+
+  console.log(requests.length);
+
+  const [data, setData] = useState([]);
+
   const [open, set] = useState(false);
 
   const springApi = useSpringRef();
@@ -133,10 +56,6 @@ function Dashconcierge() {
     open ? 0.1 : 0.6,
   ]);
 
-  const [requests, setRequests] = useState([]);
-
-  console.log(requests);
-
   const concierge = useSelector((state) => state.concierges.value);
 
   console.log(concierge.token);
@@ -156,7 +75,90 @@ function Dashconcierge() {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data.result.length);
           setRequests(data.result);
+          setData([
+            {
+              id: 1,
+              css: "red",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">{data.result.length}</p>
+                  <p className="text-sm">requêtes en cours</p>
+                </p>
+              ),
+            },
+            {
+              id: 2,
+              css: "blue",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">0</p>
+                  <p className="text-sm">requêtes effectuées</p>
+                </p>
+              ),
+            },
+            {
+              id: 3,
+              css: "green",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">0%</p>{" "}
+                  <p className="text-sm">taux de complétion</p>
+                </p>
+              ),
+            },
+            {
+              id: 4,
+              css: "green",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">0</p>{" "}
+                  <p className="text-sm">note moyenne</p>
+                </p>
+              ),
+            },
+            {
+              id: 5,
+              css: "green",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">0€</p>{" "}
+                  <p className="text-sm">gagné ce mois-ci</p>
+                </p>
+              ),
+            },
+            {
+              id: 6,
+              css: "green",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">0€</p>{" "}
+                  <p className="text-sm">revenu total</p>
+                </p>
+              ),
+            },
+            {
+              id: 7,
+              css: "green",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">0</p>{" "}
+                  <p className="text-sm">requêtes annulées</p>
+                </p>
+              ),
+            },
+            {
+              id: 8,
+              css: "green",
+              text: (
+                <p className="flex flex-col text-center items-center">
+                  <p className="font-bold text-2xl">0</p>{" "}
+                  <p className="text-sm">avertissements</p>
+                </p>
+              ),
+            },
+          ]);
         })
         .catch((error) => {
           console.error("An error occurred: ", error);
@@ -164,13 +166,7 @@ function Dashconcierge() {
     };
 
     fetchRequests();
-
-    const intervalId = setInterval(fetchRequests, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [concierge.token]);
+  }, []);
 
   useEffect(() => {
     if (concierge.status === null) {

@@ -205,6 +205,7 @@ function ConciergeSignUp() {
     }
   };
 
+  //fetch pour l'inscription du concierge
   const handleRegister = () => {
     fetch("http://localhost:3000/concierges/signupConcierge", {
       method: "POST",
@@ -292,6 +293,7 @@ function ConciergeSignUp() {
     setAddressAPI(selectedAddress);
     setSuggestions([]);
 
+    //fetch pour récuperer les adresses
     fetch(`https://api-adresse.data.gouv.fr/search/?q=${selectedAddress}`)
       .then((response) => response.json())
       .then((data) => {
