@@ -12,10 +12,71 @@ import { useRouter } from "next/router"; // Importez le hook useRouter
 import { useSelector } from "react-redux";
 import { current } from "@reduxjs/toolkit";
 import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import io from "socket.io-client";
+import moment from "moment";
+import "moment/locale/fr";
+import { useRef } from "react";
+
+// const frLocale = require("../fr");
+
+// moment.updateLocale("fr", frLocale);
 
 function MyComponent() {
   const [instruction, setInstruction] = useState({});
   const [totalFees, setTotalFees] = useState({});
+
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+  const [sentMessages, setSentMessages] = useState([]);
+
+  console.log(messages);
+
+  const [sender, setSender] = useState("");
+  // const socket = io("http://localhost:3001");
+
+  const [socket, setSocket] = useState(null);
+
+  const requestinfo = useSelector((state) => state.openrequest.value);
+
+  const [requestId, setRequestId] = useState("");
+
+  console.log(requestId);
+
+  // console.log(requestinfo.id);
+
+  // console.log(socket);
+
+  useEffect(() => {
+    const socketInstance = io("http://localhost:3002");
+    setSocket(socketInstance);
+
+    return () => {
+      socketInstance.disconnect();
+    };
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (socket) {
+      socket.emit("message", { message, sender, requestId });
+    }
+    setSentMessages((prevMessages) => [...prevMessages, message]);
+    setMessage("");
+  };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("chat message", (msg) => {
+        setMessages((prevMessages) => [...prevMessages, msg]);
+      });
+    }
+
+    return () => {
+      if (socket) {
+        socket.off("chat message"); // Remove the listener when the component unmounts
+      }
+    };
+  }, [socket]);
 
   useEffect(() => {
     // Utilisez l'ID pour faire votre requête
@@ -88,15 +149,29 @@ function MyComponent() {
   //     });
   //   }
 
-  const requestinfo = useSelector((state) => state.openrequest.value);
-
   console.log("this", requestinfo);
 
   const [currentRequest, setCurrentRequest] = useState([]);
 
-  console.log(currentRequest);
+  console.log(currentRequest.from);
+
+  console.log(currentRequest.chat);
+
+  const formatTimeAgo = (date) => {
+    return moment(date).fromNow();
+  };
+
+  // const allChats = [];
+
+  // allChats.push(currentRequest);
+
+  // const allgoodChats = allChats[0].chat;
 
   const [id, setId] = useState([]);
+
+  const [chats, setChats] = useState([]);
+
+  console.log(chats);
 
   useEffect(() => {
     fetch("http://localhost:3000/request/openRequest", {
@@ -110,6 +185,9 @@ function MyComponent() {
       .then((response) => response.json())
       .then((data) => {
         setCurrentRequest(data.result);
+        setChats(data.result.chat);
+        setSender(data.result.from);
+        setRequestId(data.result._id);
 
         const last4 = data.result._id.slice(-4).toUpperCase();
 
@@ -119,6 +197,46 @@ function MyComponent() {
         console.error("Error fetching concierge:", error);
       });
   }, []);
+
+  const displayChat = chats.map((data, i) => {
+    console.log(data);
+    return (
+      <li
+        key={i}
+        className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+      >
+        <div className="flex flex-row w-full justify-between items-center">
+          <p className="text-black text-sm">
+            <p>{data.firstname}</p>
+          </p>
+          <p className="text-black text-sm font-extralight italic">
+            {formatTimeAgo(data.date)}
+          </p>
+        </div>
+        <div>
+          <p className="text-black font-light">{data.message}</p>
+        </div>
+      </li>
+    );
+  });
+
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/request/getChat", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+
+  //     body: JSON.stringify({ id: requestinfo.id }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching concierge:", error);
+  //     });
+  // }, []);
 
   const parsedDate = new Date(currentRequest.date);
 
@@ -153,6 +271,14 @@ function MyComponent() {
 
   const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
 
+  const messagesRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div
       className="flex flex-col"
@@ -178,8 +304,63 @@ function MyComponent() {
             </p>
           </div>
           <div className="flex flex-col h-full ml-5 mt-5">
-            <div className="flex flex-col align-top text-lg h-40 mb-8 border-2 w-full p-2 rounded-xl border-neutral-400">
-              LIVE CHAT
+            <div className="flex flex-col justify-end align-top text-lg h-96 mb-8 border-2 w-full p-2 rounded-xl border-neutral-400">
+              <div className="h-full flex flex-col">
+                <ul ref={messagesRef} className="overflow-y-auto flex-grow">
+                  {displayChat}
+                  {messages.map(
+                    (msg, index) => (
+                      console.log(msg),
+                      (
+                        <li
+                          key={index}
+                          className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+                        >
+                          <div className="flex flex-row w-full justify-between items-center">
+                            <p className="text-black text-sm">
+                              <p>{msg.firstname}</p>
+                            </p>
+                            <p className="text-black text-sm font-extralight italic">
+                              {formatTimeAgo(msg.date)}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-black font-light">
+                              {msg.message}
+                            </p>
+                          </div>
+                        </li>
+                      )
+                    )
+                  )}
+                  {/* {sentMessages.map((sentMsg, index) => (
+                    <li
+                      key={`sent-${index}`}
+                      className="sent-message flex items-center justify-between border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+                    >
+                      <p className="text-black text-sm">
+                        <p>{currentRequest.from}</p>
+                      </p>
+                      <p className="text-black font-light">{sentMsg}</p>
+                    </li>
+                  ))} */}
+                </ul>
+                <form onSubmit={handleSubmit} className="flex p-4">
+                  <input
+                    type="text"
+                    placeholder="Type a message..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="flex-grow border-2 w-full rounded-l-lg p-2"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-emerald-500 text-white p-2 rounded-r-lg"
+                  >
+                    Send
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
           <div className="flex flex-col mt-5">
