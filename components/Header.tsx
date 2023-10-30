@@ -396,16 +396,16 @@ function Header() {
                 </div>
                 {dropdownVisible && (
                   <div
-                    className="flex flex-col w-28 mt-4 font-semibold absolute cursor-pointer top-9 p-1 bg-[#33B49C] rounded-b-xl text-sm border-gray-300 z-10 text-white"
+                    className="flex flex-col w-28 mt-4 font-semibold absolute cursor-pointer top-9 p-1 bg-white rounded-b-xl text-sm border-gray-300 z-10 text-black border-2 shadow-xl"
                     onMouseEnter={() => setDropdownVisible(true)}
                     onMouseLeave={() => setDropdownVisible(false)}
                   >
-                    <div className="p-2 hover:text-neutral-200 cursor-pointer">
+                    <div className="p-2 hover:text-neutral-400 cursor-pointer">
                       {/* <Link href="/conciergeprofilepage"> */}
                       Profil
                       {/* </Link> */}
                     </div>
-                    <div className="p-2 hover:text-neutral-200 cursor-pointer">
+                    <div className="p-2 hover:text-neutral-400 cursor-pointer">
                       {clientLogout && (
                         <Link href="/settingsclient">Paramètres</Link>
                       )}
@@ -413,11 +413,11 @@ function Header() {
                         <Link href="/settingsconcierge">Paramètres</Link>
                       )}
                     </div>
-                    <div className="p-2 hover:text-neutral-200 cursor-pointer">
+                    <div className="p-2 hover:text-neutral-400 cursor-pointer">
                       Finance
                     </div>
                     <div
-                      className="p-2 border-t hover:text-neutral-200 cursor-pointer"
+                      className="p-2 border-t hover:text-neutral-400 cursor-pointer"
                       onClick={clearRedux}
                     >
                       Déconnexion

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 function SettingsClient() {
   const dispatch = useDispatch();
@@ -121,7 +122,14 @@ function SettingsClient() {
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
-      <div className="h-full bg-white mt-14">
+      <div
+        className="h-full bg-white mt-14"
+        style={{
+          backgroundImage: "url(/whitebg2.jpg)", // Assuming your image is in the public directory
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="flex">
           {" "}
           <ToastContainer />
@@ -130,8 +138,8 @@ function SettingsClient() {
             <p className="italic ml-1 text-white font-bold"></p>
           </h1>
         </div>
-        <div className="flex flex-row ">
-          <div className="ml-10 flex flex-col mb-10 p-3 shadow-xl w-4/12 bg-neutral-100">
+        <div className="flex flex-row items-center justify-start ml-48">
+          <div className=" flex flex-col mb-10 p-10 shadow-xl w-5/12 bg-neutral-100">
             <div className="font-semibold">Vos identifiants</div>
             <div className="flex flex-col">
               <div className="mt-3 mb-2 border-2 text-neutral-500  bg-white w-8/12 p-2 rounded-xl border-neutral-500">
@@ -187,15 +195,12 @@ function SettingsClient() {
               </div>
               <p className="ml-1  flex">
                 <p className="text-emerald-600 cursor-pointer mr-1 hover:text-neutral-500">
-                  Contactez-nous
+                  <Link href="/contacteznouspage">Contactez-nous</Link>
                 </p>
                 pour changer vos informations personelles
               </p>
             </div>
-            <div className="flex flex-row"></div>
-            <div className="flex flex-row"></div>
-            <div className="flex flex-row"></div>
-            <div className="flex flex-row"></div>
+
             <div className="flex flex-col">
               <div className="flex flex-row"></div>
             </div>
@@ -204,11 +209,8 @@ function SettingsClient() {
               <p className="text-red-500 mt-2 text-cente w-64"></p>
             </div>
           </div>
-          <div className="flex justify-end ml-40">
-            <img
-              src="/update.png"
-              className="ml-96 mt-72 w-96 h-96 opacity-50"
-            />
+          <div className="flex justify-end">
+            {/* <img src="/update.png" className="mt-72 w-96 h-96 opacity-50" /> */}
           </div>
         </div>
       </div>

@@ -18,11 +18,11 @@ function Footer() {
   };
 
   const mentionsLegales = () => {
-    window.open("mentionsLegalesPage");
+    window.location.href = "/mentionsLegalesPage";
   };
 
   const RGPD = () => {
-    window.open("RGPDPage");
+    window.location.href = "/RGPDPage";
   };
 
   return (
@@ -41,7 +41,7 @@ function Footer() {
             <Link href="">FAQ</Link>
           </p>
           <p className="hover:text-neutral-200">
-            <Link href="">Contactez-nous</Link>
+            <Link href="/contacteznouspage">Contactez-nous</Link>
           </p>
           <p className="hover:text-neutral-200">
             <button onClick={mentionsLegales}>Mentions Légales</button>

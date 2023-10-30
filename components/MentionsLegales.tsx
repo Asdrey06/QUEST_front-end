@@ -1,12 +1,22 @@
 import React from "react";
+import Header from "./Header";
+import Footer from "./Footer";
 
 function MentionsLegales() {
   return (
-    <div className="ml-5 mr-5 mb-10">
-      <h1 className="text-3xl font-bold mb-5 text-center mt-5">
+    <div
+      className="bg-white"
+      style={{
+        backgroundImage: "url(/whitebg.jpg)", // Assuming your image is in the public directory
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <Header />
+      <h1 className="text-3xl font-bold mb-5 text-center mt-24">
         Mentions Légales
       </h1>
-      <div className="bg-white p-8 rounded-md shadow-lg max-w-4xl mx-auto">
+      <div className="bg-white border-2 p-8 mb-16 rounded-md shadow-lg max-w-4xl mx-auto">
         <h2 className="text-xl font-semibold mb-2">1. Présentation du site.</h2>
         <p className="mb-3 text-justify">
           En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la
@@ -68,6 +78,7 @@ function MentionsLegales() {
           la Capsule.
         </p>
       </div>
+      <Footer />
     </div>
   );
 }

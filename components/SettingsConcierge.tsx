@@ -18,9 +18,6 @@ function SettingsClient() {
   const [userInfo, setUserInfo] = useState([]);
 
   const [birthday, setBirthday] = useState("");
-<<<<<<< HEAD
-  //fetch
-=======
   const [address, setAddress] = useState([]);
   const [zipcode, setZipcode] = useState([]);
   const [city, setCity] = useState([]);
@@ -31,9 +28,8 @@ function SettingsClient() {
   const [newAddress, setNewAdress] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newZipCode, setNewZipCode] = useState("");
-  const [newAboutMe, setNewAboutMe] = useState("")
+  const [newAboutMe, setNewAboutMe] = useState("");
 
->>>>>>> 40695bb27b5affaa6604f2a04c4d870a2ec1a9b7
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoToken", {
       method: "POST",
@@ -50,8 +46,8 @@ function SettingsClient() {
         setAddress(data.result.addresses[0].address);
         setZipcode(data.result.addresses[0].zipcode);
         setCity(data.result.addresses[0].city);
-        setAboutMe(data.result.personalInfo[0].aboutme)
-        setIban(data.result.paymentInfo)
+        setAboutMe(data.result.personalInfo[0].aboutme);
+        setIban(data.result.paymentInfo);
       })
       .catch((error) => {
         console.error("Error fetching concierge:", error);
@@ -260,7 +256,7 @@ function SettingsClient() {
           </h1>
         </div>
         <div className="flex flex-row">
-          <div className="ml-16 flex flex-col mb-10 p-3 shadow-xl w-4/12 bg-neutral-100">
+          <div className="ml-16 flex flex-col mb-10 p-3 shadow-xl w-8/12 bg-neutral-100">
             <div className="font-semibold text-2xl">Vos identifiants</div>
             <div className="flex flex-col">
               <div className="mt-2 text-neutral-500 p-2 rounded-xl border-neutral-500">
@@ -294,7 +290,7 @@ function SettingsClient() {
                 onClick={handleUpdatePassword}
                 className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500"
               >
-               Modifier votre mot de passe
+                Modifier votre mot de passe
               </p>
             </div>
             <div className="flex flex-row"></div>
@@ -324,7 +320,7 @@ function SettingsClient() {
               <div className="flex flex-row"></div>
             </div>
           </div>
-          <div className="ml-16 flex flex-col mb-10 p-3 shadow-xl w-4/12 bg-neutral-100">
+          <div className="ml-16 flex flex-col mb-10 p-3 shadow-xl w-9/12 bg-neutral-100">
             <div className="font-semibold text-2xl">Adresse</div>
             <div className="flex flex-col">
               <div className="mt-2  text-neutral-500 rounded-xl border-neutral-500">
@@ -362,18 +358,21 @@ function SettingsClient() {
                 Modifier votre adresse
               </p>
 
-              <div className="font-semibold ml-1 mt-5 text-2xl">A propos de moi</div>
-              <div className="mt-2 text-neutral-500 w-8/12 p-2 rounded-xl border-neutral-500">
+              <div className="font-semibold ml-1 mt-5 text-2xl">
+                A propos de moi
               </div>
+              <div className="mt-2 text-neutral-500 w-8/12 p-2 rounded-xl border-neutral-500"></div>
               <input
-                
                 type="text"
                 className="mt-1 mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500 h-24"
                 placeholder="Nouvelle bio..."
                 value={aboutme}
                 onChange={(e) => setAboutMe(e.target.value)}
               />
-              <p onClick={handleUpdateAboutMe} className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
+              <p
+                onClick={handleUpdateAboutMe}
+                className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500"
+              >
                 Modifier votre à propos
               </p>
             </div>
@@ -383,19 +382,18 @@ function SettingsClient() {
               <div className="text-neutral-500 w-4/12 p-2 rounded-xl border-neutral-500">
                 ***************************
               </div>
-              
             </div>
             <input
-                type="text"
-                className="mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
-                placeholder="Nouveau RIB..."
-                value={newZipCode}
-                onChange={(e) => setNewZipCode(e.target.value)}
-              />
-               <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
-                Modifier votre RIB
-              </p>
-           
+              type="text"
+              className="mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
+              placeholder="Nouveau RIB..."
+              value={newZipCode}
+              onChange={(e) => setNewZipCode(e.target.value)}
+            />
+            <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
+              Modifier votre RIB
+            </p>
+
             <div className="flex flex-row"></div>
             <div className="flex flex-row"></div>
             <div className="flex flex-row"></div>
@@ -404,7 +402,7 @@ function SettingsClient() {
               <div className="flex flex-row"></div>
             </div>
           </div>
-          <div className="flex justify-end ml-40">
+          <div className="flex justify-end ">
             <img
               src="/update.png"
               className="ml-96 mt-72 w-96 h-96 opacity-50"

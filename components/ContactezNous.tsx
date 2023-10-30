@@ -17,123 +17,130 @@ import { offersConcierge } from "../reducers/offers";
 import emailjs from "emailjs-com";
 import Swal from "sweetalert2";
 
-const SERVICE_ID=process.env.NEXT_PUBLIC_SERVICE_ID
-const TEMPLATE_ID=process.env.NEXT_PUBLIC_TEMPLATE_ID
-const PUBLIC_KEY=process.env.NEXT_PUBLIC_PUBLIC_KEY
-
-const handleOnSubmit = (e) => {
-    e.preventDefault();
-};
-
+const SERVICE_ID = process.env.NEXT_PUBLIC_SERVICE_ID;
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_PUBLIC_KEY;
 
 function ContactezNous() {
-    const [consent, setConsent] = useState(false);
-    const handleConsentChange = (e) => {
-        setConsent(e.target.checked);
-      };
-    
-      const handleOnSubmit = (e) => {
-        e.preventDefault();
-    
-        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY).then(
-            (result) => {
-                Swal.fire({
-                icon: "success",
-                title: "Message Sent Successfully",
-                });
-            },
-            (error) => {
-                Swal.fire({
-                icon: "error",
-                title: "Ooops, something went wrong",
-                text: error.text,
-                });
-            }
-            );
-            e.target.reset();
-        if (!consent) {
-        alert("Veuillez donner votre consentement pour traiter vos données conformément au RGPD.");
-        return;
-        }
-    
-        // Le reste de votre logique d'envoi du formulaire
-      };
-return (
-<div>
+  const [consent, setConsent] = useState(false);
+  const handleConsentChange = (e) => {
+    setConsent(e.target.checked);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, PUBLIC_KEY).then(
+      (result) => {
+        Swal.fire({
+          icon: "success",
+          title: "Message envoyé !",
+        });
+      },
+      (error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Une erreur est survenue.",
+          text: error.text,
+        });
+      }
+    );
+    e.target.reset();
+    if (!consent) {
+      alert(
+        "Veuillez donner votre consentement pour traiter vos données conformément au RGPD."
+      );
+      return;
+    }
+
+    // Le reste de votre logique d'envoi du formulaire
+  };
+  return (
     <div>
-    <Header />
-    </div>
-    
-    <div
+      <div>
+        <Header />
+      </div>
+
+      <div
         className="flex"
         style={{
-        backgroundColor: "white", 
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "calc(100vh - 100px)",
+          backgroundImage: "url(/whitebg.jpg)", // Assuming your image is in the public directory
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
->
-<div className=" pt-5 pb-20 flex flex-col items-center w-full justify-center  pr-48 text-center">
-<h1 className="font-light text-black text-5xl py-30 mb-20 pb-10 font-semibold">Formulaire de contact</h1>
-    <p className="font-light text-black text-xl pb-10 font-semibold">Complétez le formulaire suivant pour envoyer un message à Quest.
-Nous répondrons à votre requête, commentaire ou question, dès que possible. Les champs marqués d'un astérisque (*) sont requis pour soumettre le formulaire.</p>
-<form onSubmit={handleOnSubmit} 
-className="w-6/12 pb-10 pt-10 rounded-2xl text-slate-500 flex-col mt-30 border-2 bg-teal-500">
+      >
+        <div className="pb-20 flex flex-col items-center w-full justify-center mt-20 text-center">
+          <h1 className="font-extralight text-black text-8xl pb-10">
+            Contactez-nous
+          </h1>
 
-<div className="mb-2">
-    <input
-    type="email"
-    id="user_email"
-    name="user_email"
-    placeholder="E-mail..."
-    required
-    className="rounded-xl h-14 w-11/12 text-lg mt-1 mb-1 border-2 pl-10"
-
-    />
-</div>
-<div className="mb-2">
-    <input
-    type="text"
-    id="user_name"
-    name="user_name"
-    placeholder="Nom..."
-    required
-    className="rounded-xl h-14 w-11/12 text-lg mt-1 mb-1 border-2 pl-10"
-
-    />
-    </div>
-<div className="mb-2">
-<textarea 
-    id="user_message"
-    name="user_message"
-    placeholder="Message..."
-    required
-    className="rounded-xl h-40 w-11/12 text-lg mt-1 mb-1 border-2 pl-10"
-/>
-</div>
-<div className="mb-2 text-white">
-        <label>
-            <input
-            type="checkbox"
-            id="consent"
-            name="consent"
-            required
-            onChange={handleConsentChange}
-            />
-            J'accepte les termes de la politique de confidentialité et donne mon consentement pour le traitement de mes données personnelles conformément au RGPD.
-        </label>
+          <form
+            onSubmit={handleOnSubmit}
+            className="w-6/12 p-10 rounded-2xl text-slate-500 flex-col items-center justify-center mt-30 border-2 bg-[#34B39C]"
+          >
+            <div className="mb-2 flex flex-col items-center">
+              <p className="font-light text-white text-center items-center justify-center flex w-12/12 text-xl pb-10 ">
+                Complétez le formulaire suivant pour envoyer un message à Quest.
+                Nous répondrons à votre requête, commentaire ou question, dès
+                que possible.
+              </p>
+              <input
+                type="email"
+                id="user_email"
+                name="user_email"
+                placeholder="E-mail..."
+                required
+                className="rounded-xl h-14 w-11/12 text-lg mt-1 mb-1 border-2 pl-3"
+              />
+            </div>
+            <div className="mb-2">
+              <input
+                type="text"
+                id="user_name"
+                name="user_name"
+                placeholder="Nom..."
+                required
+                className="rounded-xl h-14 w-11/12 text-lg mt-1 mb-1 border-2 pl-3"
+              />
+            </div>
+            <div className="mb-2">
+              <textarea
+                id="user_message"
+                name="user_message"
+                placeholder="Message..."
+                required
+                className="rounded-xl h-40 w-11/12 text-lg mt-1 mb-1 border-2 pt-3 pl-3"
+              />
+            </div>
+            <div className="mb-2 flex flex-row mr-9 text-white">
+              <label className="flex ml-8">
+                <input
+                  type="checkbox"
+                  id="consent"
+                  name="consent"
+                  className="w-8"
+                  required
+                  onChange={handleConsentChange}
+                />
+                <p className="text-left ml-4 ">
+                  J'accepte les termes de la politique de confidentialité et
+                  donne mon consentement pour le traitement de mes données
+                  personnelles conformément au RGPD.
+                </p>
+              </label>
+            </div>
+            <button
+              type="submit"
+              className={`${styles.button} bg-black p-3 items-center justify-center rounded-2xl text-xl text-white`}
+            >
+              ENVOYER
+            </button>
+          </form>
         </div>
-<button
-    type="submit"
-    className="bg-black p-3 items-center justify-center rounded-2xl text-xl text-white"
->ENVOYER
-</button>
-</form>
-</div>
-</div>
-<Footer />
-</div>
-
-)}
+      </div>
+      <Footer />
+    </div>
+  );
+}
 
 export default ContactezNous;

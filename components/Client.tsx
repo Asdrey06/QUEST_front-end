@@ -195,7 +195,7 @@ function Client() {
         </div>
 
         <div className="flex">
-          <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 h-8 flex-wrap">
+          <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 h-full flex-wrap">
             {concierge}
           </div>
           <div className="w-6/12 h-full shadow-neutral-300border-neutral-400 mr-10 rounded-md overflow-auto ">

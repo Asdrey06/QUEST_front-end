@@ -100,6 +100,7 @@ function ClientSignUp() {
         className="flex"
         style={{
           // opacity: 0.6,
+          backgroundColor: "white",
           backgroundImage: "url(/backgroundopacity.png)", // Assuming your image is in the public directory
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -114,13 +115,10 @@ function ClientSignUp() {
             backgroundImage: "url(public/allocab-chauffeur-vtc.jpg)",
           }}
         ></div>
-        <div className="flex flex-col h-full mt-20 ml-20 mr-96 ">
+        <div className="flex flex-col h-full w-6/12 ">
           <div className="flex">
             {" "}
-            <h1
-              className="flex flex-col items-center justify-center pl-10 pb-3 pt-3 w-full mb-10 text-3xl font-semibold"
-              style={{ color: "#FFFFFF" }}
-            >
+            <h1 className="flex text-emerald-600 drop-shadow-xl  ml-10 flex-col items-center justify-center pl-10 pb-3 pt-5 w-full mt-24  mb-10 text-3xl font-semibold">
               Créez votre compte client
             </h1>
           </div>
@@ -176,7 +174,59 @@ function ClientSignUp() {
         </div>
         {/* <div className="flex flex-col h-full mt-20"> */}
         {/* <div className="flex-col space-between"> */}
-        <div className="flex flex-col w-48 items-center justify-center mb-20 ml-96">
+        <div className="bg-white p-5 h-full shadow-2xl mt-28 w-5/12">
+          <div className="mb-5 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-xl font-semibold pl-5">
+                Respectez votre budget
+              </p>
+            </div>
+            <p>
+              Trouvez le bon service pour chaque fourchette de prix. Pas de
+              tarifs horaires, seulement une tarification basée sur vos
+              requêtes.
+            </p>
+          </div>
+
+          <div className="mt-5 mb-5 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-xl font-semibold pl-5">
+                Obtenez une réponse à votre requête rapidement
+              </p>
+            </div>
+            <p>
+              Confiez votre demande à un concierge de confiance disponible
+              immédiatement.
+            </p>
+          </div>
+          <div className="mt-5 mb-5 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-xl font-semibold pl-5">
+                Payez quand vous êtes satisfait
+              </p>
+            </div>
+            <p>
+              Les devis préalables signifient aucune surprise. Les paiements ne
+              sont libérés que lorsque vous approuvez.
+            </p>
+          </div>
+          <div className="mt-5 flex flex-col">
+            <div className="flex flex-row m-5 ">
+              <FontAwesomeIcon icon={faCheck} className="h-8 text-lime-600" />
+              <p className="text-xl font-semibold pl-5">
+                Comptez sur un support 24/7
+              </p>
+            </div>
+            <p>
+              Notre équipe de support disponible 24 heures sur 24 est là pour
+              vous aider à tout moment, où que vous soyez.
+            </p>
+          </div>
+        </div>
+        {/* <div className="flex flex-col w-48 items-center justify-center mb-20 ml-96">
           <div className="mt-20 rounded-lg mb-5 pt-3  flex flex-col  items-center w-48 h-48 bg-neutral-100">
             <img src="/exp2.png" className="w-24 mb-2" />
             <p className="text-2xl font-bold" style={{ color: "#68938B" }}>
@@ -205,7 +255,7 @@ function ClientSignUp() {
             </p>{" "}
             <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
           </div>
-        </div>
+        </div> */}
         {/* </div> */}
         {/* </div> */}
       </div>
