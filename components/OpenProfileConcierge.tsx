@@ -42,7 +42,7 @@ function OpenProfileConcierge() {
     );
     window.location.href = "/offerpage";
   };
-
+  //fetch pour recupérer des infos détaillés
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfo", {
       method: "POST",

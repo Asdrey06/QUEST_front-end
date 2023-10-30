@@ -48,6 +48,7 @@ const CheckoutForm = () => {
       );
       console.error("Error creating payment method:", error);
     } else {
+      // fetch pour le processus de paiement
       fetch("http://localhost:3000/processpayment", {
         method: "POST",
         headers: {
@@ -60,6 +61,7 @@ const CheckoutForm = () => {
         .then((response) => response.json())
         .then((data) => {
           if (data.success === true) {
+            //fetch pour récupérer les les requetes
             fetch("http://localhost:3000/request/saveRequest", {
               method: "POST",
               headers: { "Content-Type": "application/json" },

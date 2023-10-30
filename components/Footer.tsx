@@ -17,6 +17,14 @@ function Footer() {
     window.open("https://www.facebook.com", "_blank");
   };
 
+  const mentionsLegales = () => {
+    window.open("mentionsLegalesPage");
+  };
+
+  const RGPD = () => {
+    window.open("RGPDPage");
+  };
+
   return (
     <div
       className="w-full h-full pt-5 pl-5 flex flex-row justify-between"
@@ -36,10 +44,10 @@ function Footer() {
             <Link href="">Contactez-nous</Link>
           </p>
           <p className="hover:text-neutral-200">
-            <Link href="">Mentions légales</Link>
+            <button onClick={mentionsLegales}>Mentions Légales</button>
           </p>
           <p className="w-4/12 hover:text-neutral-200">
-            <Link href="">RGPD</Link>
+            <button onClick={RGPD}>RGPD</button>
           </p>
         </div>
       </div>
