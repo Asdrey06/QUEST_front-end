@@ -5,6 +5,8 @@ import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SettingsClient() {
   const dispatch = useDispatch();
@@ -67,6 +69,51 @@ function SettingsClient() {
   const year = parsedDate.getFullYear();
 
   const formattedDate = `${day} ${month} ${year}`;
+  console.log("data", userInfo);
+
+  const [newMail, setNewMail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+  const updateEmail = () => {
+    fetch("http://localhost:3000/users/updateMail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ id: userInfo._id, email: newMail }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("this", data.result);
+        toast.success(data.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+  };
+
+  const updatePasswords = () => {
+    fetch("http://localhost:3000/users/updatePasswords", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        id: userInfo._id,
+        password: newPassword,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("this", data.error);
+        toast.success(data.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+  };
 
   return (
     <div>
@@ -76,6 +123,7 @@ function SettingsClient() {
       <div className="h-full bg-white mt-14">
         <div className="flex">
           {" "}
+          <ToastContainer />
           <h1 className="flex text-xl bg-neutral-800 mb-6 pl-20 pb-5 pt-6 text-neutral-300 w-full">
             <p>Modifier vos informations personnelles</p>
             <p className="italic ml-1 text-white font-bold"></p>
@@ -92,20 +140,31 @@ function SettingsClient() {
                 type="text"
                 className="mt-1 mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Nouveau e-mail..."
+                onChange={(e) => setNewMail(e.target.value)}
+                value={newMail}
               />
-              <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
+              <p
+                className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500"
+                onClick={updateEmail}
+              >
                 Modifier votre e-mail
               </p>
 
               <div className="mt-10 mb-2 text-neutral-500 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500">
                 ************
+                {userInfo.newpassword}
               </div>
               <input
                 type="password"
                 className="mt-1 mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Nouveau mot de passe..."
+                onChange={(e) => setNewPassword(e.target.value)}
+                value={newPassword}
               />
-              <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
+              <p
+                className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500"
+                onClick={updatePasswords}
+              >
                 Modifier votre mot de passe
               </p>
             </div>
