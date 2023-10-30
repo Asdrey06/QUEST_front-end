@@ -19,6 +19,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import dotenv from "dotenv";
 dotenv.config();
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ClientSignUp() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -73,7 +75,7 @@ function ClientSignUp() {
         console.log(data);
         if (data.result === false) {
           console.log(data.error);
-          setWrongPw(data.error);
+          toast.error(data.error);
         } else if (data.result === true) {
           dispatch(
             loginUser({
@@ -97,20 +99,22 @@ function ClientSignUp() {
       <div
         className="flex"
         style={{
-          opacity: 0.6,
-          backgroundImage: "url(/backgroundtest.jpg)", // Assuming your image is in the public directory
+          // opacity: 0.6,
+          backgroundImage: "url(/backgroundopacity.png)", // Assuming your image is in the public directory
           backgroundSize: "cover",
           backgroundPosition: "center",
+
           minHeight: "calc(100vh - 100px)", // Adjust the value based on your header's height
         }}
       >
+        <ToastContainer />
         <div
-          className="flex"
+          className="flex "
           style={{
             backgroundImage: "url(public/allocab-chauffeur-vtc.jpg)",
           }}
         ></div>
-        <div className="flex flex-col h-full mt-20">
+        <div className="flex flex-col h-full mt-20 ml-20 mr-96 ">
           <div className="flex">
             {" "}
             <h1
@@ -120,7 +124,7 @@ function ClientSignUp() {
               Créez votre compte client
             </h1>
           </div>
-          <div className="flex flex-col items-center justify-center w-full mb-5">
+          <div className="flex flex-col items-center justify-center w-full mb-5 ml-10">
             {/* BLOC 1 */}
             <div className="flex items-center justify-center ml-15 w-80 mb-5 flex-col shadow-md p-3 bg-neutral-100 rounded-3xl">
               <input
@@ -170,40 +174,40 @@ function ClientSignUp() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col h-full mt-20">
-          <div className="flex-col space-between">
-            <div className="flex flex-col items-center justify-between">
-              <div className="flex flex-col items-center w-full h-40 pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
-                <img src="/exp2.png" className="w-28 mb-5" />
-                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-                  150
-                </p>{" "}
-                <p style={{ color: "#68938B" }}>transactions effectuées</p>
-              </div>
-              <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
-                <img src="/exp1.png" className="w-28 mb-5" />
-                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-                  10 0
-                </p>{" "}
-                <p style={{ color: "#68938B" }}>prestataires actifs</p>
-              </div>
-              <div className="flex flex-col items-center w-full pt-10 pb-10 mr-3 ml-3 bg-neutral-100">
-                <img src="/exp4.png" className="w-28 mb-5" />
-                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-                  100%
-                </p>{" "}
-                <p style={{ color: "#68938B" }}>des prestations assurées</p>
-              </div>
-              <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
-                <img src="/exp3.png" className="w-28 mb-5" />
-                <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
-                  4.7/5
-                </p>{" "}
-                <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
-              </div>
-            </div>
+        {/* <div className="flex flex-col h-full mt-20"> */}
+        {/* <div className="flex-col space-between"> */}
+        <div className="flex flex-col w-48 items-center justify-center mb-20 ml-96">
+          <div className="mt-20 rounded-lg mb-5 pt-3  flex flex-col  items-center w-48 h-48 bg-neutral-100">
+            <img src="/exp2.png" className="w-24 mb-2" />
+            <p className="text-2xl font-bold" style={{ color: "#68938B" }}>
+              "50 429"
+            </p>
+            <p style={{ color: "#68938B" }}>transactions effectuées</p>
+          </div>
+          <div className="mb-5 pt-4 rounded-lg flex flex-col items-center w-48 h-48 bg-neutral-100">
+            <img src="/exp1.png" className="w-24 mb-2" />
+            <p className="text-2xl font-bold" style={{ color: "#68938B" }}>
+              100
+            </p>
+            <p style={{ color: "#68938B" }}>prestataires actifs</p>
+          </div>
+          <div className=" mb-5 pt-4 pb-4 rounded-lg flex flex-col items-center w-full h-min bg-neutral-100">
+            <img src="/exp4.png" className="w-24 mb-2" />
+            <p className="text-2xl font-bold" style={{ color: "#68938B" }}>
+              100%
+            </p>{" "}
+            <p style={{ color: "#68938B" }}>des prestations assurées</p>
+          </div>
+          <div className="flex pt-4 pb-4 text-center rounded-lg flex-col  w-full items-center h-min bg-neutral-100">
+            <img src="/exp3.png" className="w-24 mb-2" />
+            <p className="text-2xl  font-bold " style={{ color: "#68938B" }}>
+              4.7/5
+            </p>{" "}
+            <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
           </div>
         </div>
+        {/* </div> */}
+        {/* </div> */}
       </div>
       <Footer />
     </div>
