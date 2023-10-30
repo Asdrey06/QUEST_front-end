@@ -18,7 +18,7 @@ function SettingsClient() {
   console.log("this", userInfo);
 
   const [birthday, setBirthday] = useState("");
-
+  //fetch
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoToken", {
       method: "POST",

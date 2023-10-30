@@ -19,6 +19,7 @@ function MyComponent() {
 
   useEffect(() => {
     // Utilisez l'ID pour faire votre requête
+    //Ouverture de la requete par le concierge
     fetch(`http://localhost:3000/request/requests`)
       .then((response) => response.json())
       .then((data) => {

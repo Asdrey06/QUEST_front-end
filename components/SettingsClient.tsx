@@ -18,7 +18,7 @@ function SettingsClient() {
   console.log(userInfo);
 
   const [birthday, setBirthday] = useState("");
-
+  //fetch pour récuperer les infos du client
   useEffect(() => {
     fetch("http://localhost:3000/users/findUserInfo", {
       method: "POST",
@@ -74,6 +74,7 @@ function SettingsClient() {
   const [newMail, setNewMail] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
+  //fetch pour recuperer la modification de l'email
   const updateEmail = () => {
     fetch("http://localhost:3000/users/updateMail", {
       method: "POST",
@@ -92,7 +93,7 @@ function SettingsClient() {
         console.error("Error fetching concierge:", error);
       });
   };
-
+  //fetch pour modifier le mot de passe
   const updatePasswords = () => {
     fetch("http://localhost:3000/users/updatePasswords", {
       method: "POST",
