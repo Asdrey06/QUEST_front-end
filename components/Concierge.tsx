@@ -120,8 +120,8 @@ function Home() {
           <Image
             src="/exchange.png"
             alt="concierge 1"
-            width={822.67}
-            height={320}
+            width={100}
+            height={100}
             className="w-28 mb-5"
           />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
@@ -133,8 +133,8 @@ function Home() {
           <Image
             src="/euro.png"
             alt="concierge 2"
-            width={822.67}
-            height={320}
+            width={100}
+            height={100}
             className="w-28 mb-5"
           />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
@@ -146,8 +146,8 @@ function Home() {
           <Image
             src="/commission.png"
             alt="concierge 3"
-            width={822.67}
-            height={320}
+            width={100}
+            height={100}
             className="w-28 mb-5"
           />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
@@ -249,8 +249,9 @@ function Home() {
           <Image
             src="/conciergehappy.png"
             width={1233.36}
-            height={693.76}
+            height={1200}
             alt="Concierge Service"
+            className="w-full h-full object-cover"
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>
