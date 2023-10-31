@@ -48,9 +48,6 @@ function MyComponent() {
 
   // console.log(socket);
 
-  function deleteRequest() {
-    const [isModalVisible, setIsModalVisible] = useState(false);
-  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (socket) {
@@ -392,12 +389,12 @@ function MyComponent() {
         Swal.fire({
           title: "Requête terminée",
           icon: "info",
-          html: '<a href="/clientwelcome">Laisser un avis</a>',
+          html: '<a href="/clientwelcome" style="color: #B8D8FF;">Laisser un avis</a>',
 
           showCloseButton: true,
-          showCancelButton: true,
+          showCancelButton: false,
           focusConfirm: false,
-          confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+          confirmButtonText: '<i class="fa fa-thumbs-up"></i> Dashboard',
           confirmButtonAriaLabel: "Thumbs up, great!",
           cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
           cancelButtonAriaLabel: "Thumbs down",
@@ -410,6 +407,47 @@ function MyComponent() {
       }
     });
   }
+
+  function deleteRequestDb() {
+    fetch("http://localhost:3000/request/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ id: requestinfo.id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+  }
+
+  const deleteRequest = () => {
+    Swal.fire({
+      title: "Voulez-vous vraiment annulé la requête?",
+      text: "Ceci est non-réversible.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteRequestDb();
+        Swal.fire(
+          "Supprimé!",
+          "Votre requête a bien été supprimée.",
+          "success"
+        ).then(() => {
+          window.location.href = "/clientwelcome";
+        });
+      }
+    });
+  };
 
   return (
     <div
@@ -538,7 +576,7 @@ function MyComponent() {
               <div className="flex flex-col  mt-3 items-center">
                 <button
                   className={`${styles.hovereffect} text-base flex cursor-pointer w-56 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}
-                  // onClick={useDeleteRequest}
+                  onClick={deleteRequest}
                 >
                   Annuler la requête
                 </button>

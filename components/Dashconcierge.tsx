@@ -27,9 +27,281 @@ function Dashconcierge() {
 
   console.log(requests.length);
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   const [open, set] = useState(false);
+
+  const concierge = useSelector((state) => state.concierges.value);
+
+  console.log("this", concierge);
+
+  const user = useSelector((state) => state.users.value);
+
+  useEffect(() => {
+    const fetchRequests = () => {
+      fetch("http://localhost:3000/concierges/findRequests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: concierge.token,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.result.length);
+          setRequests(data.result);
+        })
+        .catch((error) => {
+          console.error("An error occurred: ", error);
+        });
+    };
+
+    fetchRequests();
+  }, []);
+
+  useEffect(() => {
+    if (concierge.status === null) {
+      alert("Vous n'êtes pas connecté sur un compte concierge.");
+      window.location.href = "/clientwelcome";
+    }
+
+    if (user.status === null && concierge.status === null) {
+      window.location.href = "/";
+    }
+  }, []);
+
+  const [pastRequests, setPastRequests] = useState([]);
+
+  console.log(pastRequests);
+
+  const [totalEarned, setTotalEarned] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/request/getFinishedRequestConcierge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: concierge.token,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("dedee", data);
+        setPastRequests(data.result);
+
+        let total = 0;
+
+        for (let i of data.result) {
+          total += i.serviceFees;
+        }
+
+        setTotalEarned(total);
+      })
+      .catch((error) => {
+        console.error("An error occurred: ", error);
+      });
+  }, []);
+
+  const requestList = requests.map((data, i) => {
+    console.log(data._id);
+    return (
+      <RequestList
+        instruction={data.instruction}
+        paymentInfo={data.paymentInfo}
+        date={data.date}
+        serviceFees={data.serviceFees}
+        productFees={data.productFees}
+        totalFees={data.totalFees}
+        from={data.from}
+        id={data._id}
+      />
+    );
+  });
+
+  const displayPastRequests = pastRequests.map((data, i) => {
+    console.log(data);
+
+    const parsedDate = new Date(data.date);
+
+    const daysOfWeek = [
+      "Dimanche",
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+    ];
+    const months = [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre",
+    ];
+
+    const dayOfWeek = daysOfWeek[parsedDate.getDay()];
+    const month = months[parsedDate.getMonth()];
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+
+    const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
+
+    // const openRequestPage = () => {
+    //   dispatch(
+    //     openRequest({
+    //       id: props.id,
+    //     })
+    //   );
+    //   window.location.href = "/openrequestpageconcierge";
+    // };
+
+    return (
+      <div className="w-full border-emerald-200 flex w-11/12  mr-5 mb-3 flex-wrap">
+        <div className="cursor-pointer bg-[#edfff9] shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex">
+          <div className="w-full">
+            <div className="flex justify-between items-center">
+              <div className="flex flex-row items-center">
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className="mr-3 h-7 text-green-600"
+                />
+                <div className="flex flex-col">
+                  <p className="italic text-sm text-light">
+                    Pour le: {formattedDate}
+                  </p>
+                  <p className="text-xl font-bold">{data.instruction}</p>
+                </div>
+              </div>
+              <div className="flex flex-row mr-4 text-right">
+                <p>
+                  <p className="italic text-sm">De la part de:</p>{" "}
+                  <p className="font-semibold text-neutral-500">{data.from}</p>
+                </p>
+              </div>
+            </div>
+
+            <div className="flex mt-8 justify-between items-center">
+              <div className="flex flex-col">
+                <p className="text-xs  items-center font-medium"></p>
+                <p className="pt-4 font-medium items-center text-xs">
+                  Votre commission:
+                  <p className="font-bold text-xl pr-3">{data.serviceFees}€</p>
+                </p>
+              </div>
+              {/* 
+              <p className="flex items-center pt-16 pr-4">
+                <CountdownTimer date={data.date} />
+                <FontAwesomeIcon icon={faClock} spin className="ml-2" />
+              </p> */}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      // </div>
+    );
+  });
+
+  // name={data.firstname}
+  // poster={data.photo}
+  // voteAverage={data.voteAverage}
+  // langue={data.personalInfo[0].languages}
+  // overview={data.personalInfo[0].aboutme}
+
+  const data = [
+    {
+      id: 1,
+      css: "red",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">{requests.length}</p>
+          <p className="text-sm">requêtes en cours</p>
+        </p>
+      ),
+    },
+    {
+      id: 2,
+      css: "blue",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">{pastRequests.length}</p>
+          <p className="text-sm">requêtes effectuées</p>
+        </p>
+      ),
+    },
+    {
+      id: 3,
+      css: "green",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">0%</p>{" "}
+          <p className="text-sm">taux de complétion</p>
+        </p>
+      ),
+    },
+    {
+      id: 4,
+      css: "green",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">0</p>{" "}
+          <p className="text-sm">note moyenne</p>
+        </p>
+      ),
+    },
+    {
+      id: 5,
+      css: "green",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">{totalEarned}€</p>{" "}
+          <p className="text-sm">gagné ce mois-ci</p>
+        </p>
+      ),
+    },
+    {
+      id: 6,
+      css: "green",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">{totalEarned}€</p>{" "}
+          <p className="text-sm">revenu total</p>
+        </p>
+      ),
+    },
+    {
+      id: 7,
+      css: "green",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">0</p>{" "}
+          <p className="text-sm">requêtes annulées</p>
+        </p>
+      ),
+    },
+    {
+      id: 8,
+      css: "green",
+      text: (
+        <p className="flex flex-col text-center items-center">
+          <p className="font-bold text-2xl">0</p>{" "}
+          <p className="text-sm">avertissements</p>
+        </p>
+      ),
+    },
+  ];
 
   const springApi = useSpringRef();
   const { size, ...rest } = useSpring({
@@ -55,151 +327,6 @@ function Dashconcierge() {
     0,
     open ? 0.1 : 0.6,
   ]);
-
-  const concierge = useSelector((state) => state.concierges.value);
-
-  console.log(concierge.token);
-
-  const user = useSelector((state) => state.users.value);
-
-  useEffect(() => {
-    const fetchRequests = () => {
-      fetch("http://localhost:3000/concierges/findRequests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: concierge.token,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.result.length);
-          setRequests(data.result);
-          setData([
-            {
-              id: 1,
-              css: "red",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">{data.result.length}</p>
-                  <p className="text-sm">requêtes en cours</p>
-                </p>
-              ),
-            },
-            {
-              id: 2,
-              css: "blue",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">0</p>
-                  <p className="text-sm">requêtes effectuées</p>
-                </p>
-              ),
-            },
-            {
-              id: 3,
-              css: "green",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">0%</p>{" "}
-                  <p className="text-sm">taux de complétion</p>
-                </p>
-              ),
-            },
-            {
-              id: 4,
-              css: "green",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">0</p>{" "}
-                  <p className="text-sm">note moyenne</p>
-                </p>
-              ),
-            },
-            {
-              id: 5,
-              css: "green",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">0€</p>{" "}
-                  <p className="text-sm">gagné ce mois-ci</p>
-                </p>
-              ),
-            },
-            {
-              id: 6,
-              css: "green",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">0€</p>{" "}
-                  <p className="text-sm">revenu total</p>
-                </p>
-              ),
-            },
-            {
-              id: 7,
-              css: "green",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">0</p>{" "}
-                  <p className="text-sm">requêtes annulées</p>
-                </p>
-              ),
-            },
-            {
-              id: 8,
-              css: "green",
-              text: (
-                <p className="flex flex-col text-center items-center">
-                  <p className="font-bold text-2xl">0</p>{" "}
-                  <p className="text-sm">avertissements</p>
-                </p>
-              ),
-            },
-          ]);
-        })
-        .catch((error) => {
-          console.error("An error occurred: ", error);
-        });
-    };
-
-    fetchRequests();
-  }, []);
-
-  useEffect(() => {
-    if (concierge.status === null) {
-      alert("Vous n'êtes pas connecté sur un compte concierge.");
-      window.location.href = "/clientwelcome";
-    }
-
-    if (user.status === null && concierge.status === null) {
-      window.location.href = "/";
-    }
-  }, []);
-
-  const requestList = requests.map((data, i) => {
-    console.log(data._id);
-    return (
-      <RequestList
-        instruction={data.instruction}
-        paymentInfo={data.paymentInfo}
-        date={data.date}
-        serviceFees={data.serviceFees}
-        productFees={data.productFees}
-        totalFees={data.totalFees}
-        from={data.from}
-        id={data._id}
-      />
-    );
-  });
-
-  // name={data.firstname}
-  // poster={data.photo}
-  // voteAverage={data.voteAverage}
-  // langue={data.personalInfo[0].languages}
-  // overview={data.personalInfo[0].aboutme}
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -294,6 +421,10 @@ function Dashconcierge() {
                 </div>
               </div>
             </div>
+            <p className="text-3xl font-semibold mt-20 flex text-center justify-center">
+              Reqûetes passées
+            </p>
+            <div className="mt-10 ml-2 border-l-2 ">{displayPastRequests}</div>
           </div>
         </div>
       </div>
