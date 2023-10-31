@@ -16,6 +16,8 @@ import io from "socket.io-client";
 import moment from "moment";
 import "moment/locale/fr";
 import { useRef } from "react";
+import { Modal } from "antd";
+import Swal from "sweetalert2";
 
 // const frLocale = require("../fr");
 
@@ -46,15 +48,9 @@ function MyComponent() {
 
   // console.log(socket);
 
-  useEffect(() => {
-    const socketInstance = io("http://localhost:3002");
-    setSocket(socketInstance);
-
-    return () => {
-      socketInstance.disconnect();
-    };
-  }, []);
-
+  function deleteRequest() {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (socket) {
@@ -167,6 +163,8 @@ function MyComponent() {
 
   console.log(currentRequest.chat);
 
+  console.log("this", currentRequest);
+
   const formatTimeAgo = (date) => {
     return moment(date).fromNow();
   };
@@ -190,6 +188,10 @@ function MyComponent() {
 
   const [chats, setChats] = useState([]);
 
+  const [status, setStatus] = useState(false);
+
+  console.log("this", status);
+
   console.log(chats);
 
   useEffect(() => {
@@ -207,6 +209,7 @@ function MyComponent() {
         setChats(data.result.chat);
         setSender(data.result.from);
         setRequestId(data.result._id);
+        setStatus(data.result.done);
 
         const last4 = data.result._id.slice(-4).toUpperCase();
 
@@ -238,6 +241,63 @@ function MyComponent() {
       </li>
     );
   });
+
+  function requestNotDone() {
+    fetch("http://localhost:3000/request/changeRequestStatusToFalse", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ id: requestinfo.id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+
+    setStatus(false);
+  }
+
+  console.log("CURRENT", currentRequest);
+
+  function createFinishedRequest() {
+    fetch("http://localhost:3000/request/finishedRequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        instruction: currentRequest.instruction,
+        paymentInfo: currentRequest.paymentInfo,
+        date: currentRequest.date,
+        serviceFees: currentRequest.serviceFees,
+        producFees: currentRequest.productFees,
+        totalFees: currentRequest.totalFees,
+        from: currentRequest.from,
+        fromConcierge: currentRequest.fromConcierge,
+        photoConcierge: currentRequest.photoConcierge,
+        conciergeId: currentRequest.conciergeId,
+        clientToken: currentRequest.clientToken,
+        chat: currentRequest.chat,
+        pastRequestId: currentRequest._id,
+        done: true,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+
+    setStatus(false);
+  }
 
   // useEffect(() => {
   //   fetch("http://localhost:3000/request/getChat", {
@@ -316,6 +376,41 @@ function MyComponent() {
     }
   }, [messages]);
 
+  function openModal() {
+    Swal.fire({
+      title: "Votre concierge déclare avoir terminé la requête",
+      text: "Confirmez-vous?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui",
+      cancelButtonText: "Non",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        createFinishedRequest();
+        Swal.fire({
+          title: "Requête terminée",
+          icon: "info",
+          html: '<a href="/clientwelcome">Laisser un avis</a>',
+
+          showCloseButton: true,
+          showCancelButton: true,
+          focusConfirm: false,
+          confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+          cancelButtonAriaLabel: "Thumbs down",
+        });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        requestNotDone();
+      }
+    });
+  }
+
   return (
     <div
       className="flex flex-col"
@@ -326,7 +421,7 @@ function MyComponent() {
         <p>Votre requête</p>{" "}
         <p className="italic ml-1 text-white font-bold">#{id}</p>
       </h1>
-
+      {/* {isModalVisible && <div>slt</div>} */}
       <div className="mt-10 flex mb-5 flex-row flex text-emerald-600 text-2xl font-semibold ml-5">
         <div className=" flex-col ml-16 w-5/12 h-full flex text-emerald-600 font-semibold font-light text-lg mb-3 font-semibold">
           <div className="flex items-center text-black ml-6">
@@ -439,7 +534,7 @@ function MyComponent() {
                   </div>
                 </div>
               </div>
-
+              {status && openModal()}
               <div className="flex flex-col  mt-3 items-center">
                 <button
                   className={`${styles.hovereffect} text-base flex cursor-pointer w-56 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}

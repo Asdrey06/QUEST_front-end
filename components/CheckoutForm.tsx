@@ -74,8 +74,9 @@ const CheckoutForm = () => {
                 from: user.firstname,
                 fromConcierge: offersRedux.firstname,
                 photoConcierge: offersRedux.photo,
-                id: offersRedux.id,
-                idClient: user.token,
+                done: false,
+                conciergeId: offersRedux.id,
+                clientToken: user.token,
               }),
             })
               .then((response) => response.json())
