@@ -29,6 +29,7 @@ function SettingsClient() {
   const [newCity, setNewCity] = useState("");
   const [newZipCode, setNewZipCode] = useState("");
   const [newAboutMe, setNewAboutMe] = useState("")
+  const [newIban, setNewIban] = useState("")
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoToken", {
@@ -357,10 +358,10 @@ function SettingsClient() {
                 type="text"
                 className="mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Nouveau RIB..."
-                value={newZipCode}
-                onChange={(e) => setNewZipCode(e.target.value)}
+                value={newIban}
+                onChange={(e) => setNewIban(e.target.value)}
               />
-               <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
+               <p onClick={handleUpdateIban} className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
                 Modifier votre RIB
               </p>
            
