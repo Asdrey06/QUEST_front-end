@@ -5,9 +5,6 @@ import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
 
 function SettingsClient() {
   const dispatch = useDispatch();
@@ -19,7 +16,7 @@ function SettingsClient() {
   console.log(userInfo);
 
   const [birthday, setBirthday] = useState("");
-  //fetch pour récuperer les infos du client
+
   useEffect(() => {
     fetch("http://localhost:3000/users/findUserInfo", {
       method: "POST",
@@ -70,76 +67,22 @@ function SettingsClient() {
   const year = parsedDate.getFullYear();
 
   const formattedDate = `${day} ${month} ${year}`;
-  console.log("data", userInfo);
-
-  const [newMail, setNewMail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-
-  //fetch pour recuperer la modification de l'email
-  const updateEmail = () => {
-    fetch("http://localhost:3000/users/updateMail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({ id: userInfo._id, email: newMail }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("this", data.result);
-        toast.success(data.result);
-      })
-      .catch((error) => {
-        console.error("Error fetching concierge:", error);
-      });
-  };
-  //fetch pour modifier le mot de passe
-  const updatePasswords = () => {
-    fetch("http://localhost:3000/users/updatePasswords", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({
-        id: userInfo._id,
-        password: newPassword,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("this", data.error);
-        toast.success(data.result);
-      })
-      .catch((error) => {
-        console.error("Error fetching concierge:", error);
-      });
-  };
 
   return (
     <div>
       {/* HEADER START */}
       <Header />
       {/* HEADER END */}
-      <div
-        className="h-full bg-white mt-14"
-        style={{
-          backgroundImage: "url(/whitebg2.jpg)", // Assuming your image is in the public directory
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <div className="h-full bg-white mt-14">
         <div className="flex">
           {" "}
-          <ToastContainer />
           <h1 className="flex text-xl bg-neutral-800 mb-6 pl-20 pb-5 pt-6 text-neutral-300 w-full">
             <p>Modifier vos informations personnelles</p>
             <p className="italic ml-1 text-white font-bold"></p>
           </h1>
         </div>
-        <div className="flex flex-row items-center justify-start ml-48">
-          <div className=" flex flex-col mb-10 p-10 shadow-xl w-5/12 bg-neutral-100">
+        <div className="flex flex-row ">
+          <div className="ml-10 flex flex-col mb-10 p-3 shadow-xl w-4/12 bg-neutral-100">
             <div className="font-semibold">Vos identifiants</div>
             <div className="flex flex-col">
               <div className="mt-3 mb-2 border-2 text-neutral-500  bg-white w-8/12 p-2 rounded-xl border-neutral-500">
@@ -149,31 +92,20 @@ function SettingsClient() {
                 type="text"
                 className="mt-1 mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Nouveau e-mail..."
-                onChange={(e) => setNewMail(e.target.value)}
-                value={newMail}
               />
-              <p
-                className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500"
-                onClick={updateEmail}
-              >
+              <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
                 Modifier votre e-mail
               </p>
 
               <div className="mt-10 mb-2 text-neutral-500 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500">
                 ************
-                {userInfo.newpassword}
               </div>
               <input
                 type="password"
                 className="mt-1 mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
                 placeholder="Nouveau mot de passe..."
-                onChange={(e) => setNewPassword(e.target.value)}
-                value={newPassword}
               />
-              <p
-                className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500"
-                onClick={updatePasswords}
-              >
+              <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
                 Modifier votre mot de passe
               </p>
             </div>
@@ -195,12 +127,15 @@ function SettingsClient() {
               </div>
               <p className="ml-1  flex">
                 <p className="text-emerald-600 cursor-pointer mr-1 hover:text-neutral-500">
-                  <Link href="/contacteznouspage">Contactez-nous</Link>
+                  Contactez-nous
                 </p>
                 pour changer vos informations personelles
               </p>
             </div>
-
+            <div className="flex flex-row"></div>
+            <div className="flex flex-row"></div>
+            <div className="flex flex-row"></div>
+            <div className="flex flex-row"></div>
             <div className="flex flex-col">
               <div className="flex flex-row"></div>
             </div>
@@ -209,8 +144,11 @@ function SettingsClient() {
               <p className="text-red-500 mt-2 text-cente w-64"></p>
             </div>
           </div>
-          <div className="flex justify-end">
-            {/* <img src="/update.png" className="mt-72 w-96 h-96 opacity-50" /> */}
+          <div className="flex justify-end ml-40">
+            <img
+              src="/update.png"
+              className="ml-96 mt-72 w-96 h-96 opacity-50"
+            />
           </div>
         </div>
       </div>

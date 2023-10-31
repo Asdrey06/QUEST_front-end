@@ -168,15 +168,51 @@ function ConciergeSignUp() {
   const [photo, setPhoto] = useState("");
   const [iban, setIban] = useState("");
 
-  console.log(photo);
+  
 
   const [wrongpw, setWrongPw] = useState("");
 
   const [wrongFile, setWrongFile] = useState("");
 
   const [id, setId] = useState("");
+  const nationalitie = [
+    "Algérienne (Algérie)",
+    "Allemande (Allemagne)",
+    "Américaine (États-Unis)",
+    "Argentinienne (Argentine)",
+    "Arménienne (Arménie)",
+    "Australienne (Australie)",
+    "Belge (Belgique)",
+    "Britannique (Royaume-Uni)",
+    "Brésilienne (Brésil)",
+    "Canadienne (Canada)",
+    "Chinoise (Chine)",
+    "Croate (Croatie)",
+    "Danoise (Danemark)",
+    "Égyptienne (Égypte)",
+    "Espagnole (Espagne)",
+    "Française (France)",
+    "Hongroise (Hongrie)",
+    "Indienne (Inde)",
+    "Italienne (Italie)",
+    "Japonaise (Japon)",
+    "Marocaine (Maroc)",
+    "Mexicaine (Mexique)",
+    "Nigériane (Nigéria)",
+    "Polonaise (Pologne)",
+    "Portugaise (Portugal)",
+    "Russe (Russie)",
+    "Sud-africaine (Afrique du Sud)",
+    "Suédoise (Suède)",
+    "Turque (Turquie)"
+    ];
+  
 
-  console.log(birthday);
+  const handleNationalityChange = (e) => {
+    setNationality(e.target.value);
+  };
+
+  
 
   const handleNumberChange = (e) => {
     const input = e.target.value;
@@ -440,13 +476,16 @@ function ConciergeSignUp() {
               />
             </div>
             <div className="flex flex-row">
-              <input
-                type="text"
-                className="mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
-                placeholder="Nationalité..."
-                onChange={(e) => setNationality(e.target.value)}
-                value={nationality}
-              />
+             <div>
+               <select className="mt-3 mb-3 border-2 mr-7 w-full p-2 rounded-xl border-neutral-500" value={nationality} onChange={handleNationalityChange}>
+                  <option value="">Sélectionnez une nationalité</option>
+                  {nationalitie.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               <input
                 type="textarea"
