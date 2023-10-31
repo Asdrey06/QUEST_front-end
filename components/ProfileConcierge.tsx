@@ -5,6 +5,7 @@ import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons
 import { useSelector, useDispatch } from "react-redux";
 import { offersConcierge } from "../reducers/offers";
 import { openConcierge } from "../reducers/conciergeProfile";
+import Image from 'next/image';
 
 function ProfileConcierge(props) {
   const dispatch = useDispatch();

@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import Footer from "./Footer";
 import Header from "./Header";
 import RequestList from "./RequestList";
+import Image from 'next/image';
 import {
   useTransition,
   useSpring,

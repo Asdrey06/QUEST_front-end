@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
+import Image from 'next/image';
 
 function SettingsClient() {
   const dispatch = useDispatch();

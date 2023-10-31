@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { openRequest } from "../reducers/openrequest";
+import Image from 'next/image';
 
 function CountdownTimer({ date }) {
   const targetDate = new Date(date);

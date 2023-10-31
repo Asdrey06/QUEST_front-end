@@ -39,7 +39,8 @@ function App({ Component, pageProps }) {
       <PersistGate persistor={persistor}>
         <>
           <Head>
-            <title>QUEST</title>
+            <title>QUEST - Concierge à la carte</title>
+            <meta name="description" content= "Votre concierge personnel pour des services sur mesure, une expérience exceptionnelle."></meta>
           </Head>
           <Component {...pageProps} />
         </>

@@ -16,6 +16,7 @@ import { offersConcierge } from "../reducers/offers";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { openRequest } from "../reducers/openrequest";
+import Image from 'next/image';
 
 function Client() {
   const [conciergeList, setConciergeList] = useState([]);
@@ -145,8 +146,10 @@ function Client() {
         </div>
         <div className="flex mt-5 justify-between items-center">
           <div className="flex items-center">
-            <img
+            <Image
               src={data.photoConcierge}
+              width={115.03}
+              height={112}
               className="h-10 w-10 rounded-[50px] object-cover"
             />
             <p className="ml-3 font-semibold text-neutral-500">

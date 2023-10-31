@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../styles/Home.module.css";
 import Header from "./Header";
 import Footer from "./Footer";
+import Image from 'next/image';
 
 function RGPD() {
   return (

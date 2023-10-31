@@ -17,6 +17,7 @@ import Footer from "./Footer";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import Image from 'next/image';
 
 import { useSelector, useDispatch } from "react-redux";
 import {

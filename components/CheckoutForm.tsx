@@ -9,6 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from 'next/image';
 
 const CheckoutForm = () => {
   const notify = () => toast("Wow so easy!");
@@ -145,11 +146,14 @@ const CheckoutForm = () => {
               </p>
             </button>
             <div className="flex items-center">
-              <img src="/mastercardlogo.png" className="ml-3 h-6" />
-              <img src="/visalogo.png" className="ml-3 h-4" />
+              <Image src="/mastercardlogo.png" alt="mastercard logo" width={30.9}
+      height={24} className="ml-3 h-6" />
+              <Image src="/visalogo.png" alt="visa logo" width={49.41}
+      height={16} className="ml-3 h-4" />
             </div>
             <div className="flex items-center">
-              <img src="/stripe.png" className="pl-6 ml-10 h-8 mr-16" />
+              <Image src="/stripe.png" width={148.83}
+      height={32} className="pl-6 ml-10 h-8 mr-16" />
             </div>
           </div>
         </form>

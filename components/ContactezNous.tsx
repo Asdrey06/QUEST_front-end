@@ -16,6 +16,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { offersConcierge } from "../reducers/offers";
 import emailjs from "emailjs-com";
 import Swal from "sweetalert2";
+import Image from 'next/image';
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_SERVICE_ID;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_TEMPLATE_ID;

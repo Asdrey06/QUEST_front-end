@@ -3,9 +3,17 @@ import React from "react";
 import Concierge from "../components/Concierge";
 import Dashconcierge from "../components/Dashconcierge";
 import OpenRequest from "../components/OpenRequest";
+import Head from 'next/head';
 
 function OpenedRequestPage() {
-  return <OpenRequest />;
+  return  (
+    <>
+<Head>
+        <title>QUEST - Votre demande - client</title>
+</Head>
+  <OpenRequest />;
+  </>
+  )
 }
 
 export default OpenedRequestPage;

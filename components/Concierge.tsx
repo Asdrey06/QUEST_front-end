@@ -14,6 +14,7 @@ import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Image from 'next/image';
 
 function Home() {
   const [number, setNumber] = useState(347);
@@ -117,21 +118,21 @@ function Home() {
       </div>
       <div className="flex flex-row mt-14 items-center justify-between">
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
-          <img src="/exchange.png" className="w-28 mb-5" />
+          <Image src="/exchange.png" alt="concierge 1" width={822.67} height={320} className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
             50 {number}
           </p>{" "}
           <p style={{ color: "#68938B" }}>transactions effectuées</p>
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
-          <img src="/euro.png" className="w-28 mb-5" />
+          <Image src="/euro.png" alt="concierge 2" width={822.67} height={320} className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
             80€
           </p>{" "}
           <p style={{ color: "#68938B" }}>Prix moyen d'une transaction</p>
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
-          <img src="/commission.png" className="w-28 mb-5" />
+          <Image src="/commission.png" alt="concierge 3" width={822.67} height={320} className="w-28 mb-5" />
           <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
             28€
           </p>{" "}
@@ -228,9 +229,11 @@ function Home() {
           </div>
         </div>
         <div className={`${styles.service} w-6/12 ml-10 mr-10`}>
-          <img
+          <Image
             src="/conciergehappy.png"
-            alt="Service"
+            width={1233.36} 
+            height={693.76}
+            alt="Concierge Service"
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>

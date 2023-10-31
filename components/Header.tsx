@@ -18,6 +18,7 @@ import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { openConcierge } from "../reducers/conciergeProfile";
+import Image from 'next/image';
 
 function Header() {
   const [login, setLogin] = useState(false);

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Image from 'next/image';
 
 function MentionsLegales() {
   return (

@@ -9,6 +9,7 @@ import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import Image from 'next/image';
 
 function Home() {
   const [number, setNumber] = useState(347);
@@ -52,7 +53,7 @@ function Home() {
         <div className="w-full ml-5">
           <img
             src="/concierge1.jpeg"
-            alt="Concierge photo"
+            alt="Concierge travail"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
             className=""
           />
@@ -60,7 +61,7 @@ function Home() {
         <div className="w-full">
           <img
             src="/concierge3.jpeg"
-            alt="Image 2"
+            alt=" concierge dans la voiture"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
             className="pl-3 pr-3"
           />
@@ -68,7 +69,7 @@ function Home() {
         <div className="w-full mr-5">
           <img
             src="/concierge2.jpeg"
-            alt="Image 3"
+            alt="Concierge pressing"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>
