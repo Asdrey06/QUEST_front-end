@@ -28,7 +28,8 @@ function SettingsClient() {
   const [newAddress, setNewAdress] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newZipCode, setNewZipCode] = useState("");
-  const [newAboutMe, setNewAboutMe] = useState("");
+  const [newAboutMe, setNewAboutMe] = useState("")
+  const [newIban, setNewIban] = useState("")
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoToken", {
@@ -122,7 +123,7 @@ function SettingsClient() {
         console.error("Error fetching concierge:", error);
       });
   };
-
+  
   const handleUpdateAboutMe = () => {
     fetch("http://localhost:3000/concierges/updateAboutMeConcierge", {
       method: "POST",
@@ -130,6 +131,30 @@ function SettingsClient() {
       body: JSON.stringify({
         token: conciergeInfo.token,
         aboutme: { aboutme: aboutme },
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result === true) {
+          console.log("Mise a jour réussi", data);
+          toast.success("Mise à jour réussi");
+          setNewPassword("");
+        } else {
+          toast.error("Format invalide");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+  };
+
+  const handleUpdateIban = () => {
+    fetch("http://localhost:3000/concierges/updateIbanConcierge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token: conciergeInfo.token,
+        paymentInfo: newIban,
       }),
     })
       .then((response) => response.json())
@@ -179,67 +204,7 @@ function SettingsClient() {
 
   const formattedDate = `${day} ${month} ${year}`;
 
-  const [suggestions, setSuggestions] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const fetchAddressSuggestions = async (query) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${query}`
-      );
-      if (!response.ok) {
-        throw new Error("Erreur de réseau");
-      }
-      const data = await response.json();
-      const suggestionAddresses = data.features.map(
-        (feature) => feature.properties.label
-      );
-      setSuggestions(suggestionAddresses);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  };
-
-  const handleAddressChange = (event) => {
-    const inputValue = event.target.value;
-    setAddressAPI(inputValue);
-
-    if (inputValue.length >= 3) {
-      fetchAddressSuggestions(inputValue);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleSuggestionClick = (selectedAddress) => {
-    setAddressAPI(selectedAddress);
-    setSuggestions([]);
-
-    fetch(`https://api-adresse.data.gouv.fr/search/?q=${selectedAddress}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.features && data.features.length > 0) {
-          const firstFeature = data.features[0];
-          setZipcode(firstFeature.properties.postcode);
-          setCity(firstFeature.properties.city);
-          setAddressAPI(
-            firstFeature.properties.housenumber +
-              " " +
-              firstFeature.properties.street
-          );
-          console.log("this", firstFeature.properties.street);
-        }
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération du code postal et de la ville :",
-          error
-        );
-      });
-  };
+  
 
   return (
     <div>
@@ -379,21 +344,27 @@ function SettingsClient() {
             <div className="flex flex-row"></div>
             <div className="font-semibold ml-1 mt-5 text-2xl">RIB</div>
             <div className="flex flex-row">
-              <div className="text-neutral-500 w-4/12 p-2 rounded-xl border-neutral-500">
-                ***************************
+              <div className="flex flex-row text-neutral-500 w-4/12 p-2 rounded-xl border-neutral-500">
+                <div>
+                  FR
+                  </div>
+                  <div className="ml-1">
+                  {iban}
+                  </div>
+                
               </div>
             </div>
             <input
-              type="text"
-              className="mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
-              placeholder="Nouveau RIB..."
-              value={newZipCode}
-              onChange={(e) => setNewZipCode(e.target.value)}
-            />
-            <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
-              Modifier votre RIB
-            </p>
-
+                type="text"
+                className="mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
+                placeholder="Nouveau RIB..."
+                value={newIban}
+                onChange={(e) => setNewIban(e.target.value)}
+              />
+               <p onClick={handleUpdateIban} className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
+                Modifier votre RIB
+              </p>
+           
             <div className="flex flex-row"></div>
             <div className="flex flex-row"></div>
             <div className="flex flex-row"></div>
