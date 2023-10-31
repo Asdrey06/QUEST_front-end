@@ -16,6 +16,7 @@ import io from "socket.io-client";
 import moment from "moment";
 import "moment/locale/fr";
 import { useRef } from "react";
+import { faSpinner } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 
 function MyComponent() {
   const [instruction, setInstruction] = useState({});
@@ -154,6 +155,10 @@ function MyComponent() {
 
   console.log(chats);
 
+  const [status, setStatus] = useState(false);
+
+  console.log(status);
+
   useEffect(() => {
     fetch("http://localhost:3000/request/openRequest", {
       method: "POST",
@@ -164,6 +169,7 @@ function MyComponent() {
     })
       .then((response) => response.json())
       .then((data) => {
+        setStatus(data.result.done);
         setCurrentRequest(data.result);
         setChats(data.result.chat);
         setSender(data.result.fromConcierge);
@@ -246,6 +252,26 @@ function MyComponent() {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
   }, [messages]);
+
+  const finishRequest = () => {
+    fetch("http://localhost:3000/request/changeRequestStatus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ id: requestinfo.id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+
+    setStatus(true);
+  };
 
   return (
     <div
@@ -377,15 +403,25 @@ function MyComponent() {
                 </div>
               </div>
 
-              <div className="flex flex-col  mt-3 items-center">
+              <div className="flex flex-col mt-2 items-center">
+                {status ? (
+                  <div className="flex items-center">
+                    {" "}
+                    <FontAwesomeIcon icon={faSpinner} className="mr-3" spin />
+                    <p className="ml-1 text-sm border-2 text-white bg-[#33B49C] rounded-2xl p-3">
+                      En attente de confirmation client...
+                    </p>
+                  </div>
+                ) : (
+                  <button
+                    className={`${styles.hovereffect} text-base flex cursor-pointer w-56 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}
+                    onClick={finishRequest}
+                  >
+                    Terminer la requête
+                  </button>
+                )}
                 <button
-                  className={`${styles.hovereffect} text-base flex cursor-pointer w-56 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}
-                  // onClick={useDeleteRequest}
-                >
-                  Terminer la requête
-                </button>
-                <button
-                  className={`text-xs flex cursor-pointer w-full mt-2 bg-red-500 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}
+                  className={`text-xs flex cursor-pointer w-64 mt-2 bg-red-500 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}
                   // onClick={useDeleteRequest}
                 >
                   Signalez un problème
@@ -401,3 +437,7 @@ function MyComponent() {
 }
 
 export default MyComponent;
+
+// {status
+//   ? "En attente de confirmation client..."
+//   : "Terminer la requête"}

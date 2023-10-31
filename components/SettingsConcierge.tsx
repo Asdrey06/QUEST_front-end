@@ -24,11 +24,14 @@ function SettingsClient() {
   const [aboutme, setAboutMe] = useState("");
   const [iban, setIban] = useState([]);
   const [newEmail, setNewEmail] = useState("");
+  const [nationality, setNationality] = useState("")
   const [newPassword, setNewPassword] = useState("");
   const [newAddress, setNewAdress] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newZipCode, setNewZipCode] = useState("");
-  const [newAboutMe, setNewAboutMe] = useState("");
+  const [newAboutMe, setNewAboutMe] = useState("")
+  const [newIban, setNewIban] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoToken", {
@@ -48,6 +51,8 @@ function SettingsClient() {
         setCity(data.result.addresses[0].city);
         setAboutMe(data.result.personalInfo[0].aboutme);
         setIban(data.result.paymentInfo);
+        setNationality(data.result.nationality);
+        setPhone(data.result.phoneNumber)
       })
       .catch((error) => {
         console.error("Error fetching concierge:", error);
@@ -122,7 +127,7 @@ function SettingsClient() {
         console.error("Error fetching concierge:", error);
       });
   };
-
+  
   const handleUpdateAboutMe = () => {
     fetch("http://localhost:3000/concierges/updateAboutMeConcierge", {
       method: "POST",
@@ -130,6 +135,30 @@ function SettingsClient() {
       body: JSON.stringify({
         token: conciergeInfo.token,
         aboutme: { aboutme: aboutme },
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result === true) {
+          console.log("Mise a jour réussi", data);
+          toast.success("Mise à jour réussi");
+          setNewPassword("");
+        } else {
+          toast.error("Format invalide");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+  };
+
+  const handleUpdateIban = () => {
+    fetch("http://localhost:3000/concierges/updateIbanConcierge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token: conciergeInfo.token,
+        paymentInfo: newIban,
       }),
     })
       .then((response) => response.json())
@@ -179,67 +208,7 @@ function SettingsClient() {
 
   const formattedDate = `${day} ${month} ${year}`;
 
-  const [suggestions, setSuggestions] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const fetchAddressSuggestions = async (query) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `https://api-adresse.data.gouv.fr/search/?q=${query}`
-      );
-      if (!response.ok) {
-        throw new Error("Erreur de réseau");
-      }
-      const data = await response.json();
-      const suggestionAddresses = data.features.map(
-        (feature) => feature.properties.label
-      );
-      setSuggestions(suggestionAddresses);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  };
-
-  const handleAddressChange = (event) => {
-    const inputValue = event.target.value;
-    setAddressAPI(inputValue);
-
-    if (inputValue.length >= 3) {
-      fetchAddressSuggestions(inputValue);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleSuggestionClick = (selectedAddress) => {
-    setAddressAPI(selectedAddress);
-    setSuggestions([]);
-
-    fetch(`https://api-adresse.data.gouv.fr/search/?q=${selectedAddress}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.features && data.features.length > 0) {
-          const firstFeature = data.features[0];
-          setZipcode(firstFeature.properties.postcode);
-          setCity(firstFeature.properties.city);
-          setAddressAPI(
-            firstFeature.properties.housenumber +
-              " " +
-              firstFeature.properties.street
-          );
-          console.log("this", firstFeature.properties.street);
-        }
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération du code postal et de la ville :",
-          error
-        );
-      });
-  };
+  
 
   return (
     <div>
@@ -293,19 +262,27 @@ function SettingsClient() {
                 Modifier votre mot de passe
               </p>
             </div>
-            <div className="flex flex-row"></div>
-            <div className="font-semibold ml-1 mt-6 text-2xl">Prénom & nom</div>
+            <div className="mt-5 border-t-black border-t-2 flex flex-row"></div>
+            <div className="font-semibold ml-1 mt-4  text-2xl">Prénom & nom</div>
             <div className="flex flex-row">
-              <div className=" mb-3 text-neutral-500  p-2 rounded-xl border-neutral-500">
+              <div className=" text-neutral-500  p-2 rounded-xl border-neutral-500">
                 {userInfo.firstname} {userInfo.lastname}
               </div>
             </div>
             <div className="flex flex-col">
-              <p className="ml-1 font-semibold text-2xl"> Date de naissance </p>
+              <p className="ml-1 mt-1 font-semibold text-2xl"> Date de naissance </p>
               <div className="text-neutral-500  w-5/12  p-2 rounded-xl border-neutral-500">
                 {formattedDate}
               </div>
-              <p className="ml-1  flex">
+              <p className="ml-1 font-semibold text-2xl"> Nationnalité </p>
+              <div className="text-neutral-500  w-5/12  p-2 rounded-xl border-neutral-500">
+                {userInfo.nationality}
+              </div>
+              <p className="ml-1 mt-1 font-semibold text-2xl"> Numéro de téléphone </p>
+              <div className="text-neutral-500  w-5/12  p-2 rounded-xl border-neutral-500">
+                {phone}
+              </div>
+              <p className="ml-1 mt-6  flex">
                 <p className="text-emerald-600 cursor-pointer mr-1 hover:text-neutral-500">
                   Contactez-nous
                 </p>
@@ -379,21 +356,27 @@ function SettingsClient() {
             <div className="flex flex-row"></div>
             <div className="font-semibold ml-1 mt-5 text-2xl">RIB</div>
             <div className="flex flex-row">
-              <div className="text-neutral-500 w-4/12 p-2 rounded-xl border-neutral-500">
-                ***************************
+              <div className="flex flex-row text-neutral-500 w-4/12 p-2 rounded-xl border-neutral-500">
+                <div>
+                  FR
+                  </div>
+                  <div className="ml-1">
+                  {iban}
+                  </div>
+                
               </div>
             </div>
             <input
-              type="text"
-              className="mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
-              placeholder="Nouveau RIB..."
-              value={newZipCode}
-              onChange={(e) => setNewZipCode(e.target.value)}
-            />
-            <p className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
-              Modifier votre RIB
-            </p>
-
+                type="text"
+                className="mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
+                placeholder="Nouveau RIB..."
+                value={newIban}
+                onChange={(e) => setNewIban(e.target.value)}
+              />
+               <p onClick={handleUpdateIban} className="ml-1 cursor-pointer text-emerald-600 hover:text-neutral-500">
+                Modifier votre RIB
+              </p>
+           
             <div className="flex flex-row"></div>
             <div className="flex flex-row"></div>
             <div className="flex flex-row"></div>

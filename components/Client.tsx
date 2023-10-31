@@ -27,6 +27,8 @@ function Client() {
 
   const [activeRequests, setActiveRequests] = useState([]);
 
+  const [finishedRequests, setFinishedRequests] = useState([]);
+
   useEffect(() => {
     if (conciergeRedux.status === "concierge") {
       window.location.href = "/dashconcierge";
@@ -70,6 +72,25 @@ function Client() {
       .then((response) => response.json())
       .then((data) => {
         setActiveRequests(data.result);
+      })
+      .catch((error) => {
+        console.error("An error occurred: ", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/request/getFinishedRequestClient", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: user.token,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFinishedRequests(data.result);
       })
       .catch((error) => {
         console.error("An error occurred: ", error);
@@ -161,6 +182,80 @@ function Client() {
     );
   });
 
+  const displayPastRequests = finishedRequests.map((data, i) => {
+    const parsedDate = new Date(data.date);
+
+    console.log("this", data);
+
+    const daysOfWeek = [
+      "Dimanche",
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+    ];
+    const months = [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre",
+    ];
+
+    const dayOfWeek = daysOfWeek[parsedDate.getDay()];
+    const month = months[parsedDate.getMonth()];
+    const day = parsedDate.getDate();
+    const year = parsedDate.getFullYear();
+
+    const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
+
+    const openRequestClient = () => {
+      dispatch(
+        openRequest({
+          id: data._id,
+        })
+      );
+      window.location.href = "/openrequestpage";
+    };
+
+    return (
+      <div className="bg-[#edfff9] text-lg p-5 border-2 mt-2 mb-10 shadow-md shadow-neutral-400">
+        <div className="flex justify-between">
+          <div>
+            <p className="font-semibold text-xl">{data.instruction}</p>{" "}
+            <p className="italic flex font-extralight text-sm">
+              Pour le: <p className="ml-1 font-normal">{formattedDate}</p>
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="font-extralight"> Total reglé: </p>
+            <p className="text-xl font-bold">{data.totalFees} €</p>
+          </div>
+        </div>
+        <div className="flex mt-5 justify-between items-center">
+          <div className="flex items-center">
+            <img
+              src={data.photoConcierge}
+              className="h-10 w-10 rounded-[50px] object-cover"
+            />
+            <p className="ml-3 font-semibold text-neutral-500">
+              {data.fromConcierge}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  });
+
   console.log(activeRequests);
 
   const concierge = conciergeList.map((data, i) => {
@@ -202,14 +297,23 @@ function Client() {
             {concierge}
           </div>
           <div className="w-6/12 h-full shadow-neutral-300border-neutral-400 mr-10 rounded-md overflow-auto ">
-            <h1 className="text-3xl mb-5 font-light text-neutral-600 border-emerald-700 text-left rounded-md">
-              <FontAwesomeIcon icon={faBell} className="mr-2 text-red-500" />{" "}
+            <h1 className="text-3xl mb-5 font-semibold text-neutral-600 border-emerald-700 text-left rounded-md">
+              <FontAwesomeIcon
+                icon={faBell}
+                bounce
+                className="mr-2 text-red-500 pt-4"
+              />{" "}
               Requêtes actives
             </h1>
             <div className="h-full">
               {displayRequests}
               {!activeRequests && "Aucune requête en cours pour le moment"}
             </div>
+            <h1 className="text-3xl mb-5 font-light text-neutral-600 border-emerald-700 text-left rounded-md">
+              <FontAwesomeIcon icon={faCheck} className="mr-2 text-green-500" />{" "}
+              Requêtes terminées
+            </h1>
+            {displayPastRequests}
           </div>
         </div>
       </div>

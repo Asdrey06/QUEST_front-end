@@ -26,6 +26,10 @@ function Footer() {
     window.location.href = "/RGPDPage";
   };
 
+  const FAQ = () => {
+    window.location.href = "/FAQPage";
+  };
+
   return (
     <div
       className="w-full h-full pt-5 pl-5 flex flex-row justify-between"
@@ -38,8 +42,8 @@ function Footer() {
           </Link>
         </div>
         <div className="flex flex-col text-white text-sm pb-5 pl-5">
-          <p className="w-3/12 hover:text-neutral-200">
-            <Link href="">FAQ</Link>
+          <p className="hover:text-neutral-200">
+            <button onClick={FAQ}>FAQ</button>
           </p>
           <p className="hover:text-neutral-200">
             <Link href="/contacteznouspage">Contactez-nous</Link>
