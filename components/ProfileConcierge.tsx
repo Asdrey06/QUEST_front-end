@@ -5,7 +5,7 @@ import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons
 import { useSelector, useDispatch } from "react-redux";
 import { offersConcierge } from "../reducers/offers";
 import { openConcierge } from "../reducers/conciergeProfile";
-import Image from 'next/image';
+import Image from "next/image";
 
 function ProfileConcierge(props) {
   const dispatch = useDispatch();
@@ -33,13 +33,15 @@ function ProfileConcierge(props) {
   return (
     <div className="bg-neutral-100 h-48 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex items-center">
       <div
-        className="h-28 w-32 cursor-pointer relative" // Added "relative" class
+        className="h-28 w-32 ml-3 mt-2 cursor-pointer relative" // Added "relative" class
         onClick={openProfile}
       >
-        <img
+        <Image
+          width={105}
+          height={112}
           className="h-full w-full rounded-[50%] cursor-pointer object-cover"
           src={props.poster}
-          alt={props.name}
+          alt="Concierge profile photo"
         />
         <p className="text-xs absolute bg-black bg-opacity-50 pl-5 pr-5 rounded-[50%] flex items-center justify-center h-full top-0 left-0 text-white font-semibold text-center opacity-0 transition-opacity hover:opacity-100 cursor-pointer">
           Voir le profil

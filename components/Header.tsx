@@ -18,7 +18,7 @@ import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { openConcierge } from "../reducers/conciergeProfile";
-import Image from 'next/image';
+import Image from "next/image";
 
 function Header() {
   const [login, setLogin] = useState(false);
@@ -219,6 +219,7 @@ function Header() {
               <Link href="/clientwelcome">
                 <img
                   src="/questlogowhite.png"
+                  alt="Quest logo"
                   className="h-10 mr-10 cursor-pointer"
                 />
               </Link>
@@ -235,6 +236,7 @@ function Header() {
               <Link href="/">
                 <img
                   src="/questlogowhite.png"
+                  alt="Quest logo"
                   className="h-10 mr-10 cursor-pointer"
                 />
               </Link>
@@ -388,6 +390,7 @@ function Header() {
                   {conciergeLogout && (
                     <img
                       src={concierge.photo}
+                      alt="Concierge profile photo"
                       className="h-10 w-10 object-cover rounded-full max-w-10 max-h-10"
                     />
                   )}

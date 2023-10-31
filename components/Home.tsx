@@ -9,7 +9,7 @@ import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import Image from 'next/image';
+import Image from "next/image";
 
 function Home() {
   const [number, setNumber] = useState(347);
@@ -51,26 +51,33 @@ function Home() {
       </div>
       <div className=" flex flex-row justify-between mb-5">
         <div className="w-full ml-5">
-          <img
+          <Image
+            width={500}
+            height={350}
             src="/concierge1.jpeg"
             alt="Concierge travail"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            className=""
+            className="w-full h-full object-cover"
+            style={{ border: "2px solid red" }}
           />
         </div>
         <div className="w-full">
-          <img
+          <Image
+            width={500}
+            height={350}
             src="/concierge3.jpeg"
-            alt=" concierge dans la voiture"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            className="pl-3 pr-3"
+            alt="Concierge travail"
+            className="w-full h-full object-cover"
+            style={{ border: "2px solid red" }}
           />
         </div>
         <div className="w-full mr-5">
-          <img
+          <Image
+            width={500}
+            height={350}
             src="/concierge2.jpeg"
-            alt="Concierge pressing"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            alt="Concierge travail"
+            className="w-full h-full object-cover"
+            style={{ border: "2px solid red" }}
           />
         </div>
       </div>
@@ -96,29 +103,53 @@ function Home() {
       </div>
       <div className="flex flex-row items-center justify-between">
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
-          <img src="/exp2.png" className="w-28 mb-5" />
-          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+          <Image
+            width={120}
+            height={120}
+            src="/exp2.png"
+            alt="Transaction logo"
+            className="w-28 mb-5"
+          />
+          <p className="text-3xl mt-2 font-bold" style={{ color: "#68938B" }}>
             50 {number}
           </p>{" "}
           <p style={{ color: "#68938B" }}>transactions effectuées</p>
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
-          <img src="/exp1.png" className="w-28 mb-5" />
-          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+          <Image
+            width={120}
+            height={120}
+            src="/exp1.png"
+            alt="Active concierge logo"
+            className="w-28 mb-5"
+          />
+          <p className="text-3xl mt-2 font-bold" style={{ color: "#68938B" }}>
             10 0{numberWorker}
           </p>{" "}
           <p style={{ color: "#68938B" }}>prestataires actifs</p>
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-3 ml-3 bg-neutral-100">
-          <img src="/exp4.png" className="w-28 mb-5" />
-          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+          <Image
+            width={120}
+            height={120}
+            src="/exp4.png"
+            alt="Insurance logo"
+            className="w-28 mb-5"
+          />
+          <p className="text-3xl mt-2 font-bold" style={{ color: "#68938B" }}>
             100%
           </p>{" "}
           <p style={{ color: "#68938B" }}>des prestations assurées</p>
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
-          <img src="/exp3.png" className="w-28 mb-5" />
-          <p className="text-3xl font-bold" style={{ color: "#68938B" }}>
+          <Image
+            width={120}
+            height={120}
+            src="/exp3.png"
+            alt="Reviews logo"
+            className="w-28 mb-5"
+          />
+          <p className="text-3xl  mt-2 font-bold" style={{ color: "#68938B" }}>
             4.7/5
           </p>{" "}
           <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
@@ -129,9 +160,12 @@ function Home() {
         style={{ backgroundColor: "#F0FDF6" }}
       >
         <div className={`${styles.service} w-6/12 ml-10 mr-10`}>
-          <img
+          <Image
+            width={720}
+            height={752}
             src="/introphoto.jpg"
-            alt="Service"
+            alt="Quest concierge in car"
+            className="w-full h-full object-cover"
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>
@@ -199,6 +233,7 @@ function Home() {
           <img
             src="/trust.png"
             className="pb-3"
+            alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
           />
           <p className="text-xl font-semibold">Expérience concluante!</p>{" "}
@@ -208,6 +243,7 @@ function Home() {
           <img
             src="/trust.png"
             className="pb-3"
+            alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
           />
           <p className="text-xl font-semibold">Satisfait</p>{" "}
@@ -219,6 +255,7 @@ function Home() {
           <img
             src="/trust.png"
             className="pb-3"
+            alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
           />
           <p className="text-xl font-semibold">Très pratique</p>{" "}
@@ -228,6 +265,7 @@ function Home() {
           <img
             src="/trust.png"
             className="pb-3"
+            alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
           />
           <p className="text-xl font-semibold">Mieux que Uber Eats</p>{" "}
@@ -237,6 +275,7 @@ function Home() {
           <img
             src="/trust.png"
             className="pb-3"
+            alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
           />
           <p className="text-xl font-semibold">Je recommande</p>{" "}

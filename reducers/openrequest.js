@@ -17,8 +17,14 @@ export const openRequestSlice = createSlice({
         id: action.payload.id,
       };
     },
+    clearRequest: (state, action) => {
+      state.value = {
+        ...state.value,
+        id: null,
+      };
+    },
   },
 });
 
-export const { openRequest } = openRequestSlice.actions;
+export const { openRequest, clearRequest } = openRequestSlice.actions;
 export default openRequestSlice.reducer;

@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import Footer from "./Footer";
 import Header from "./Header";
 import RequestList from "./RequestList";
-import Image from 'next/image';
+import Image from "next/image";
 import {
   useTransition,
   useSpring,
@@ -22,6 +22,7 @@ import {
   useSpringRef,
 } from "@react-spring/web";
 import { faHandPointer } from "@fortawesome/free-regular-svg-icons";
+import { faStar } from "@fortawesome/free-regular-svg-icons";
 
 function Dashconcierge() {
   const [requests, setRequests] = useState([]);
@@ -34,9 +35,43 @@ function Dashconcierge() {
 
   const concierge = useSelector((state) => state.concierges.value);
 
-  console.log("this", concierge);
+  console.log("this", concierge.token);
 
   const user = useSelector((state) => state.users.value);
+
+  const [starsAverage, setStarsAverage] = useState("");
+
+  console.log(starsAverage);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/concierges/findInfoDashboardConcierge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({ token: concierge.token }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        let total = 0;
+        for (let i of data.result.reviews) {
+          console.log(i.stars);
+          total += i.stars;
+        }
+        console.log(total);
+
+        let calculatedStars = total / data.result.reviews.length;
+
+        console.log(calculatedStars);
+
+        setStarsAverage(calculatedStars.toFixed(2));
+      })
+      .catch((error) => {
+        console.error("Error fetching concierge:", error);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchRequests = () => {
@@ -170,7 +205,7 @@ function Dashconcierge() {
 
     return (
       <div className="w-full border-emerald-200 flex w-11/12  mr-5 mb-3 flex-wrap">
-        <div className="cursor-pointer bg-[#edfff9] shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex">
+        <div className="bg-[#edfff9] shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex">
           <div className="w-full">
             <div className="flex justify-between items-center">
               <div className="flex flex-row items-center">
@@ -257,8 +292,10 @@ function Dashconcierge() {
       css: "green",
       text: (
         <p className="flex flex-col text-center items-center">
-          <p className="font-bold text-2xl">0</p>{" "}
-          <p className="text-sm">note moyenne</p>
+          <FontAwesomeIcon icon={faStar} className="text-amber-500" />
+          <p className="font-bold text-2xl">{starsAverage}</p>
+
+          <p className="text-sm mb-4">note moyenne</p>
         </p>
       ),
     },
@@ -423,7 +460,7 @@ function Dashconcierge() {
               </div>
             </div>
             <p className="text-3xl font-semibold mt-20 flex text-center justify-center">
-              Reqûetes passées
+              Requêtes passées
             </p>
             <div className="mt-10 ml-2 border-l-2 ">{displayPastRequests}</div>
           </div>
