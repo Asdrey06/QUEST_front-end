@@ -24,12 +24,14 @@ function SettingsClient() {
   const [aboutme, setAboutMe] = useState("");
   const [iban, setIban] = useState([]);
   const [newEmail, setNewEmail] = useState("");
+  const [nationality, setNationality] = useState("")
   const [newPassword, setNewPassword] = useState("");
   const [newAddress, setNewAdress] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newZipCode, setNewZipCode] = useState("");
   const [newAboutMe, setNewAboutMe] = useState("")
-  const [newIban, setNewIban] = useState("")
+  const [newIban, setNewIban] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoToken", {
@@ -49,6 +51,8 @@ function SettingsClient() {
         setCity(data.result.addresses[0].city);
         setAboutMe(data.result.personalInfo[0].aboutme);
         setIban(data.result.paymentInfo);
+        setNationality(data.result.nationality);
+        setPhone(data.result.phoneNumber)
       })
       .catch((error) => {
         console.error("Error fetching concierge:", error);
@@ -258,19 +262,27 @@ function SettingsClient() {
                 Modifier votre mot de passe
               </p>
             </div>
-            <div className="flex flex-row"></div>
-            <div className="font-semibold ml-1 mt-6 text-2xl">Prénom & nom</div>
+            <div className="mt-5 border-t-black border-t-2 flex flex-row"></div>
+            <div className="font-semibold ml-1 mt-4  text-2xl">Prénom & nom</div>
             <div className="flex flex-row">
-              <div className=" mb-3 text-neutral-500  p-2 rounded-xl border-neutral-500">
+              <div className=" text-neutral-500  p-2 rounded-xl border-neutral-500">
                 {userInfo.firstname} {userInfo.lastname}
               </div>
             </div>
             <div className="flex flex-col">
-              <p className="ml-1 font-semibold text-2xl"> Date de naissance </p>
+              <p className="ml-1 mt-1 font-semibold text-2xl"> Date de naissance </p>
               <div className="text-neutral-500  w-5/12  p-2 rounded-xl border-neutral-500">
                 {formattedDate}
               </div>
-              <p className="ml-1  flex">
+              <p className="ml-1 font-semibold text-2xl"> Nationnalité </p>
+              <div className="text-neutral-500  w-5/12  p-2 rounded-xl border-neutral-500">
+                {userInfo.nationality}
+              </div>
+              <p className="ml-1 mt-1 font-semibold text-2xl"> Numéro de téléphone </p>
+              <div className="text-neutral-500  w-5/12  p-2 rounded-xl border-neutral-500">
+                {phone}
+              </div>
+              <p className="ml-1 mt-6  flex">
                 <p className="text-emerald-600 cursor-pointer mr-1 hover:text-neutral-500">
                   Contactez-nous
                 </p>
