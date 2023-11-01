@@ -1,18 +1,12 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
 import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import Header from "./Header";
 import Footer from "./Footer";
 import Header from "./Header";
 import RequestList from "./RequestList";
-import Image from "next/image";
 import {
   useTransition,
   useSpring,
@@ -23,25 +17,19 @@ import {
 } from "@react-spring/web";
 import { faHandPointer } from "@fortawesome/free-regular-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { RootState } from "../pages/_app";
+import { UserState } from "../reducers/users";
 
 function Dashconcierge() {
   const [requests, setRequests] = useState([]);
 
-  console.log(requests.length);
-
-  // const [data, setData] = useState([]);
-
   const [open, set] = useState(false);
 
-  const concierge = useSelector((state) => state.concierges.value);
+  const concierge = useSelector((state: RootState) => state.concierges.value);
 
-  console.log("this", concierge.token);
-
-  const user = useSelector((state) => state.users.value);
+  const user = useSelector((state: RootState) => state.users.value);
 
   const [starsAverage, setStarsAverage] = useState("");
-
-  console.log(starsAverage);
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoDashboardConcierge", {
@@ -54,17 +42,12 @@ function Dashconcierge() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         let total = 0;
         for (let i of data.result.reviews) {
-          console.log(i.stars);
           total += i.stars;
         }
-        console.log(total);
 
         let calculatedStars = total / data.result.reviews.length;
-
-        console.log(calculatedStars);
 
         setStarsAverage(calculatedStars.toFixed(2));
       })
@@ -86,7 +69,6 @@ function Dashconcierge() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.result.length);
           setRequests(data.result);
         })
         .catch((error) => {
@@ -110,8 +92,6 @@ function Dashconcierge() {
 
   const [pastRequests, setPastRequests] = useState([]);
 
-  console.log(pastRequests);
-
   const [totalEarned, setTotalEarned] = useState(null);
 
   useEffect(() => {
@@ -126,7 +106,6 @@ function Dashconcierge() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("dedee", data);
         setPastRequests(data.result);
 
         let total = 0;
@@ -143,7 +122,6 @@ function Dashconcierge() {
   }, []);
 
   const requestList = requests.map((data, i) => {
-    console.log(data._id);
     return (
       <RequestList
         instruction={data.instruction}
@@ -159,8 +137,6 @@ function Dashconcierge() {
   });
 
   const displayPastRequests = pastRequests.map((data, i) => {
-    console.log(data);
-
     const parsedDate = new Date(data.date);
 
     const daysOfWeek = [
@@ -193,15 +169,6 @@ function Dashconcierge() {
     const year = parsedDate.getFullYear();
 
     const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
-
-    // const openRequestPage = () => {
-    //   dispatch(
-    //     openRequest({
-    //       id: props.id,
-    //     })
-    //   );
-    //   window.location.href = "/openrequestpageconcierge";
-    // };
 
     return (
       <div className="w-full border-emerald-200 flex w-11/12  mr-5 mb-3 flex-wrap">
@@ -236,25 +203,12 @@ function Dashconcierge() {
                   <p className="font-bold text-xl pr-3">{data.serviceFees}€</p>
                 </p>
               </div>
-              {/* 
-              <p className="flex items-center pt-16 pr-4">
-                <CountdownTimer date={data.date} />
-                <FontAwesomeIcon icon={faClock} spin className="ml-2" />
-              </p> */}
             </div>
           </div>
         </div>
       </div>
-
-      // </div>
     );
   });
-
-  // name={data.firstname}
-  // poster={data.photo}
-  // voteAverage={data.voteAverage}
-  // langue={data.personalInfo[0].languages}
-  // overview={data.personalInfo[0].aboutme}
 
   const data = [
     {

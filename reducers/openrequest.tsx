@@ -1,6 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface OpenRequestState {
+  value: {
+    id: string | null;
+  };
+}
+
+const initialState: OpenRequestState = {
   value: {
     id: null,
   },
@@ -10,14 +16,14 @@ export const openRequestSlice = createSlice({
   name: "openrequest",
   initialState,
   reducers: {
-    openRequest: (state, action) => {
+    openRequest: (state, action: PayloadAction<{ id: string | null }>) => {
       console.log(action.payload);
       state.value = {
         ...state.value,
         id: action.payload.id,
       };
     },
-    clearRequest: (state, action) => {
+    clearRequest: (state) => {
       state.value = {
         ...state.value,
         id: null,

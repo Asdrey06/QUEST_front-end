@@ -1,21 +1,21 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import React from "react";
-import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
-import Image from "next/image";
+import { RootState } from "../reducers/rootReducer";
 
 function SettingsClient() {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.users.value);
+  const user = useSelector((state: RootState) => (state as any).users.value);
 
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    firstname: "",
+    lastname: "",
+  });
 
   console.log(userInfo);
 
@@ -74,13 +74,11 @@ function SettingsClient() {
 
   return (
     <div>
-      {/* HEADER START */}
       <Header />
-      {/* HEADER END */}
       <div
         className="h-full bg-white mt-14"
         style={{
-          backgroundImage: "url(/whitebg.jpg)", // Assuming your image is in the public directory
+          backgroundImage: "url(/whitebg.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -159,9 +157,7 @@ function SettingsClient() {
         </div>
       </div>
 
-      {/* FOOTER */}
       <Footer />
-      {/* FOOTER END  */}
     </div>
   );
 }

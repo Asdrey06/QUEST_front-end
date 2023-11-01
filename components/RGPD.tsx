@@ -1,8 +1,6 @@
 import React from "react";
-import styles from "../styles/Home.module.css";
 import Header from "./Header";
 import Footer from "./Footer";
-import Image from 'next/image';
 
 function RGPD() {
   return (
@@ -12,13 +10,12 @@ function RGPD() {
       <div
         className="flex items-center bg-white justify-center mt-14"
         style={{
-          backgroundImage: "url(/whitebg.jpg)", // Assuming your image is in the public directory
+          backgroundImage: "url(/whitebg.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="bg-[9C339C] mb-10 ">
-          {/* <div className="p-10 bg-gray-100 min-h-screen"> */}
           <h1 className="text-3xl font-bold mb-6 text-center mt-5">
             Politique de confidentialité et RGPD
           </h1>

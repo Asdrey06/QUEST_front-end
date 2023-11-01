@@ -7,7 +7,7 @@ function FAQ() {
     <div
       className="bg-white"
       style={{
-        backgroundImage: "url(/whitebg.jpg)", // Assuming your image is in the public directory
+        backgroundImage: "url(/whitebg.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

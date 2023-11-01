@@ -2,17 +2,8 @@ import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faStar } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
 import { loginUser, logoutUser } from "../reducers/users";
-import {
-  faArrowRight,
-  faCheck,
-} from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { Modal } from "antd";
-// import { faSolid } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import Link from "../node_modules/next/link";
+import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
@@ -34,14 +25,12 @@ function ClientSignUp() {
       );
     };
 
-    // Load the Cloudinary widget script when the component is mounted
     const script = document.createElement("script");
     script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
     script.type = "text/javascript";
     script.async = true;
     document.head.appendChild(script);
 
-    // Cleanup: Remove the script when the component unmounts
     return () => {
       document.head.removeChild(script);
     };
@@ -52,11 +41,6 @@ function ClientSignUp() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [wrongpw, setWrongPw] = useState("");
-
-  const [id, setId] = useState("");
-
-  console.log(id);
 
   const handleRegister = () => {
     fetch("http://localhost:3000/users/signUp", {
@@ -72,9 +56,7 @@ function ClientSignUp() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.result === false) {
-          console.log(data.error);
           toast.error(data.error);
         } else if (data.result === true) {
           dispatch(
@@ -93,19 +75,16 @@ function ClientSignUp() {
 
   return (
     <div>
-      {/* HEADER START */}
       <Header />
-      {/* HEADER END */}
       <div
         className="flex"
         style={{
-          // opacity: 0.6,
           backgroundColor: "white",
-          backgroundImage: "url(/backgroundopacity.png)", // Assuming your image is in the public directory
+          backgroundImage: "url(/backgroundopacity.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
 
-          minHeight: "calc(100vh - 100px)", // Adjust the value based on your header's height
+          minHeight: "calc(100vh - 100px)",
         }}
       >
         <ToastContainer />
@@ -123,7 +102,6 @@ function ClientSignUp() {
             </h1>
           </div>
           <div className="flex flex-col items-center justify-center w-full mb-5 ml-10">
-            {/* BLOC 1 */}
             <div className="flex items-center justify-center ml-15 w-80 mb-5 flex-col shadow-md p-3 bg-neutral-100 rounded-3xl">
               <input
                 type="text"
@@ -162,7 +140,6 @@ function ClientSignUp() {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
-              {/* <div className="cursor-pointer border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-full text-xl text-white"> */}
             </div>
             <div
               className={`${styles.hovereffect} flex flex-col shadow-md  items-center justify-center text-center mt-5 cursor-pointer border-2  pt-2 pb-2 mb-3 rounded-2xl w-60 text-xl text-white`}
@@ -172,8 +149,6 @@ function ClientSignUp() {
             </div>
           </div>
         </div>
-        {/* <div className="flex flex-col h-full mt-20"> */}
-        {/* <div className="flex-col space-between"> */}
         <div className="bg-white p-5 h-full shadow-2xl mt-28 w-5/12">
           <div className="mb-5 flex flex-col">
             <div className="flex flex-row m-5 ">
@@ -232,7 +207,6 @@ function ClientSignUp() {
   );
 
   {
-    /* END OF BLOC 3  */
   }
 }
 

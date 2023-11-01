@@ -3,26 +3,17 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faEuroSign } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { useEffect, useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
-import { useRouter } from "next/router"; // Importez le hook useRouter
 import { useSelector } from "react-redux";
-import { current } from "@reduxjs/toolkit";
 import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import io from "socket.io-client";
 import moment from "moment";
 import "moment/locale/fr";
 import { useRef } from "react";
-import { Modal } from "antd";
 import Swal from "sweetalert2";
-import Image from "next/image";
-
-// const frLocale = require("../fr");
-
-// moment.updateLocale("fr", frLocale);
+import { RootState } from "../reducers/rootReducer";
 
 function MyComponent() {
   const [instruction, setInstruction] = useState({});
@@ -35,21 +26,18 @@ function MyComponent() {
   console.log(messages);
 
   const [sender, setSender] = useState("");
-  // const socket = io("http://localhost:3001");
 
   const [socket, setSocket] = useState(null);
 
-  const requestinfo = useSelector((state) => state.openrequest.value);
+  const requestinfo = useSelector(
+    (state: RootState) => (state as any).openrequest.value
+  );
 
   console.log(requestinfo);
 
   const [requestId, setRequestId] = useState("");
 
   console.log(requestId);
-
-  // console.log(requestinfo.id);
-
-  // console.log(socket);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +57,7 @@ function MyComponent() {
 
     return () => {
       if (socket) {
-        socket.off("chat message"); // Remove the listener when the component unmounts
+        socket.off("chat message");
       }
     };
   }, [socket]);
@@ -77,10 +65,6 @@ function MyComponent() {
   console.log(messages);
 
   console.log(requestId);
-
-  // console.log(requestinfo.id);
-
-  // console.log(socket);
 
   useEffect(() => {
     const socketInstance = io("http://localhost:3002");
@@ -92,107 +76,43 @@ function MyComponent() {
   }, []);
 
   useEffect(() => {
-    // Utilisez l'ID pour faire votre requête
     fetch("http://localhost:3000/request/requests")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setInstruction(data); // Stocke les données dans le state
-        setTotalFees(data); // Stocke les données dans le state
+        setInstruction(data);
+        setTotalFees(data);
       })
       .catch((error) => {
         console.error("Une erreur s'est produite : ", error);
       });
-  }, []); // Ajoutez id comme dépendance pour que l'effet se déclenche chaque fois que l'ID change
+  }, []);
 
-  // ...
-
-  // const [phoneNumber, setPhoneNumber] = useState([]);
-  // console.log(phoneNumber[5].phoneNumber);
-  // const [email, setEmail] = useState([]);
-  // console.log(email[5].email);
-  // const [serviceFees, setServiceFees] = useState();
-  // const [productFees, setProductFees] = useState();
-
-  // const calculateTotalCosts = () => {
-  //   const valueServiceFees = serviceFees || 0;
-  //   const valueProductFees = productFees || 0;
-  //   const costsTotal = valueServiceFees + valueProductFees;
-  //   return costsTotal;
-  // }
-  // function OpenRequest() {
-  //   const [instruction, setInstruction] = useState({});
-  //   console.log(instruction);
-  //   const [totalFees, setTotalFees] = useState({});
-  //   console.log(totalFees);
-  //   // const [lastname, setLastname] = useState([]);
-  //   // console.log(lastname[5].lastname);
-  //   // const [firstname, setFirstname] = useState([]);
-  //   // console.log(firstname[5].firstname);
-
-  //   useEffect(() => {
-  //     // Exemple de requête GET, assurez-vous de remplacer l'URL par votre propre endpoint
-  //     fetch("http://localhost:3000/request/requests")
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setInstruction(data); // Stocke les données dans le state
-  //         setTotalFees(data); // Stocke les données dans le state
-  //       })
-  //       .catch((error) => {
-  //         console.error("Une erreur s'est produite : ", error);
-  //       });
-  //   }, []);
-
-  //   function DeleteRequest() {
-  //     const request = useSelector((state) => state.request.status);
-  //     useEffect(() => {
-  //       if (request.status) {
-  //         window.location.href = "/Home";
-  //       } else {
-  //         window.location.href = "/OpenRequest";
-  //       }
-  //     });
-  //   }
-
-  console.log("this", requestinfo);
-
-  const [currentRequest, setCurrentRequest] = useState([]);
-
-  console.log(currentRequest.from);
-
-  console.log(currentRequest.chat);
-
-  console.log("this", currentRequest);
+  const [currentRequest, setCurrentRequest] = useState({
+    instruction: "",
+    paymentInfo: "",
+    date: "",
+    serviceFees: "",
+    productFees: "",
+    totalFees: "",
+    from: "",
+    fromConcierge: "",
+    photoConcierge: "",
+    conciergeId: "",
+    clientToken: "",
+    chat: "",
+    _id: "",
+  });
 
   const formatTimeAgo = (date) => {
     return moment(date).fromNow();
   };
-
-  // const allChats = [];
-
-  // allChats.push(currentRequest);
-
-  // const allgoodChats = allChats[0].chat;
-  console.log(currentRequest.from);
-
-  console.log(currentRequest.chat);
-
-  // const allChats = [];
-
-  // allChats.push(currentRequest);
-
-  // const allgoodChats = allChats[0].chat;
 
   const [id, setId] = useState([]);
 
   const [chats, setChats] = useState([]);
 
   const [status, setStatus] = useState(false);
-
-  console.log("this", status);
-
-  console.log(chats);
 
   useEffect(() => {
     fetch("http://localhost:3000/request/openRequest", {
@@ -299,42 +219,6 @@ function MyComponent() {
     setStatus(false);
   }
 
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/request/getChat", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-
-  //     body: JSON.stringify({ id: requestinfo.id }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching concierge:", error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/request/getChat", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-
-  //     body: JSON.stringify({ id: requestinfo.id }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching concierge:", error);
-  //     });
-  // }, []);
-
   const parsedDate = new Date(currentRequest.date);
 
   const daysOfWeek = [
@@ -376,13 +260,17 @@ function MyComponent() {
     }
   }, [messages]);
 
-  function openModal() {
+  function openModal(): any {
     Swal.fire({
       title: "Votre concierge déclare avoir terminé la requête",
       text: "Confirmez-vous?",
       icon: "info",
+      iconColor: "#34b39c",
+      customClass: {
+        icon: "customIcon",
+      },
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#34B39C",
       cancelButtonColor: "#d33",
       confirmButtonText: "Oui",
       cancelButtonText: "Non",
@@ -392,21 +280,21 @@ function MyComponent() {
         Swal.fire({
           title: "Requête terminée",
           icon: "info",
-          html: '<a href="/leavereview" style="color: #B8D8FF;">Laisser un avis</a>',
+          iconColor: "#34b39c",
+          html: '<a href="/leavereview" style="color: #34B39C;">Laisser un avis</a>',
 
           showCloseButton: true,
           showCancelButton: false,
           focusConfirm: false,
-          confirmButtonText:
-            '<i class="fa fa-thumbs-up"></i> <a href="/clientwelcome">Dashboard</a>',
+          confirmButtonText: '<a href="/clientwelcome" >Dashboard</a>',
+          confirmButtonColor: "#34B39C",
           confirmButtonAriaLabel: "Thumbs up, great!",
           cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
           cancelButtonAriaLabel: "Thumbs down",
+        }).then(() => {
+          window.location.href = "/clientwelcome";
         });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
         requestNotDone();
       }
     });
@@ -463,7 +351,6 @@ function MyComponent() {
         <p>Votre requête</p>{" "}
         <p className="italic ml-1 text-white font-bold">#{id}</p>
       </h1>
-      {/* {isModalVisible && <div>slt</div>} */}
       <div className="mt-10 flex mb-5 flex-row flex text-emerald-600 text-2xl font-semibold ml-5">
         <div className=" flex-col ml-16 w-5/12 h-full flex text-emerald-600 font-semibold font-light text-lg mb-3 font-semibold">
           <div className="flex items-center text-black ml-6">
@@ -587,7 +474,6 @@ function MyComponent() {
                 </button>
                 <button
                   className={`text-xs flex cursor-pointer w-full mt-2 bg-red-500 h-10 border-2 pl-5 pr-5 pt-2 pb-2 flex items-center justify-center rounded-2xl w-50 text-white`}
-                  // onClick={useDeleteRequest}
                 >
                   Signalez un problème
                 </button>

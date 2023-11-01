@@ -1,21 +1,27 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import React from "react";
-import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RootState } from "../reducers/rootReducer";
 
 function SettingsClient() {
   const dispatch = useDispatch();
 
-  const conciergeInfo = useSelector((state) => state.concierges.value);
+  const conciergeInfo = useSelector(
+    (state: RootState) => (state as any).concierges.value
+  );
 
   console.log(conciergeInfo.token);
 
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    firstname: "",
+    lastname: "",
+    nationality: "",
+  });
 
   const [birthday, setBirthday] = useState("");
   const [address, setAddress] = useState([]);
@@ -210,9 +216,7 @@ function SettingsClient() {
 
   return (
     <div>
-      {/* HEADER START */}
       <Header />
-      {/* HEADER END */}
       <div className="h-full bg-white mt-14">
         <ToastContainer />
         <div className="flex">
@@ -312,7 +316,6 @@ function SettingsClient() {
               <div className="my-1  text-neutral-500  rounded-xl border-neutral-500">
                 {zipcode} {city}
               </div>
-              {/* <div className="mb-2  text-neutral-500   rounded-xl border-neutral-500"></div> */}
               <input
                 type="text"
                 className="mt-1 mb-2 bg-white border-2 w-8/12 p-2 rounded-xl border-neutral-500"
@@ -398,10 +401,7 @@ function SettingsClient() {
           </div>
         </div>
       </div>
-
-      {/* FOOTER */}
       <Footer />
-      {/* FOOTER END  */}
     </div>
   );
 }

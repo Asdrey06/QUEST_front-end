@@ -1,20 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import styles from "../styles/Concierge.module.css";
-import { faCommentDots } from "@fortawesome/free-solid-svg-icons";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { openRequest } from "../reducers/openrequest";
-import Image from 'next/image';
 
 function CountdownTimer({ date }) {
-  const targetDate = new Date(date);
+  const targetDate: any = new Date(date);
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
 
   function calculateTimeRemaining() {
-    const currentDate = new Date();
+    const currentDate: any = new Date();
     const timeRemaining = targetDate - currentDate;
     return timeRemaining > 0 ? timeRemaining : 0;
   }

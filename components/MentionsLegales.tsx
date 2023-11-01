@@ -1,14 +1,13 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import Image from 'next/image';
 
 function MentionsLegales() {
   return (
     <div
       className="bg-white"
       style={{
-        backgroundImage: "url(/whitebg.jpg)", // Assuming your image is in the public directory
+        backgroundImage: "url(/whitebg.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

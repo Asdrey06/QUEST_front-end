@@ -33,7 +33,7 @@ function ProfileConcierge(props) {
   return (
     <div className="bg-neutral-100 h-48 shadow-lg w-10/12 mb-5 ml-10 pt-4 pb-4 pl-4 rounded-md border-neutral-400 border-2 flex items-center">
       <div
-        className="h-28 w-32 ml-3 mt-2 cursor-pointer relative" // Added "relative" class
+        className="h-28 w-32 ml-3 mt-2 cursor-pointer relative"
         onClick={openProfile}
       >
         <Image

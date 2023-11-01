@@ -1,14 +1,8 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { faStar } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import {
-  faArrowRight,
-  faCheck,
-} from "../node_modules/@fortawesome/free-solid-svg-icons/index";
+import { faArrowRight } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import Header from "./Header";
@@ -24,7 +18,7 @@ function Home() {
     }, 2000);
 
     return () => {
-      clearInterval(interval); // Clear the interval when the component unmounts
+      clearInterval(interval);
     };
   }, [number]);
 
@@ -38,16 +32,8 @@ function Home() {
 
   return (
     <div className="mt-20" style={{ backgroundColor: "#FFFFFF" }}>
-      {/* HEADER START */}
       <Header />
-      {/* HEADER END */}
-      <div
-        className=""
-        // style={{
-        //   backgroundImage: 'url("/citylights2.jpg")',
-        //   backgroundSize: "cover",
-        // }}
-      >
+      <div className="">
         <div className="flex items-center justify-center h-24 ml-5 mr-5">
           <h1 className="text-3xl font-semibold" style={{ color: "#68938B" }}>
             DEVENEZ UN CONCIERGE AGRÉÉ DE QUEST
@@ -283,9 +269,7 @@ function Home() {
           </div>
         </button>
       </div>
-      {/* FOOTER */}
       <Footer />
-      {/* FOOTER END  */}
     </div>
   );
 }

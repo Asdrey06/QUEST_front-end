@@ -11,6 +11,7 @@ import offers from "../reducers/offers";
 import createoffers from "../reducers/createoffers";
 import conciergeProfile from "../reducers/conciergeProfile";
 import openrequest from "../reducers/openrequest";
+import rootReducer from "../reducers/rootReducer";
 
 import { Provider } from "react-redux";
 
@@ -31,6 +32,8 @@ const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false }),
 });
 
+export type RootState = ReturnType<typeof reducers>;
+
 const persistor = persistStore(store);
 
 function App({ Component, pageProps }) {
@@ -39,8 +42,11 @@ function App({ Component, pageProps }) {
       <PersistGate persistor={persistor}>
         <>
           <Head>
-            <title>QUEST - Concierge à la carte</title>
-            <meta name="description" content= "Votre concierge personnel pour des services sur mesure, une expérience exceptionnelle."></meta>
+            <title>QUEST</title>
+            <meta
+              name="description"
+              content="Votre concierge personnel pour des services sur mesure, une expérience exceptionnelle."
+            ></meta>
           </Head>
           <Component {...pageProps} />
         </>

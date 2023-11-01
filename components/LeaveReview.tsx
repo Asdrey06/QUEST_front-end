@@ -1,40 +1,27 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
-import Home from "../components/Home";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import ProfileConcierge from "./ProfileConcierge";
 import { useSelector, useDispatch } from "react-redux";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { offersConcierge } from "../reducers/offers";
-import emailjs from "emailjs-com";
-import Swal from "sweetalert2";
-import Image from "next/image";
 import { clearRequest } from "../reducers/openrequest";
+import { RootState } from "../pages/_app";
 
 function LeaveReview() {
   const dispatch = useDispatch();
-  const requestinfo = useSelector((state) => state.openrequest.value);
+  const requestinfo = useSelector(
+    (state: RootState) => state.openrequest.value
+  );
 
-  const [starRating, setStarRating] = useState(0); // State to store the selected star rating
-  const maxStars = 5; // Maximum number of stars
+  const [starRating, setStarRating] = useState(0);
+  const maxStars: number = 5;
 
-  // Function to handle star click
   const handleStarClick = (rating) => {
     setStarRating(rating);
   };
-
-  console.log(starRating);
-
-  console.log(requestinfo);
 
   useEffect(() => {
     if (requestinfo.id === null) {
@@ -42,13 +29,15 @@ function LeaveReview() {
     }
   }, []);
 
-  const [conciergeInfo, setConciergeInfo] = useState([]);
+  const [conciergeInfo, setConciergeInfo] = useState({
+    _id: "",
+    firstname: "",
+    lastname: "",
+    birthday: "",
+    photo: "",
+  });
 
   const [sentFrom, setSentFrom] = useState("");
-
-  console.log(sentFrom);
-
-  console.log(conciergeInfo);
 
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfo", {
@@ -69,13 +58,7 @@ function LeaveReview() {
       });
   }, []);
 
-  const [consent, setConsent] = useState(false);
-
-  const handleConsentChange = (e) => {
-    setConsent(e.target.checked);
-  };
-
-  const [writeReview, setWriteReview] = useState({});
+  const [writeReview, setWriteReview] = useState("");
 
   console.log(writeReview);
 
@@ -100,8 +83,6 @@ function LeaveReview() {
       });
   };
 
-  // Le reste de votre logique d'envoi du formulaire
-
   return (
     <div>
       <div>
@@ -111,7 +92,7 @@ function LeaveReview() {
       <div
         className="flex"
         style={{
-          backgroundImage: "url(/whitebg.jpg)", // Assuming your image is in the public directory
+          backgroundImage: "url(/whitebg.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -131,7 +112,7 @@ function LeaveReview() {
                   className={`cursor-pointer text-3xl ${
                     starRating > index ? "text-yellow-400" : "text-gray-300"
                   }`}
-                  onClick={() => handleStarClick(index + 1)} // Stars are 1-based
+                  onClick={() => handleStarClick(index + 1)}
                 />
               ))}
             </div>

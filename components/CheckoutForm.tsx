@@ -7,27 +7,37 @@ import {
   CardCvcElement,
 } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
+import { RootState } from "../reducers/rootReducer";
 
 const CheckoutForm = () => {
   const notify = () => toast("Wow so easy!");
 
-  const instructions = useSelector((state) => state.createoffers.instructions);
-  const date = useSelector((state) => state.createoffers.date);
-  const serviceFees = useSelector((state) => state.createoffers.offer);
-  const productFees = useSelector((state) => state.createoffers.goods);
-  const user = useSelector((state) => state.users.value);
+  const instructions = useSelector(
+    (state: RootState) => (state as any).createoffers.instructions
+  );
+  const date = useSelector(
+    (state: RootState) => (state as any).createoffers.date
+  );
+  const serviceFees = useSelector(
+    (state: RootState) => (state as any).createoffers.offer
+  );
+  const productFees = useSelector(
+    (state: RootState) => (state as any).createoffers.goods
+  );
+  const user = useSelector((state: RootState) => (state as any).users.value);
 
-  console.log(user.token);
-
-  const offersRedux = useSelector((state) => state.offers.value);
-
-  console.log(offersRedux.photo);
+  const offersRedux = useSelector(
+    (state: RootState) => (state as any).offers.value
+  );
 
   const stripe = useStripe();
   const elements = useElements();
+
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -82,8 +92,7 @@ const CheckoutForm = () => {
             })
               .then((response) => response.json())
               .then((data) => {
-                console.log(data);
-
+                setIsButtonClicked(true);
                 toast.success(`Requête envoyé à ${offersRedux.firstname} !`);
 
                 setTimeout(() => {
@@ -141,6 +150,7 @@ const CheckoutForm = () => {
             <button
               type="submit"
               className="flex flex-row items-center justify-center font-semibold pl-6 w-36 text-center text-white h-10 text-sm pr-6 border-2 rounded-xl bg-indigo-400 hover:bg-indigo-300"
+              disabled={isButtonClicked}
             >
               <p className="flex flex-row">
                 Faire <p className="ml-1">offre</p>

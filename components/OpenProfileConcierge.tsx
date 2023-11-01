@@ -1,35 +1,29 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
-import Home from "../components/Home";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import Link from "../node_modules/next/link";
+
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import ProfileConcierge from "./ProfileConcierge";
 import { useSelector, useDispatch } from "react-redux";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { offersConcierge } from "../reducers/offers";
-import Image from "next/image";
+import { RootState } from "../reducers/rootReducer";
 
 function OpenProfileConcierge() {
   const dispatch = useDispatch();
 
-  const conciergeInfo = useSelector((state) => state.conciergeProfile.value);
+  const conciergeInfo = useSelector(
+    (state: RootState) => (state as any).conciergeProfile.value
+  );
 
-  console.log(conciergeInfo);
-
-  const [conciergeData, setConciergeData] = useState([]);
+  const [conciergeData, setConciergeData] = useState({ photo: "" });
 
   const [skills, setSkills] = useState([]);
 
   const [about, setAbout] = useState([]);
 
-  const [name, setName] = useState([]);
+  const [name, setName] = useState("");
 
   const [languages, setLanguages] = useState([]);
 
@@ -37,26 +31,7 @@ function OpenProfileConcierge() {
 
   const [starsAverage, setStarsAverage] = useState("");
 
-  console.log(reviews);
-
-  // let totalStars = 0;
-
-  // const starsArray = [];
-
   const displayReviews = reviews.map((data, i) => {
-    // Check if the stars property is a valid number before accumulating
-    // if (!isNaN(data.stars)) {
-    //   totalStars += parseInt(data.stars, 10); // Convert to a number and accumulate
-    // }
-
-    // starsArray.push(totalStars);
-
-    // const totalSumOfStars = starsArray.reduce(
-    //   (acc, currentValue) => acc + currentValue,
-    //   0
-    // );
-    // console.log("Total Sum of Stars:", totalSumOfStars);
-
     return (
       <div className="mt-10 mb-4 border-2 border-neutral-300 rounded-2xl ml-10 mr-10 mt-0 p-2">
         <div className="flex">
@@ -84,7 +59,7 @@ function OpenProfileConcierge() {
     );
     window.location.href = "/offerpage";
   };
-  //fetch pour recupérer des infos détaillés
+
   useEffect(() => {
     fetch("http://localhost:3000/concierges/findInfoProfile", {
       method: "POST",
@@ -96,17 +71,12 @@ function OpenProfileConcierge() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.result.reviews);
         let total = 0;
         for (let i of data.result.reviews) {
-          console.log(i.stars);
           total += i.stars;
         }
-        console.log(total);
 
         let calculatedStars = total / data.result.reviews.length;
-
-        console.log(calculatedStars);
 
         setStarsAverage(calculatedStars.toFixed(2));
 
@@ -178,42 +148,6 @@ function OpenProfileConcierge() {
           {displayReviews
             ? displayReviews
             : "Aucun avis laissé pour le moment."}
-          {/* <div className="mt-5 mb-4 border-2 border-neutral-300 rounded-2xl ml-10 mr-10 mt-0 p-2">
-            <div className="flex">
-              <p className="ml-3 italic w-full">Avis laissé par: Bruno</p>
-              <p className="flex items-center font-light">
-                3.9/5{" "}
-                <FontAwesomeIcon
-                  icon={faStar}
-                  className="ml-1 mr-3 text-amber-400"
-                />
-              </p>
-            </div>
-            <p className="ml-3 mt-2 font-semibold mb-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
-          <div className="mt-5 mb-4 border-2 border-neutral-300 rounded-2xl ml-10 mr-10 mt-0 p-2">
-            <div className="flex">
-              <p className="ml-3 italic w-full">Avis laissé par: Max</p>
-              <p className="flex items-center font-light">
-                4.8/5{" "}
-                <FontAwesomeIcon
-                  icon={faStar}
-                  className="ml-1 mr-3 text-amber-400"
-                />
-              </p>
-            </div>
-            <p className="ml-3 mt-2 font-semibold mb-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div> */}
         </div>
       </div>
       <Footer />
