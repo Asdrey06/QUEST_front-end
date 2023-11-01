@@ -16,14 +16,9 @@ import Swal from "sweetalert2";
 import { RootState } from "../reducers/rootReducer";
 
 function MyComponent() {
-  const [instruction, setInstruction] = useState({});
-  const [totalFees, setTotalFees] = useState({});
-
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
-
-  console.log(messages);
 
   const [sender, setSender] = useState("");
 
@@ -33,11 +28,7 @@ function MyComponent() {
     (state: RootState) => (state as any).openrequest.value
   );
 
-  console.log(requestinfo);
-
   const [requestId, setRequestId] = useState("");
-
-  console.log(requestId);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,10 +53,6 @@ function MyComponent() {
     };
   }, [socket]);
 
-  console.log(messages);
-
-  console.log(requestId);
-
   useEffect(() => {
     const socketInstance = io("http://localhost:3002");
     setSocket(socketInstance);
@@ -78,11 +65,7 @@ function MyComponent() {
   useEffect(() => {
     fetch("http://localhost:3000/request/requests")
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setInstruction(data);
-        setTotalFees(data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Une erreur s'est produite : ", error);
       });
@@ -141,7 +124,6 @@ function MyComponent() {
   }, []);
 
   const displayChat = chats.map((data, i) => {
-    console.log(data);
     return (
       <li
         key={i}
@@ -172,17 +154,13 @@ function MyComponent() {
       body: JSON.stringify({ id: requestinfo.id }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data.result);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error fetching concierge:", error);
       });
 
     setStatus(false);
   }
-
-  console.log("CURRENT", currentRequest);
 
   function createFinishedRequest() {
     fetch("http://localhost:3000/request/finishedRequest", {
@@ -209,9 +187,7 @@ function MyComponent() {
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data.result);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error fetching concierge:", error);
       });
@@ -310,9 +286,7 @@ function MyComponent() {
       body: JSON.stringify({ id: requestinfo.id }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error fetching concierge:", error);
       });
@@ -369,31 +343,24 @@ function MyComponent() {
               <div className="h-full flex flex-col">
                 <ul ref={messagesRef} className="overflow-y-auto flex-grow">
                   {displayChat}
-                  {messages.map(
-                    (msg, index) => (
-                      console.log(msg),
-                      (
-                        <li
-                          key={index}
-                          className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
-                        >
-                          <div className="flex flex-row w-full justify-between items-center">
-                            <p className="text-black text-sm">
-                              <p>{msg.firstname}</p>
-                            </p>
-                            <p className="text-black text-sm font-extralight italic">
-                              {formatTimeAgo(msg.date)}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-black font-light">
-                              {msg.message}
-                            </p>
-                          </div>
-                        </li>
-                      )
-                    )
-                  )}
+                  {messages.map((msg, index) => (
+                    <li
+                      key={index}
+                      className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+                    >
+                      <div className="flex flex-row w-full justify-between items-center">
+                        <p className="text-black text-sm">
+                          <p>{msg.firstname}</p>
+                        </p>
+                        <p className="text-black text-sm font-extralight italic">
+                          {formatTimeAgo(msg.date)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-black font-light">{msg.message}</p>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
                 <form onSubmit={handleSubmit} className="flex p-4">
                   <input

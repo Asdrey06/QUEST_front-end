@@ -8,13 +8,13 @@ import Footer from "./Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { offersConcierge } from "../reducers/offers";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../pages/_app";
 
 function OpenProfileConcierge() {
   const dispatch = useDispatch();
 
   const conciergeInfo = useSelector(
-    (state: RootState) => (state as any).conciergeProfile.value
+    (state: RootState) => state.conciergeProfile.value
   );
 
   const [conciergeData, setConciergeData] = useState({ photo: "" });

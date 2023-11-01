@@ -7,7 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import Image from "next/image";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../pages/_app";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -24,27 +24,23 @@ const stripePromise = loadStripe(
 );
 
 function Offer() {
-  const user = useSelector((state: RootState) => (state as any).users.value);
+  const user = useSelector((state: RootState) => state.users.value);
   const conciergeRedux = useSelector(
-    (state: RootState) => (state as any).concierges.value
+    (state: RootState) => state.concierges.value
   );
 
   const instructions = useSelector(
-    (state: RootState) => (state as any).createoffers.instructions
+    (state: RootState) => state.createoffers.instructions
   );
-  const date = useSelector(
-    (state: RootState) => (state as any).createoffers.date
-  );
+  const date = useSelector((state: RootState) => state.createoffers.date);
   const serviceFees = useSelector(
-    (state: RootState) => (state as any).createoffers.offer
+    (state: RootState) => state.createoffers.offer
   );
   const productFees = useSelector(
-    (state: RootState) => (state as any).createoffers.goods
+    (state: RootState) => state.createoffers.goods
   );
 
-  const offersRedux = useSelector(
-    (state: RootState) => (state as any).offers.value
-  );
+  const offersRedux = useSelector((state: RootState) => state.offers.value);
 
   const dispatch = useDispatch();
 

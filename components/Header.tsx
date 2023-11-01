@@ -15,8 +15,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { openConcierge } from "../reducers/conciergeProfile";
 import Image from "next/image";
-import { RootState } from "../reducers/rootReducer";
 import GoogleOAuthResponse from "./googleOAuthTypes";
+import { RootState } from "../pages/_app";
 
 function Header() {
   const [login, setLogin] = useState(false);
@@ -27,11 +27,9 @@ function Header() {
 
   const dispatch = useDispatch();
 
-  const user = useSelector((state: RootState) => (state as any).users.value);
+  const user = useSelector((state: RootState) => state.users.value);
 
-  const concierge = useSelector(
-    (state: RootState) => (state as any).concierges.value
-  );
+  const concierge = useSelector((state: RootState) => state.concierges.value);
 
   useEffect(() => {
     if (user.token !== null) {

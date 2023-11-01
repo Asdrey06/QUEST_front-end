@@ -11,28 +11,25 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../pages/_app";
 
 const CheckoutForm = () => {
-  const notify = () => toast("Wow so easy!");
-
   const instructions = useSelector(
-    (state: RootState) => (state as any).createoffers.instructions
+    (state: RootState) => state.createoffers.instructions
   );
-  const date = useSelector(
-    (state: RootState) => (state as any).createoffers.date
-  );
+
+  console.log(instructions);
+
+  const date = useSelector((state: RootState) => state.createoffers.date);
   const serviceFees = useSelector(
-    (state: RootState) => (state as any).createoffers.offer
+    (state: RootState) => state.createoffers.offer
   );
   const productFees = useSelector(
-    (state: RootState) => (state as any).createoffers.goods
+    (state: RootState) => state.createoffers.goods
   );
-  const user = useSelector((state: RootState) => (state as any).users.value);
+  const user = useSelector((state: RootState) => state.users.value);
 
-  const offersRedux = useSelector(
-    (state: RootState) => (state as any).offers.value
-  );
+  const offersRedux = useSelector((state: RootState) => state.offers.value);
 
   const stripe = useStripe();
   const elements = useElements();

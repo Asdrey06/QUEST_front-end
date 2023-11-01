@@ -14,9 +14,6 @@ import { faSpinner } from "../node_modules/@fortawesome/free-solid-svg-icons/ind
 import { RootState } from "../reducers/rootReducer";
 
 function MyComponent() {
-  const [instruction, setInstruction] = useState({});
-  const [totalFees, setTotalFees] = useState({});
-
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [sentMessages, setSentMessages] = useState([]);
@@ -63,11 +60,7 @@ function MyComponent() {
     //Ouverture de la requete par le concierge
     fetch(`http://localhost:3000/request/requests`)
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setInstruction(data);
-        setTotalFees(data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Une erreur s'est produite : ", error);
       });
@@ -76,8 +69,6 @@ function MyComponent() {
   const requestinfo = useSelector(
     (state: RootState) => (state as any).openrequest.value
   );
-
-  console.log("this", requestinfo);
 
   const [currentRequest, setCurrentRequest] = useState({
     date: "",
@@ -88,8 +79,6 @@ function MyComponent() {
     totalFees: "",
   });
 
-  console.log(currentRequest);
-
   const [id, setId] = useState([]);
 
   const formatTimeAgo = (date) => {
@@ -98,11 +87,7 @@ function MyComponent() {
 
   const [chats, setChats] = useState([]);
 
-  console.log(chats);
-
   const [status, setStatus] = useState(false);
-
-  console.log(status);
 
   useEffect(() => {
     fetch("http://localhost:3000/request/openRequest", {
@@ -136,7 +121,6 @@ function MyComponent() {
   }, [chats]);
 
   const displayChat = chats.map((data, i) => {
-    console.log(data);
     return (
       <li
         key={i}
@@ -208,9 +192,7 @@ function MyComponent() {
       body: JSON.stringify({ id: requestinfo.id }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data.result);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error fetching concierge:", error);
       });
@@ -241,31 +223,24 @@ function MyComponent() {
               <div className="h-full flex flex-col">
                 <ul ref={messagesRef} className="overflow-y-auto flex-grow">
                   {displayChat}
-                  {messages.map(
-                    (msg, index) => (
-                      console.log(msg),
-                      (
-                        <li
-                          key={index}
-                          className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
-                        >
-                          <div className="flex flex-row w-full justify-between items-center">
-                            <p className="text-black text-sm">
-                              <p>{msg.firstname}</p>
-                            </p>
-                            <p className="text-black text-sm font-extralight italic">
-                              {formatTimeAgo(msg.date)}
-                            </p>
-                          </div>
-                          <div>
-                            <p className="text-black font-light">
-                              {msg.message}
-                            </p>
-                          </div>
-                        </li>
-                      )
-                    )
-                  )}
+                  {messages.map((msg, index) => (
+                    <li
+                      key={index}
+                      className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+                    >
+                      <div className="flex flex-row w-full justify-between items-center">
+                        <p className="text-black text-sm">
+                          <p>{msg.firstname}</p>
+                        </p>
+                        <p className="text-black text-sm font-extralight italic">
+                          {formatTimeAgo(msg.date)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-black font-light">{msg.message}</p>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
                 <form onSubmit={handleSubmit} className="flex p-4">
                   <input
