@@ -18,6 +18,7 @@ import "moment/locale/fr";
 import { useRef } from "react";
 import { Modal } from "antd";
 import Swal from "sweetalert2";
+import Image from "next/image";
 
 // const frLocale = require("../fr");
 
@@ -39,6 +40,8 @@ function MyComponent() {
   const [socket, setSocket] = useState(null);
 
   const requestinfo = useSelector((state) => state.openrequest.value);
+
+  console.log(requestinfo);
 
   const [requestId, setRequestId] = useState("");
 
@@ -389,12 +392,13 @@ function MyComponent() {
         Swal.fire({
           title: "Requête terminée",
           icon: "info",
-          html: '<a href="/clientwelcome" style="color: #B8D8FF;">Laisser un avis</a>',
+          html: '<a href="/leavereview" style="color: #B8D8FF;">Laisser un avis</a>',
 
           showCloseButton: true,
           showCancelButton: false,
           focusConfirm: false,
-          confirmButtonText: '<i class="fa fa-thumbs-up"></i> Dashboard',
+          confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> <a href="/clientwelcome">Dashboard</a>',
           confirmButtonAriaLabel: "Thumbs up, great!",
           cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
           cancelButtonAriaLabel: "Thumbs down",
@@ -465,8 +469,9 @@ function MyComponent() {
           <div className="flex items-center text-black ml-6">
             <FontAwesomeIcon icon={faCommentDots} className="mr-3" />
             <p> Communiquez avec {currentRequest.fromConcierge}</p>
-            <p>
+            <p className="ml-2 mt-2">
               <img
+                alt="Concierge profile photo"
                 src={currentRequest.photoConcierge}
                 className="h-10 w-10 rounded-[50%] ml-2 object-cover"
               />

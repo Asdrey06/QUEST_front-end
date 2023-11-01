@@ -17,7 +17,7 @@ import Footer from "./Footer";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
-import Image from 'next/image';
+import Image from "next/image";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -138,13 +138,16 @@ function Offer() {
         {/* Contenu de la page */}
         <div className="flex items-center justify-left mb-10">
           <h1 className="flex text-xl items-center bg-neutral-800 pl-32 pb-5 pt-5 text-neutral-300 w-full">
-            <p>Faire une offre à</p>{" "}
-            <p className="italic ml-2 text-white font-bold">
+            <p className="mb-2">Faire une offre à</p>{" "}
+            <p className="italic ml-2 mr-3 mb-2 text-white font-bold">
               {offersRedux.firstname}
             </p>
             <p>
-              <img
+              <Image
+                width={40}
+                height={40}
                 src={offersRedux.photo}
+                alt="Concierge profile photo"
                 className="ml-2 w-10 h-10 object-cover rounded-[50%]"
               />
             </p>

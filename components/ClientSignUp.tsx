@@ -226,38 +226,6 @@ function ClientSignUp() {
             </p>
           </div>
         </div>
-        {/* <div className="flex flex-col w-48 items-center justify-center mb-20 ml-96">
-          <div className="mt-20 rounded-lg mb-5 pt-3  flex flex-col  items-center w-48 h-48 bg-neutral-100">
-            <img src="/exp2.png" className="w-24 mb-2" />
-            <p className="text-2xl font-bold" style={{ color: "#68938B" }}>
-              "50 429"
-            </p>
-            <p style={{ color: "#68938B" }}>transactions effectuées</p>
-          </div>
-          <div className="mb-5 pt-4 rounded-lg flex flex-col items-center w-48 h-48 bg-neutral-100">
-            <img src="/exp1.png" className="w-24 mb-2" />
-            <p className="text-2xl font-bold" style={{ color: "#68938B" }}>
-              100
-            </p>
-            <p style={{ color: "#68938B" }}>prestataires actifs</p>
-          </div>
-          <div className=" mb-5 pt-4 pb-4 rounded-lg flex flex-col items-center w-full h-min bg-neutral-100">
-            <img src="/exp4.png" className="w-24 mb-2" />
-            <p className="text-2xl font-bold" style={{ color: "#68938B" }}>
-              100%
-            </p>{" "}
-            <p style={{ color: "#68938B" }}>des prestations assurées</p>
-          </div>
-          <div className="flex pt-4 pb-4 text-center rounded-lg flex-col  w-full items-center h-min bg-neutral-100">
-            <img src="/exp3.png" className="w-24 mb-2" />
-            <p className="text-2xl  font-bold " style={{ color: "#68938B" }}>
-              4.7/5
-            </p>{" "}
-            <p style={{ color: "#68938B" }}>note moyennes des concierge</p>
-          </div>
-        </div> */}
-        {/* </div> */}
-        {/* </div> */}
       </div>
       <Footer />
     </div>
