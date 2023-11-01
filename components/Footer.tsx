@@ -7,7 +7,7 @@ import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/i
 import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 function Footer() {
   const openInsta = () => {
@@ -38,7 +38,11 @@ function Footer() {
       <div className="flex ">
         <div className="flex flex-row">
           <Link href="/">
-            <Image src="/questlogowhite.png" alt="logo Quest" width={92.07} height={10} className="cursor-pointer" />
+            <img
+              src="/questlogowhite.png"
+              alt="logo Quest"
+              className="h-8 cursor-pointer"
+            />
           </Link>
         </div>
         <div className="flex flex-col text-white text-sm pb-5 pl-5">

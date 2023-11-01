@@ -14,6 +14,7 @@ import ProfileConcierge from "./ProfileConcierge";
 import { useSelector, useDispatch } from "react-redux";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { offersConcierge } from "../reducers/offers";
+import Image from "next/image";
 
 function OpenProfileConcierge() {
   const dispatch = useDispatch();
@@ -32,6 +33,47 @@ function OpenProfileConcierge() {
 
   const [languages, setLanguages] = useState([]);
 
+  const [reviews, setReviews] = useState([]);
+
+  const [starsAverage, setStarsAverage] = useState("");
+
+  console.log(reviews);
+
+  // let totalStars = 0;
+
+  // const starsArray = [];
+
+  const displayReviews = reviews.map((data, i) => {
+    // Check if the stars property is a valid number before accumulating
+    // if (!isNaN(data.stars)) {
+    //   totalStars += parseInt(data.stars, 10); // Convert to a number and accumulate
+    // }
+
+    // starsArray.push(totalStars);
+
+    // const totalSumOfStars = starsArray.reduce(
+    //   (acc, currentValue) => acc + currentValue,
+    //   0
+    // );
+    // console.log("Total Sum of Stars:", totalSumOfStars);
+
+    return (
+      <div className="mt-10 mb-4 border-2 border-neutral-300 rounded-2xl ml-10 mr-10 mt-0 p-2">
+        <div className="flex">
+          <p className="ml-3 italic w-full">Avis laissé par: {data.from}</p>
+          <p className="flex items-center font-light">
+            {data.stars}
+            <FontAwesomeIcon
+              icon={faStar}
+              className="ml-1 mr-3 text-amber-400"
+            />
+          </p>
+        </div>
+        <p className="ml-3 mt-2 font-semibold mb-2">{data.review}</p>
+      </div>
+    );
+  });
+
   const createOffer = () => {
     dispatch(
       offersConcierge({
@@ -44,7 +86,7 @@ function OpenProfileConcierge() {
   };
   //fetch pour recupérer des infos détaillés
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/findInfo", {
+    fetch("http://localhost:3000/concierges/findInfoProfile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,6 +96,21 @@ function OpenProfileConcierge() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.result.reviews);
+        let total = 0;
+        for (let i of data.result.reviews) {
+          console.log(i.stars);
+          total += i.stars;
+        }
+        console.log(total);
+
+        let calculatedStars = total / data.result.reviews.length;
+
+        console.log(calculatedStars);
+
+        setStarsAverage(calculatedStars.toFixed(2));
+
+        setReviews(data.result.reviews);
         setConciergeData(data.result);
         setSkills(data.result.personalInfo[0].skills);
         setAbout(data.result.personalInfo[0].aboutme);
@@ -76,6 +133,7 @@ function OpenProfileConcierge() {
           >
             <img
               src={conciergeData.photo}
+              alt="Concierge profile photo"
               className="w-full object-cover h-full"
             />
           </div>
@@ -112,30 +170,15 @@ function OpenProfileConcierge() {
             <p className="italic text-right">
               Note moyenne
               <p className="font-bold">
-                4.3/5{" "}
+                {starsAverage}{" "}
                 <FontAwesomeIcon icon={faStar} className="text-amber-400" />
               </p>
             </p>
           </div>
-          <div className="mt-10 mb-4 border-2 border-neutral-300 rounded-2xl ml-10 mr-10 mt-0 p-2">
-            <div className="flex">
-              <p className="ml-3 italic w-full">Avis laissé par: Julien</p>
-              <p className="flex items-center font-light">
-                4.3/5{" "}
-                <FontAwesomeIcon
-                  icon={faStar}
-                  className="ml-1 mr-3 text-amber-400"
-                />
-              </p>
-            </div>
-            <p className="ml-3 mt-2 font-semibold mb-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
-          </div>
-          <div className="mt-5 mb-4 border-2 border-neutral-300 rounded-2xl ml-10 mr-10 mt-0 p-2">
+          {displayReviews
+            ? displayReviews
+            : "Aucun avis laissé pour le moment."}
+          {/* <div className="mt-5 mb-4 border-2 border-neutral-300 rounded-2xl ml-10 mr-10 mt-0 p-2">
             <div className="flex">
               <p className="ml-3 italic w-full">Avis laissé par: Bruno</p>
               <p className="flex items-center font-light">
@@ -170,7 +213,7 @@ function OpenProfileConcierge() {
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat.
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />

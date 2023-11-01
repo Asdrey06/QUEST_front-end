@@ -407,8 +407,8 @@ function MyComponent() {
                 {status ? (
                   <div className="flex items-center">
                     {" "}
-                    <FontAwesomeIcon icon={faSpinner} className="mr-3" spin />
-                    <p className="ml-1 text-sm border-2 text-white bg-[#33B49C] rounded-2xl p-3">
+                    <FontAwesomeIcon icon={faSpinner} className="mr-1" spin />
+                    <p className="ml-1 text-sm border-2 w-68 text-white bg-[#33B49C] rounded-2xl p-3">
                       En attente de confirmation client...
                     </p>
                   </div>

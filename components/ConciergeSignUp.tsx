@@ -168,8 +168,6 @@ function ConciergeSignUp() {
   const [photo, setPhoto] = useState("");
   const [iban, setIban] = useState("");
 
-  
-
   const [wrongpw, setWrongPw] = useState("");
 
   const [wrongFile, setWrongFile] = useState("");
@@ -204,15 +202,12 @@ function ConciergeSignUp() {
     "Russe (Russie)",
     "Sud-africaine (Afrique du Sud)",
     "Suédoise (Suède)",
-    "Turque (Turquie)"
-    ];
-  
+    "Turque (Turquie)",
+  ];
 
   const handleNationalityChange = (e) => {
     setNationality(e.target.value);
   };
-
-  
 
   const handleNumberChange = (e) => {
     const input = e.target.value;
@@ -476,8 +471,12 @@ function ConciergeSignUp() {
               />
             </div>
             <div className="flex flex-row">
-             <div>
-               <select className="mt-3 mb-3 border-2 mr-7 w-full p-2 rounded-xl border-neutral-500" value={nationality} onChange={handleNationalityChange}>
+              <div>
+                <select
+                  className="mt-3 mb-3 border-2 mr-7 w-full p-2 rounded-xl border-neutral-500"
+                  value={nationality}
+                  onChange={handleNationalityChange}
+                >
                   <option value="">Sélectionnez une nationalité</option>
                   {nationalitie.map((option, index) => (
                     <option key={index} value={option}>
@@ -559,7 +558,11 @@ function ConciergeSignUp() {
                 className="items-center text-xs flex-col flex justify-center text-center text-neutral-500 rounded-lg w-32 h-32"
                 style={{ border: "3px solid #34B39C" }}
               >
-                <img src={photo} className="h-full" />
+                <img
+                  src={photo}
+                  className="h-full"
+                  alt="Uploaded profile photo"
+                />
                 {!photo && <p className="text-xs mb-12">JPG, JPEG ou PNG</p>}
               </div>
               <button
