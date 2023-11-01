@@ -40,7 +40,7 @@ function SettingsClient() {
   const [phone, setPhone] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/findInfoToken", {
+    fetch("https://quest-backend-six.vercel.app/concierges/findInfoToken", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +66,7 @@ function SettingsClient() {
   }, []);
 
   const handleUpdateEmail = () => {
-    fetch("http://localhost:3000/concierges/updateConcierge", {
+    fetch("https://quest-backend-six.vercel.app/concierges/updateConcierge", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: conciergeInfo.token, email: newEmail }),
@@ -87,14 +87,17 @@ function SettingsClient() {
   };
 
   const handleUpdatePassword = () => {
-    fetch("http://localhost:3000/concierges/updatePasswordConcierge", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: conciergeInfo.token,
-        password: newPassword,
-      }),
-    })
+    fetch(
+      "https://quest-backend-six.vercel.app/concierges/updatePasswordConcierge",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: conciergeInfo.token,
+          password: newPassword,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.result === true) {
@@ -111,14 +114,17 @@ function SettingsClient() {
   };
 
   const handleUpdateAddress = () => {
-    fetch("http://localhost:3000/concierges/updateAddressConcierge", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: conciergeInfo.token,
-        address: { address: newAddress, city: newCity, zipcode: newZipCode },
-      }),
-    })
+    fetch(
+      "https://quest-backend-six.vercel.app/concierges/updateAddressConcierge",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: conciergeInfo.token,
+          address: { address: newAddress, city: newCity, zipcode: newZipCode },
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.result === true) {
@@ -135,14 +141,17 @@ function SettingsClient() {
   };
 
   const handleUpdateAboutMe = () => {
-    fetch("http://localhost:3000/concierges/updateAboutMeConcierge", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: conciergeInfo.token,
-        aboutme: { aboutme: aboutme },
-      }),
-    })
+    fetch(
+      "https://quest-backend-six.vercel.app/concierges/updateAboutMeConcierge",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: conciergeInfo.token,
+          aboutme: { aboutme: aboutme },
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.result === true) {
@@ -159,14 +168,17 @@ function SettingsClient() {
   };
 
   const handleUpdateIban = () => {
-    fetch("http://localhost:3000/concierges/updateIbanConcierge", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        token: conciergeInfo.token,
-        paymentInfo: newIban,
-      }),
-    })
+    fetch(
+      "https://quest-backend-six.vercel.app/concierges/updateIbanConcierge",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: conciergeInfo.token,
+          paymentInfo: newIban,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.result === true) {

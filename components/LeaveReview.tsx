@@ -40,7 +40,7 @@ function LeaveReview() {
   const [sentFrom, setSentFrom] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/findInfo", {
+    fetch("https://quest-backend-six.vercel.app/concierges/findInfo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ function LeaveReview() {
   console.log(writeReview);
 
   const handleOnSubmit = () => {
-    fetch("http://localhost:3000/concierges/leaveReview", {
+    fetch("https://quest-backend-six.vercel.app/concierges/leaveReview", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

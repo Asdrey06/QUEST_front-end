@@ -28,6 +28,7 @@ function ClientSignUp() {
     const script = document.createElement("script");
     script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
     script.type = "text/javascript";
+
     script.async = true;
     document.head.appendChild(script);
 
@@ -43,7 +44,7 @@ function ClientSignUp() {
   const [birthday, setBirthday] = useState("");
 
   const handleRegister = () => {
-    fetch("http://localhost:3000/users/signUp", {
+    fetch("https://quest-backend-six.vercel.app/users/signUp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

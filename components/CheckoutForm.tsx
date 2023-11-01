@@ -57,7 +57,7 @@ const CheckoutForm = () => {
       console.error("Error creating payment method:", error);
     } else {
       // fetch pour le processus de paiement
-      fetch("http://localhost:3000/processpayment", {
+      fetch("https://quest-backend-six.vercel.app/processpayment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const CheckoutForm = () => {
         .then((data) => {
           if (data.success === true) {
             //fetch pour récupérer les les requetes
-            fetch("http://localhost:3000/request/saveRequest", {
+            fetch("https://quest-backend-six.vercel.app/request/saveRequest", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({

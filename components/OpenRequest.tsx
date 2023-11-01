@@ -63,7 +63,7 @@ function MyComponent() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/request/requests")
+    fetch("https://quest-backend-six.vercel.app/request/requests")
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -98,7 +98,7 @@ function MyComponent() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/request/openRequest", {
+    fetch("https://quest-backend-six.vercel.app/request/openRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -145,14 +145,17 @@ function MyComponent() {
   });
 
   function requestNotDone() {
-    fetch("http://localhost:3000/request/changeRequestStatusToFalse", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(
+      "https://quest-backend-six.vercel.app/request/changeRequestStatusToFalse",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({ id: requestinfo.id }),
-    })
+        body: JSON.stringify({ id: requestinfo.id }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -163,7 +166,7 @@ function MyComponent() {
   }
 
   function createFinishedRequest() {
-    fetch("http://localhost:3000/request/finishedRequest", {
+    fetch("https://quest-backend-six.vercel.app/request/finishedRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -277,7 +280,7 @@ function MyComponent() {
   }
 
   function deleteRequestDb() {
-    fetch("http://localhost:3000/request/delete", {
+    fetch("https://quest-backend-six.vercel.app/request/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -58,7 +58,7 @@ function MyComponent() {
 
   useEffect(() => {
     //Ouverture de la requete par le concierge
-    fetch(`http://localhost:3000/request/requests`)
+    fetch(`https://quest-backend-six.vercel.app/request/requests`)
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -90,7 +90,7 @@ function MyComponent() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/request/openRequest", {
+    fetch("https://quest-backend-six.vercel.app/request/openRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +183,7 @@ function MyComponent() {
   }, [messages]);
 
   const finishRequest = () => {
-    fetch("http://localhost:3000/request/changeRequestStatus", {
+    fetch("https://quest-backend-six.vercel.app/request/changeRequestStatus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

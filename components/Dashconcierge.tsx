@@ -32,14 +32,17 @@ function Dashconcierge() {
   const [starsAverage, setStarsAverage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/findInfoDashboardConcierge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(
+      "https://quest-backend-six.vercel.app/concierges/findInfoDashboardConcierge",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({ token: concierge.token }),
-    })
+        body: JSON.stringify({ token: concierge.token }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         let total = 0;
@@ -58,7 +61,7 @@ function Dashconcierge() {
 
   useEffect(() => {
     const fetchRequests = () => {
-      fetch("http://localhost:3000/concierges/findRequests", {
+      fetch("https://quest-backend-six.vercel.app/concierges/findRequests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,15 +98,18 @@ function Dashconcierge() {
   const [totalEarned, setTotalEarned] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/request/getFinishedRequestConcierge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: concierge.token,
-      }),
-    })
+    fetch(
+      "https://quest-backend-six.vercel.app/request/getFinishedRequestConcierge",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: concierge.token,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setPastRequests(data.result);

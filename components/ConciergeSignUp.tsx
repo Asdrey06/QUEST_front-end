@@ -210,7 +210,7 @@ function ConciergeSignUp() {
 
   //fetch pour l'inscription du concierge
   const handleRegister = () => {
-    fetch("http://localhost:3000/concierges/signupConcierge", {
+    fetch("https://quest-backend-six.vercel.app/concierges/signupConcierge", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

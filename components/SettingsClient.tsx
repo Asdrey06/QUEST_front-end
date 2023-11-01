@@ -22,7 +22,7 @@ function SettingsClient() {
   const [birthday, setBirthday] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/users/findUserInfo", {
+    fetch("https://quest-backend-six.vercel.app/users/findUserInfo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

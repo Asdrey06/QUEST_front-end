@@ -64,7 +64,7 @@ function Offer() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/create-payment-intent", {
+    fetch("https://quest-backend-six.vercel.app/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
