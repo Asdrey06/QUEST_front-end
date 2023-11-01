@@ -131,7 +131,7 @@ function ChatComponent({ userType, sender, id }) {
             className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
             key={index}
           >
-            {msg.userType === "client" ? msg.sender : "Concierge"}{" "}
+            {sender}
             {/* Display sender based on userType */}
             <p className="text-black font-light">{msg}</p>
           </div>
