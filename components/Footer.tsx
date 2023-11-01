@@ -39,7 +39,7 @@ function Footer() {
         <div className="flex flex-row">
           <Link href="/">
             <img
-              src="/questlogowhite.png"
+              src="/questlogowhite.webp"
               alt="logo Quest"
               className="h-8 cursor-pointer"
             />

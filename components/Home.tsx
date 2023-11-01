@@ -54,7 +54,7 @@ function Home() {
           <Image
             width={500}
             height={350}
-            src="/concierge1.jpeg"
+            src="/concierge1.webp"
             alt="Concierge travail"
             className="w-full h-full object-cover"
             style={{ border: "2px solid red" }}
@@ -64,7 +64,7 @@ function Home() {
           <Image
             width={500}
             height={350}
-            src="/concierge3.jpeg"
+            src="/concierge3.webp"
             alt="Concierge travail"
             className="w-full h-full object-cover"
             style={{ border: "2px solid red" }}
@@ -74,7 +74,7 @@ function Home() {
           <Image
             width={500}
             height={350}
-            src="/concierge2.jpeg"
+            src="/concierge2.webp"
             alt="Concierge travail"
             className="w-full h-full object-cover"
             style={{ border: "2px solid red" }}
@@ -106,7 +106,7 @@ function Home() {
           <Image
             width={120}
             height={120}
-            src="/exp2.png"
+            src="/exp2.webp"
             alt="Transaction logo"
             className="w-28 mb-5"
           />
@@ -119,7 +119,7 @@ function Home() {
           <Image
             width={120}
             height={120}
-            src="/exp1.png"
+            src="/exp1.webp"
             alt="Active concierge logo"
             className="w-28 mb-5"
           />
@@ -132,7 +132,7 @@ function Home() {
           <Image
             width={120}
             height={120}
-            src="/exp4.png"
+            src="/exp4.webp"
             alt="Insurance logo"
             className="w-28 mb-5"
           />
@@ -145,7 +145,7 @@ function Home() {
           <Image
             width={120}
             height={120}
-            src="/exp3.png"
+            src="/exp3.webp"
             alt="Reviews logo"
             className="w-28 mb-5"
           />
@@ -163,7 +163,7 @@ function Home() {
           <Image
             width={720}
             height={752}
-            src="/introphoto.jpg"
+            src="/introphoto.webp"
             alt="Quest concierge in car"
             className="w-full h-full object-cover"
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
@@ -231,7 +231,7 @@ function Home() {
       <div className="flex flex-row mb-10">
         <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-5 pl-3 bg-neutral-100">
           <img
-            src="/trust.png"
+            src="/trust.webp"
             className="pb-3"
             alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
@@ -241,7 +241,7 @@ function Home() {
         </div>
         <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3 bg-neutral-100">
           <img
-            src="/trust.png"
+            src="/trust.webp"
             className="pb-3"
             alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
@@ -253,7 +253,7 @@ function Home() {
         </div>
         <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3 bg-neutral-100">
           <img
-            src="/trust.png"
+            src="/trust.webp"
             className="pb-3"
             alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
@@ -263,7 +263,7 @@ function Home() {
         </div>
         <div className="flex flex-col w-full pt-3 pb-10 mr-3 ml-3 pl-3 bg-neutral-100">
           <img
-            src="/trust.png"
+            src="/trust.webp"
             className="pb-3"
             alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}
@@ -273,7 +273,7 @@ function Home() {
         </div>
         <div className="flex flex-col w-full pt-3 pb-10 mr-5 ml-3 pl-3 bg-neutral-100 pr-2">
           <img
-            src="/trust.png"
+            src="/trust.webp"
             className="pb-3"
             alt="Trustpilot logo"
             style={{ height: "50%", width: "50%" }}

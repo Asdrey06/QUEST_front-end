@@ -391,7 +391,7 @@ function SettingsClient() {
           </div>
           <div className="flex justify-end ">
             <img
-              src="/update.png"
+              src="/update.webp"
               alt="update"
               className="ml-96 mt-72 w-96 h-96 opacity-50"
             />

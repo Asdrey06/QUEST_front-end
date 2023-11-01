@@ -116,7 +116,7 @@ const CheckoutForm = () => {
     <div
       className="mb-10 bg-white rounded-3xl shadow-2xl"
       style={{
-        backgroundImage: "url('/cardbackground.png')",
+        backgroundImage: "url('/cardbackground.webp')",
         backgroundPosition: "top",
         backgroundSize: "cover",
       }}
@@ -148,14 +148,14 @@ const CheckoutForm = () => {
             </button>
             <div className="flex items-center">
               <Image
-                src="/mastercardlogo.png"
+                src="/mastercardlogo.webp"
                 alt="mastercard logo"
                 width={30.9}
                 height={24}
                 className="ml-3 h-6"
               />
               <Image
-                src="/visalogo.png"
+                src="/visalogo.webp"
                 alt="visa logo"
                 width={49.41}
                 height={16}
@@ -164,7 +164,7 @@ const CheckoutForm = () => {
             </div>
             <div className="flex items-center">
               <Image
-                src="/stripe.png"
+                src="/stripe.webp"
                 width={148.83}
                 height={32}
                 className="pl-6 ml-10 h-8 mr-16"

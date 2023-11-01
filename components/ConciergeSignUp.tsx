@@ -75,7 +75,7 @@ function ConciergeSignUp() {
       (error, result) => {
         if (!error && result && result.event === "success") {
           // Check if the uploaded file format is allowed
-          const allowedFormats = ["jpg", "jpeg", "png"];
+          const allowedFormats = ["jpg", "png", "jpeg"];
           const format = result.info.format;
           if (!allowedFormats.includes(format)) {
             // Handle format validation error
@@ -563,7 +563,7 @@ function ConciergeSignUp() {
                   className="h-full"
                   alt="Uploaded profile photo"
                 />
-                {!photo && <p className="text-xs mb-12">JPG, JPEG ou PNG</p>}
+                {!photo && <p className="text-xs mb-12">webp, webp ou webp</p>}
               </div>
               <button
                 onClick={openCloudinaryWidget}

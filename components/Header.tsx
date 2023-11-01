@@ -218,7 +218,7 @@ function Header() {
             {clientLogout && (
               <Link href="/clientwelcome">
                 <img
-                  src="/questlogowhite.png"
+                  src="/questlogowhite.webp"
                   alt="Quest logo"
                   className="h-10 mr-10 cursor-pointer"
                 />
@@ -227,7 +227,7 @@ function Header() {
             {conciergeLogout && (
               <Link href="/dashconcierge">
                 <img
-                  src="/questlogowhite.png"
+                  src="/questlogowhite.webp"
                   className="h-10 mr-10 cursor-pointer"
                 />
               </Link>
@@ -235,7 +235,7 @@ function Header() {
             {!conciergeLogout && !clientLogout && (
               <Link href="/">
                 <img
-                  src="/questlogowhite.png"
+                  src="/questlogowhite.webp"
                   alt="Quest logo"
                   className="h-10 mr-10 cursor-pointer"
                 />

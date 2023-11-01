@@ -44,7 +44,7 @@ function Home() {
       <div
         className=""
         // style={{
-        //   backgroundImage: 'url("/citylights2.jpg")',
+        //   backgroundImage: 'url("/citylights2.webp")',
         //   backgroundSize: "cover",
         // }}
       >
@@ -71,7 +71,7 @@ function Home() {
         <div
           className="w-full ml-5 text-white flex items-center justify-center"
           style={{
-            backgroundImage: 'url("/backgroundconcierge1.png")',
+            backgroundImage: 'url("/backgroundconcierge1.webp")',
             backgroundSize: "cover",
           }}
         >
@@ -86,7 +86,7 @@ function Home() {
         <div
           className="w-full ml-5 text-white flex items-center justify-center"
           style={{
-            backgroundImage: 'url("/backgroundconcierge2.png")',
+            backgroundImage: 'url("/backgroundconcierge2.webp")',
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -102,7 +102,7 @@ function Home() {
         <div
           className="w-full ml-5 mr-5 text-white flex items-center justify-center"
           style={{
-            backgroundImage: 'url("/backgroundconcierge3.png")',
+            backgroundImage: 'url("/backgroundconcierge3.webp")',
             backgroundSize: "cover",
           }}
         >
@@ -118,7 +118,7 @@ function Home() {
       <div className="flex flex-row mt-14 items-center justify-between">
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-5 bg-neutral-100">
           <Image
-            src="/exchange.png"
+            src="/exchange.webp"
             alt="concierge 1"
             width={100}
             height={100}
@@ -131,7 +131,7 @@ function Home() {
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
           <Image
-            src="/euro.png"
+            src="/euro.webp"
             alt="concierge 2"
             width={100}
             height={100}
@@ -144,7 +144,7 @@ function Home() {
         </div>
         <div className="flex flex-col items-center w-full pt-10 pb-10 mr-5 ml-3 bg-neutral-100">
           <Image
-            src="/commission.png"
+            src="/commission.webp"
             alt="concierge 3"
             width={100}
             height={100}
@@ -247,7 +247,7 @@ function Home() {
         </div>
         <div className={`${styles.service} w-6/12 ml-10 mr-10`}>
           <Image
-            src="/conciergehappy.png"
+            src="/conciergehappy.webp"
             width={1233.36}
             height={1200}
             alt="Concierge Service"

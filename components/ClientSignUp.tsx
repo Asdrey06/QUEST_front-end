@@ -101,7 +101,7 @@ function ClientSignUp() {
         style={{
           // opacity: 0.6,
           backgroundColor: "white",
-          backgroundImage: "url(/backgroundopacity.png)", // Assuming your image is in the public directory
+          backgroundImage: "url(/backgroundopacity.webp)", // Assuming your image is in the public directory
           backgroundSize: "cover",
           backgroundPosition: "center",
 
@@ -112,7 +112,7 @@ function ClientSignUp() {
         <div
           className="flex "
           style={{
-            backgroundImage: "url(public/allocab-chauffeur-vtc.jpg)",
+            backgroundImage: "url(public/allocab-chauffeur-vtc.webp)",
           }}
         ></div>
         <div className="flex flex-col h-full w-6/12 ">
