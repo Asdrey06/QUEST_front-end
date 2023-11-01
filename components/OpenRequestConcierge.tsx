@@ -37,6 +37,8 @@ function MyComponent() {
   );
 
   const [currentRequest, setCurrentRequest] = useState({
+    _id: "",
+    fromConcierge: "",
     date: "",
     from: "",
     instruction: "",
