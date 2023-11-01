@@ -1,9 +1,6 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
 import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
@@ -38,9 +35,7 @@ function Home() {
 
   return (
     <div className="" style={{ backgroundColor: "#FFFFFF" }}>
-      {/* HEADER START */}
       <Header />
-      {/* HEADER END */}
       <div
         className="flex items-center justify-center mb-10 mt-28 h-24 ml-5 mr-5"
         style={{ backgroundColor: "#FFFFFF" }}
@@ -290,9 +285,7 @@ function Home() {
           <Link href="/clientsignuppage">DÉMARRER</Link>
         </div>
       </div>
-      {/* FOOTER START */}
       <Footer />
-      {/* FOOTER END */}
     </div>
   );
 }

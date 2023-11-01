@@ -2,9 +2,6 @@ import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
 import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { faXmark } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
@@ -13,35 +10,31 @@ import { loginConcierge, logoutConcierge } from "../reducers/concierges";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
-import { useGoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { openConcierge } from "../reducers/conciergeProfile";
 import Image from "next/image";
+import { RootState } from "../reducers/rootReducer";
+import GoogleOAuthResponse from "./googleOAuthTypes";
 
 function Header() {
   const [login, setLogin] = useState(false);
-  const [connected, setConnected] = useState(false);
+
   const [conciergeLogout, setConciergeLogout] = useState(false);
-  const [googleCreds, setGoogleCreds] = useState("");
 
   const [clientLogout, setClientLogout] = useState(false);
 
-  console.log(clientLogout);
-
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.users.value);
+  const user = useSelector((state: RootState) => (state as any).users.value);
 
-  const concierge = useSelector((state) => state.concierges.value);
+  const concierge = useSelector(
+    (state: RootState) => (state as any).concierges.value
+  );
 
   useEffect(() => {
-    console.log("header redux client", user);
-    console.log("header redux concierge", concierge);
-
     if (user.token !== null) {
-      console.log("this", "hhihoi");
     }
 
     if (concierge.token !== null) {
@@ -51,15 +44,6 @@ function Header() {
     if (user.token !== null) {
       setClientLogout(true);
     }
-
-    // dispatch(
-    //   loginUser({
-    //     token: null,
-    //     firstname: null,
-    //     lastname: null,
-    //     username: null,
-    //   })
-    // );
   }, []);
 
   const toggleLogin = () => {
@@ -71,12 +55,6 @@ function Header() {
 
   const [signInEmailConcierge, setSignInEmailConcierge] = useState("");
   const [signInPasswordConcierge, setSignInPasswordConcierge] = useState("");
-
-  const [googleFirstName, setGoogleFirstName] = useState("");
-  const [googleLastName, setGoogleLastName] = useState("");
-  const [googlePhoto, setGooglePhoto] = useState("");
-
-  const [signError, setSignError] = useState("");
 
   const handleConnection = () => {
     fetch("http://localhost:3000/users/signin", {
@@ -105,7 +83,6 @@ function Header() {
           setSignInEmail("");
           setSignInPassword("");
         } else {
-          console.log(data.error);
           toast.error(data.error, {
             position: "top-left",
             autoClose: 5000,
@@ -152,7 +129,6 @@ function Header() {
           setSignInEmailConcierge("");
           setSignInPasswordConcierge("");
         } else {
-          console.log(data.error);
           toast.error(data.error, {
             position: "top-left",
             autoClose: 5000,
@@ -175,35 +151,13 @@ function Header() {
     window.location.href = "/";
   };
 
-  // const loginGoogle = useGoogleLogin({
-  //   onSuccess: (tokenResponse) => console.log(tokenResponse),
-  // });
-
-  // const decodeGoogle = () => {
-  //   if (googleCreds) {
-  //     const toDecode = googleCreds.credential;
-
-  //     var decoded = jwt_decode(toDecode);
-
-  //     // realname.push(decoded.given_name);
-  //     // email.push(decoded.email);
-
-  //     console.log(decoded.given_name);
-  //     console.log(decoded.family_name);
-  //     console.log(decoded.picture);
-
-  //     setGoogleName(decoded.given_name);
-  //     setGooglePhoto(decoded.picture);
-  //   }
-  // };
-
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
-
-  console.log(concierge);
+  interface DecodedGoogleCredentials {
+    given_name: string;
+    family_name: string;
+    picture: string;
+  }
 
   return (
     <GoogleOAuthProvider clientId="223748327128-45k1fpfnkvgbhl3u20aonb41lspthdlq.apps.googleusercontent.com">
@@ -255,7 +209,6 @@ function Header() {
               </div>
             )}
           </div>
-          {/* LOGINS START */}
           {login ? (
             <div className="flex flex-row w-9/12 items-center justify-end">
               <div className="text-red-500 mt-5 mb-5 h-full pt-16 pr-3"></div>
@@ -286,19 +239,11 @@ function Header() {
                 <div style={{ marginBottom: "4mm" }}></div>
                 <GoogleOAuthProvider clientId="223748327128-45k1fpfnkvgbhl3u20aonb41lspthdlq.apps.googleusercontent.com">
                   <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                      console.log(credentialResponse);
+                    onSuccess={(credentialResponse: GoogleOAuthResponse) => {
                       const toDecode = credentialResponse.credential;
 
-                      var decoded = jwt_decode(toDecode);
-
-                      // console.log(decoded.given_name);
-                      // console.log(decoded.family_name);
-                      // console.log(decoded.picture);
-
-                      // setGoogleFirstName(decoded.given_name);
-                      // setGoogleLastName(decoded.family_name);
-                      // setGooglePhoto(decoded.picture);
+                      var decoded: DecodedGoogleCredentials =
+                        jwt_decode(toDecode);
 
                       dispatch(
                         loginUser({
@@ -313,9 +258,7 @@ function Header() {
                       setSignInEmail("");
                       setSignInPassword("");
                     }}
-                    onError={() => {
-                      console.log("Login Failed");
-                    }}
+                    onError={() => {}}
                   />
                 </GoogleOAuthProvider>
                 <p className="text-white mt-2 mb-2 text-center">ou</p>
@@ -375,7 +318,6 @@ function Header() {
             </div>
           ) : (
             <div className="flex flex-row cursor-pointer items-center">
-              {/* DIV WHERE DROPDOWN SHOULD BE */}
               <div
                 className="flex flex-col items-center text-white relative"
                 onMouseEnter={() => setDropdownVisible(true)}
@@ -405,9 +347,7 @@ function Header() {
                     onMouseLeave={() => setDropdownVisible(false)}
                   >
                     <div className="p-2 hover:text-neutral-400 cursor-pointer">
-                      {/* <Link href="/conciergeprofilepage"> */}
                       Profil
-                      {/* </Link> */}
                     </div>
                     <div className="p-2 hover:text-neutral-400 cursor-pointer">
                       {clientLogout && (
@@ -438,11 +378,8 @@ function Header() {
               </div>
 
               <div></div>
-
-              {/* END DIV WHERE DROPDOWN SHOULD BE */}
             </div>
           )}
-          {/* LOGINS END */}
         </div>
       </div>
     </GoogleOAuthProvider>

@@ -1,6 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface CreateOfferState {
+  concierge: string | null;
+  instructions: string | null;
+  date: string | null;
+  offer: string | null;
+  goods: string | null;
+}
+
+const initialState: CreateOfferState = {
   concierge: null,
   instructions: null,
   date: null,
@@ -12,22 +20,22 @@ export const createofferSlice = createSlice({
   name: "createoffers",
   initialState,
   reducers: {
-    setConcierge: (state, action) => {
+    setConcierge: (state, action: PayloadAction<string | null>) => {
       state.concierge = action.payload;
     },
-    setInstructions: (state, action) => {
+    setInstructions: (state, action: PayloadAction<string | null>) => {
       state.instructions = action.payload;
     },
-    setDate: (state, action) => {
+    setDate: (state, action: PayloadAction<string | null>) => {
       state.date = action.payload;
     },
-    setOffer: (state, action) => {
+    setOffer: (state, action: PayloadAction<string | null>) => {
       state.offer = action.payload;
     },
-    setGoods: (state, action) => {
+    setGoods: (state, action: PayloadAction<string | null>) => {
       state.goods = action.payload;
     },
-    clearAll: (state, action) => {
+    clearAll: (state) => {
       state.concierge = null;
       state.instructions = null;
       state.date = null;
@@ -45,4 +53,5 @@ export const {
   setGoods,
   clearAll,
 } = createofferSlice.actions;
+
 export default createofferSlice.reducer;

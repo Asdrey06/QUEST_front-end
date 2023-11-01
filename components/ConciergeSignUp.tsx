@@ -1,18 +1,8 @@
 import styles from "../styles/Home.module.css";
 import React from "react";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faStar } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import {
-  faArrowRight,
-  faCheck,
-} from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-// import { faSolid } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import Link from "../node_modules/next/link";
+import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
 import { useEffect, useState } from "react";
-import { loginUser, logoutUser } from "../reducers/users";
 import { loginConcierge, logoutConcierge } from "../reducers/concierges";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
@@ -21,26 +11,26 @@ import dotenv from "dotenv";
 dotenv.config();
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
+
+declare var cloudinary: any;
 
 function ConciergeSignUp() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Load the Cloudinary widget script when the component is mounted
     const script = document.createElement("script");
     script.src = "https://widget.cloudinary.com/v2.0/global/all.js";
     script.type = "text/javascript";
     script.async = true;
     document.head.appendChild(script);
 
-    // Cleanup: Remove the script when the component unmounts
     return () => {
       document.head.removeChild(script);
     };
   }, []);
 
   const openCloudinaryWidget = () => {
-    // Replace 'your_cloud_name' with your actual Cloudinary cloud name
     cloudinary.openUploadWidget(
       {
         cloudName: process.env.NEXT_PUBLIC_CLOUD_NAME,
@@ -74,17 +64,12 @@ function ConciergeSignUp() {
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
-          // Check if the uploaded file format is allowed
-          const allowedFormats = ["jpg", "png", "jpeg"];
+          const allowedFormats = ["jpg", "jpeg", "png"];
           const format = result.info.format;
           if (!allowedFormats.includes(format)) {
-            // Handle format validation error
             setWrongFile("Format invalide");
-            // Optionally, you can reset the selected file input to prevent submission.
             return;
           }
-
-          // Handle the uploaded image or images, and store the necessary information.
           const imageUrl = result.info.secure_url;
           setPhoto(imageUrl);
           setWrongFile("");
@@ -94,7 +79,6 @@ function ConciergeSignUp() {
   };
 
   const openCloudinaryWidgetPDF = () => {
-    // Replace 'your_cloud_name' with your actual Cloudinary cloud name
     cloudinary.openUploadWidget(
       {
         cloudName: process.env.NEXT_PUBLIC_CLOUD_NAME,
@@ -127,17 +111,12 @@ function ConciergeSignUp() {
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
-          // Check if the uploaded file format is allowed
           const allowedFormats = ["pdf"];
           const format = result.info.format;
           if (!allowedFormats.includes(format)) {
-            // Handle format validation error
             toast.error("Format du fichier invalide");
-            // Optionally, you can reset the selected file input to prevent submission.
             return;
           }
-
-          // Handle the uploaded image or images, and store the necessary information.
           const imageUrl = result.info.secure_url;
           setId(imageUrl);
           setWrongFile("");
@@ -145,9 +124,6 @@ function ConciergeSignUp() {
       }
     );
   };
-
-  // else {
-  //   setWrongFile("Format non autorisé");
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -164,12 +140,8 @@ function ConciergeSignUp() {
   const [languages, setLanguages] = useState("");
   const [about, setAbout] = useState("");
   const [moving, setMoving] = useState("");
-  const [license, setLicense] = useState("");
   const [photo, setPhoto] = useState("");
   const [iban, setIban] = useState("");
-
-  const [wrongpw, setWrongPw] = useState("");
-
   const [wrongFile, setWrongFile] = useState("");
 
   const [id, setId] = useState("");
@@ -265,9 +237,7 @@ function ConciergeSignUp() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("this", data);
         if (data.result === false) {
-          console.log(data.error);
           toast.error(<p className="text-red-500">{data.error}</p>);
         } else if (data.result === true) {
           dispatch(
@@ -337,7 +307,6 @@ function ConciergeSignUp() {
               " " +
               firstFeature.properties.street
           );
-          console.log("this", firstFeature.properties.street);
         }
       })
       .catch((error) => {
@@ -350,9 +319,7 @@ function ConciergeSignUp() {
 
   return (
     <div className="bg-white">
-      {/* HEADER START */}
       <Header />
-      {/* HEADER END */}
       <div className="h-full mt-14">
         <ToastContainer />
         <div className="flex">
@@ -361,7 +328,6 @@ function ConciergeSignUp() {
           </h1>
         </div>
         <div className="flex flex-row mb-5">
-          {/* BLOC 1 */}
           <div className="ml-10 flex flex-col p-3 w-6/12 bg-neutral-100 rounded-3xl">
             <h1 className="font-light text-lg mb-5 font-semibold">
               Vos coordonnées
@@ -422,14 +388,6 @@ function ConciergeSignUp() {
                 }}
                 value={birthday}
               />
-
-              {/* <input
-                type="textarea"
-                className="ml-3 mt-3 mb-3 border-2 w-4/12 p-2 rounded-xl border-neutral-500"
-                placeholder="Adresse..."
-                onChange={(e) => setAddress(e.target.value)}
-                value={address}
-              /> */}
 
               <input
                 type="text"
@@ -540,15 +498,9 @@ function ConciergeSignUp() {
                 />
               </div>
             </div>
-            <div className="flex items-center">
-              {" "}
-              <p className="text-red-500 mt-2 text-cente w-64"> {wrongpw}</p>
-            </div>
+            <div className="flex items-center"></div>
           </div>
 
-          {/* END OF BLOC 1  */}
-
-          {/* BLOC 2 */}
           <div className="ml-10 flex flex-col w-4/12">
             <h1 className="font-light text-lg mb-5 font-semibold">
               Vos documents
@@ -558,12 +510,18 @@ function ConciergeSignUp() {
                 className="items-center text-xs flex-col flex justify-center text-center text-neutral-500 rounded-lg w-32 h-32"
                 style={{ border: "3px solid #34B39C" }}
               >
-                <img
-                  src={photo}
-                  className="h-full"
-                  alt="Uploaded profile photo"
-                />
-                {!photo && <p className="text-xs mb-12">webp, webp ou webp</p>}
+                {photo && (
+                  <Image
+                    width={200}
+                    height={200}
+                    src={photo}
+                    className="h-full w-full object-cover"
+                    alt="Uploaded profile photo"
+                  />
+                )}
+                {!photo && (
+                  <p className="text-xs mt-12 mb-12">JPG, JPEG ou PNG</p>
+                )}
               </div>
               <button
                 onClick={openCloudinaryWidget}
@@ -615,9 +573,6 @@ function ConciergeSignUp() {
             </div>
           </div>
 
-          {/* END OF BLOC 2  */}
-
-          {/* BLOC 3 */}
           <div className="flex flex-col justify-between">
             <div className="">
               <h1 className="font-light text-lg font-semibold">Conditions</h1>
@@ -643,13 +598,10 @@ function ConciergeSignUp() {
               </div>
             </div>
           </div>
-          {/* END OF BLOC 3  */}
         </div>
       </div>
 
-      {/* FOOTER */}
       <Footer />
-      {/* FOOTER END  */}
     </div>
   );
 }

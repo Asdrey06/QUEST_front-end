@@ -1,16 +1,5 @@
-import styles from "../styles/Home.module.css";
 import React from "react";
-import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faStar } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import {
-  faArrowRight,
-  faCheck,
-} from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-// import { faSolid } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import Link from "../node_modules/next/link";
+
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -18,6 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import Image from "next/image";
+import { RootState } from "../reducers/rootReducer";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -34,20 +24,27 @@ const stripePromise = loadStripe(
 );
 
 function Offer() {
-  const user = useSelector((state) => state.users.value);
-  const conciergeRedux = useSelector((state) => state.concierges.value);
+  const user = useSelector((state: RootState) => (state as any).users.value);
+  const conciergeRedux = useSelector(
+    (state: RootState) => (state as any).concierges.value
+  );
 
-  const instructions = useSelector((state) => state.createoffers.instructions);
-  const date = useSelector((state) => state.createoffers.date);
-  const serviceFees = useSelector((state) => state.createoffers.offer);
-  const productFees = useSelector((state) => state.createoffers.goods);
+  const instructions = useSelector(
+    (state: RootState) => (state as any).createoffers.instructions
+  );
+  const date = useSelector(
+    (state: RootState) => (state as any).createoffers.date
+  );
+  const serviceFees = useSelector(
+    (state: RootState) => (state as any).createoffers.offer
+  );
+  const productFees = useSelector(
+    (state: RootState) => (state as any).createoffers.goods
+  );
 
-  const offersRedux = useSelector((state) => state.offers.value);
-
-  // console.log(instructions);
-  // console.log(date);
-  // console.log(serviceFees);
-  // console.log(productFees);
+  const offersRedux = useSelector(
+    (state: RootState) => (state as any).offers.value
+  );
 
   const dispatch = useDispatch();
 
@@ -94,16 +91,6 @@ function Offer() {
     clientSecret: clientSecret,
   };
 
-  console.log(user.firstname);
-
-  // const [instruction, setInstruction] = useState("");
-  // const [paymentInfo, setPaymentInfo] = useState("");
-  // const [date, setDate] = useState("");
-  // const [serviceFees, setServiceFees] = useState("");
-  // const [productFees, setProductFees] = useState("");
-  // const [totalFees, setTotalFees] = useState(0);
-  const [selectedRadio, setSelectedRadio] = useState("");
-
   const calculateTotalCosts = () => {
     const valueServiceFees = serviceFees || 0;
     const valueProductFees = productFees || 0;
@@ -112,30 +99,10 @@ function Offer() {
     return costsTotal;
   };
 
-  const newRequest = () => {
-    fetch("http://localhost:3000/request/saveRequest", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        instruction: instruction,
-        paymentInfo: paymentInfo,
-        date: date,
-        serviceFees: serviceFees,
-        productFees: productFees,
-        totalFees: serviceFees + productFees,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {});
-  };
-
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* HEADER START */}
       <Header />
-      {/* HEADER END */}
       <div className="flex-grow mt-14 ">
-        {/* Contenu de la page */}
         <div className="flex items-center justify-left mb-10">
           <h1 className="flex text-xl items-center bg-neutral-800 pl-32 pb-5 pt-5 text-neutral-300 w-full">
             <p className="mb-2">Faire une offre à</p>{" "}
@@ -218,21 +185,12 @@ function Offer() {
                     {calculateTotalCosts()} €
                   </p>
                 </p>
-                {/* <button
-                  className="mt-8 p-3 text-white rounded-xl float-right"
-                  style={{ backgroundColor: "#33B49C" }}
-                  onClick={newRequest}
-                >
-                  Faire offre
-                </button> */}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* FOOTER */}
       <Footer />
-      {/* FOOTER END */}
     </div>
   );
 }

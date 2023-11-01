@@ -1,29 +1,26 @@
-import styles from "../styles/Client.module.css";
 import React from "react";
-import Home from "../components/Home";
 import { FontAwesomeIcon } from "../node_modules/@fortawesome/react-fontawesome/index";
-import { faUser } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import { faInstagram } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
-import { faFacebook } from "../node_modules/@fortawesome/free-brands-svg-icons/index";
+
 import { faCheck } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import Link from "../node_modules/next/link";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import ProfileConcierge from "./ProfileConcierge";
 import { useDispatch, useSelector } from "react-redux";
-import { offersConcierge } from "../reducers/offers";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { openRequest } from "../reducers/openrequest";
 import Image from "next/image";
+import { RootState } from "../pages/_app";
 
 function Client() {
   const [conciergeList, setConciergeList] = useState([]);
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.users.value);
-  const conciergeRedux = useSelector((state) => state.concierges.value);
+  const user = useSelector((state: RootState) => state.users.value);
+
+  const conciergeRedux = useSelector(
+    (state: RootState) => state.concierges.value
+  );
 
   const [activeRequests, setActiveRequests] = useState([]);
 
@@ -48,13 +45,6 @@ function Client() {
     fetch("http://localhost:3000/concierges/conciergeList")
       .then((response) => response.json())
       .then((data) => {
-        // dispatch(
-        //   offersConcierge({
-        //     firstname: data.result[0].firstname,
-        //     username: data.result[0].username,
-        //   })
-        // );
-
         setConciergeList(data.result);
       });
   }, []);
@@ -101,12 +91,8 @@ function Client() {
 
   allConcierge.push(conciergeList);
 
-  console.log(activeRequests);
-
   const displayRequests = activeRequests.map((data, i) => {
     const parsedDate = new Date(data.date);
-
-    console.log("this", data);
 
     const daysOfWeek = [
       "Dimanche",
@@ -186,9 +172,7 @@ function Client() {
   const displayPastRequests = finishedRequests.map((data, i) => {
     const parsedDate = new Date(data.date);
 
-    console.log("this", data);
-
-    const daysOfWeek = [
+    const daysOfWeek: String[] = [
       "Dimanche",
       "Lundi",
       "Mardi",
@@ -197,7 +181,7 @@ function Client() {
       "Vendredi",
       "Samedi",
     ];
-    const months = [
+    const months: String[] = [
       "Janvier",
       "Février",
       "Mars",
@@ -218,15 +202,6 @@ function Client() {
     const year = parsedDate.getFullYear();
 
     const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
-
-    const openRequestClient = () => {
-      dispatch(
-        openRequest({
-          id: data._id,
-        })
-      );
-      window.location.href = "/openrequestpage";
-    };
 
     return (
       <div className="bg-[#edfff9] text-lg p-5 border-2 mt-2 mb-10 shadow-md shadow-neutral-400">
@@ -260,8 +235,6 @@ function Client() {
     );
   });
 
-  console.log(activeRequests);
-
   const concierge = conciergeList.map((data, i) => {
     return (
       <ProfileConcierge
@@ -284,10 +257,6 @@ function Client() {
         className="flex-grow min-h-screen"
         style={{ backgroundColor: "#FFFFFF" }}
       >
-        {/* HEADER START */}
-
-        {/* HEADER END */}
-
         <div className="flex items-center justify-left mb-10">
           <h1 className="flex mt-12 text-xl bg-neutral-800 pl-20 pb-5 pt-8 text-neutral-300 w-full">
             <p>Bonjour</p>{" "}
