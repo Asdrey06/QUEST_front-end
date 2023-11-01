@@ -178,7 +178,7 @@ function Offer() {
                 <p className="mt-2 ml-10 text-2xl  justify-end pr-10 text-neutral-600 flex items-center flex w-full">
                   Total :
                   <p className="text-3xl ml-2 font-semibold">
-                    {calculateTotalCosts()} €
+                    {/* {calculateTotalCosts()} € */}
                   </p>
                 </p>
               </div>
