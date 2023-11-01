@@ -8,12 +8,12 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { useSelector } from "react-redux";
 import { faCommentDots } from "../node_modules/@fortawesome/free-solid-svg-icons/index";
-import io from "socket.io-client";
 import moment from "moment";
 import "moment/locale/fr";
 import { useRef } from "react";
 import Swal from "sweetalert2";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../pages/_app";
+import ChatComponent from "./ChatComponent";
 
 function MyComponent() {
   const [messages, setMessages] = useState([]);
@@ -22,45 +22,15 @@ function MyComponent() {
 
   const [sender, setSender] = useState("");
 
-  const [socket, setSocket] = useState(null);
-
   const requestinfo = useSelector(
-    (state: RootState) => (state as any).openrequest.value
+    (state: RootState) => state.openrequest.value
   );
+
+  const user = useSelector((state: RootState) => state.users.value);
 
   const [requestId, setRequestId] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (socket) {
-      socket.emit("message", { message, sender, requestId });
-    }
-    setSentMessages((prevMessages) => [...prevMessages, message]);
-    setMessage("");
-  };
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("chat message", (msg) => {
-        setMessages((prevMessages) => [...prevMessages, msg]);
-      });
-    }
-
-    return () => {
-      if (socket) {
-        socket.off("chat message");
-      }
-    };
-  }, [socket]);
-
-  useEffect(() => {
-    const socketInstance = io("http://localhost:3002");
-    setSocket(socketInstance);
-
-    return () => {
-      socketInstance.disconnect();
-    };
-  }, []);
+  const [userType, setUserType] = useState("");
 
   useEffect(() => {
     fetch("https://quest-backend-six.vercel.app/request/requests")
@@ -108,11 +78,13 @@ function MyComponent() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.result.chat);
         setCurrentRequest(data.result);
         setChats(data.result.chat);
         setSender(data.result.from);
         setRequestId(data.result._id);
         setStatus(data.result.done);
+        setUserType("client");
 
         const last4 = data.result._id.slice(-4).toUpperCase();
 
@@ -233,11 +205,18 @@ function MyComponent() {
 
   const messagesRef = useRef(null);
 
-  useEffect(() => {
+  // Function to scroll to the bottom of the chat container
+  const scrollToBottom = () => {
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
-  }, [messages]);
+  };
+
+  // Call scrollToBottom when the component initially loads
+  useEffect(() => {
+    scrollToBottom();
+    console.log("Scrolling to bottom");
+  }, [chats]);
 
   function openModal(): any {
     Swal.fire({
@@ -318,6 +297,8 @@ function MyComponent() {
     });
   };
 
+  console.log(currentRequest);
+
   return (
     <div
       className="flex flex-col"
@@ -342,44 +323,17 @@ function MyComponent() {
             </p>
           </div>
           <div className="flex flex-col h-full ml-5 mt-5">
-            <div className="flex flex-col justify-end align-top text-lg h-96 mb-8 border-2 w-full p-2 rounded-xl border-neutral-400">
+            <div
+              className="flex flex-col justify-end align-top text-lg h-96 mb-8 border-2 w-full p-2 rounded-xl border-neutral-400"
+              style={{ maxHeight: "100%", overflowY: "auto" }}
+              ref={messagesRef}
+            >
               <div className="h-full flex flex-col">
-                <ul ref={messagesRef} className="overflow-y-auto flex-grow">
-                  {displayChat}
-                  {messages.map((msg, index) => (
-                    <li
-                      key={index}
-                      className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
-                    >
-                      <div className="flex flex-row w-full justify-between items-center">
-                        <p className="text-black text-sm">
-                          <p>{msg.firstname}</p>
-                        </p>
-                        <p className="text-black text-sm font-extralight italic">
-                          {formatTimeAgo(msg.date)}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-black font-light">{msg.message}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <form onSubmit={handleSubmit} className="flex p-4">
-                  <input
-                    type="text"
-                    placeholder="Type a message..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="flex-grow border-2 w-full rounded-l-lg p-2"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-emerald-500 text-white p-2 rounded-r-lg"
-                  >
-                    Send
-                  </button>
-                </form>
+                <ChatComponent
+                  userType="client"
+                  sender={currentRequest.from}
+                  id={currentRequest._id}
+                />
               </div>
             </div>
           </div>
