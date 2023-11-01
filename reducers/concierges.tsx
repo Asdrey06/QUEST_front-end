@@ -1,6 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface ConciergeState {
+  value: {
+    token: string | null;
+    username: string | null;
+    firstname: string | null;
+    lastname: string | null;
+    status: string | null;
+    photo: string | null;
+  };
+}
+
+const initialState: ConciergeState = {
   value: {
     token: null,
     username: null,
@@ -15,20 +26,17 @@ export const conciergeSlice = createSlice({
   name: "concierges",
   initialState,
   reducers: {
-    loginConcierge: (state, action) => {
+    loginConcierge: (
+      state,
+      action: PayloadAction<Partial<ConciergeState["value"]>>
+    ) => {
       console.log("redux", action.payload);
       state.value = {
         ...state.value,
-        token: action.payload.token,
-        username: action.payload.username,
-        firstname: action.payload.firstname,
-        lastname: action.payload.lastname,
-        status: action.payload.status,
-        photo: action.payload.photo,
+        ...action.payload,
       };
     },
     logoutConcierge: (state) => {
-      // Use Immer to create a new state object with the desired changes
       state.value = {
         ...state.value,
         token: null,

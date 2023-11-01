@@ -80,7 +80,7 @@ function MyComponent() {
       .then((data) => {
         console.log(data.result.chat);
         setCurrentRequest(data.result);
-        setChats(data.result.chat);
+
         setSender(data.result.from);
         setRequestId(data.result._id);
         setStatus(data.result.done);

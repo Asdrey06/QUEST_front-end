@@ -34,7 +34,15 @@ function ChatComponent({ userType, sender, id }) {
 
   console.log(id);
 
+  let isSending = false;
+
   const sendMessage = () => {
+    if (isSending) {
+      // Already sending a message, skip this request
+      return;
+    }
+
+    isSending = true;
     const clientMessage = {
       message: message,
       sender: sender,
@@ -42,9 +50,6 @@ function ChatComponent({ userType, sender, id }) {
       id: id,
     };
 
-    console.log(clientMessage);
-
-    // Send a message to the server, which will then broadcast it using Pusher
     fetch("https://quest-backend-six.vercel.app/sendmessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -55,9 +60,11 @@ function ChatComponent({ userType, sender, id }) {
         console.log(data);
         // Message sent successfully
         setMessage("");
+        isSending = false;
       })
       .catch((error) => {
         console.error("Error sending message:", error);
+        isSending = false;
       });
   };
 
