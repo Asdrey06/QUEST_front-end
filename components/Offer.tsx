@@ -87,13 +87,13 @@ function Offer() {
     clientSecret: clientSecret,
   };
 
-  const calculateTotalCosts = () => {
-    const valueServiceFees = serviceFees || 0;
-    const valueProductFees = productFees || 0;
+  // const calculateTotalCosts = () => {
+  //   const valueServiceFees = serviceFees || 0;
+  //   const valueProductFees = productFees || 0;
 
-    const costsTotal = valueServiceFees + valueProductFees;
-    return costsTotal;
-  };
+  //   const costsTotal = valueServiceFees + valueProductFees;
+  //   return costsTotal;
+  // };
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
