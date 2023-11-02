@@ -57,7 +57,7 @@ const CheckoutForm = () => {
       console.error("Error creating payment method:", error);
     } else {
       // fetch pour le processus de paiement
-      fetch("https://quest-backend-six.vercel.app/processpayment", {
+      fetch("http://localhost:3000/processpayment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const CheckoutForm = () => {
         .then((data) => {
           if (data.success === true) {
             //fetch pour récupérer les les requetes
-            fetch("https://quest-backend-six.vercel.app/request/saveRequest", {
+            fetch("http://localhost:3000/request/saveRequest", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -78,7 +78,7 @@ const CheckoutForm = () => {
                 date: date,
                 serviceFees: serviceFees,
                 productFees: productFees,
-                totalFees: serviceFees + productFees,
+                totalFees: Number(serviceFees) + Number(productFees),
                 from: user.firstname,
                 fromConcierge: offersRedux.firstname,
                 photoConcierge: offersRedux.photo,

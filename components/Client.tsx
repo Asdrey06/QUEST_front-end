@@ -42,7 +42,7 @@ function Client() {
   }, []);
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/concierges/conciergeList")
+    fetch("http://localhost:3000/concierges/conciergeList")
       .then((response) => response.json())
       .then((data) => {
         setConciergeList(data.result);
@@ -50,7 +50,7 @@ function Client() {
   }, []);
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/users/findRequests", {
+    fetch("http://localhost:3000/users/findRequests", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,18 +69,15 @@ function Client() {
   }, []);
 
   useEffect(() => {
-    fetch(
-      "https://quest-backend-six.vercel.app/request/getFinishedRequestClient",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: user.token,
-        }),
-      }
-    )
+    fetch("http://localhost:3000/request/getFinishedRequestClient", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: user.token,
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setFinishedRequests(data.result);

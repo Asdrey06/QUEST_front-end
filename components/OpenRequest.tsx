@@ -33,7 +33,7 @@ function MyComponent() {
   const [userType, setUserType] = useState("");
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/request/requests")
+    fetch("http://localhost:3000/request/requests")
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -69,7 +69,7 @@ function MyComponent() {
 
   useEffect(() => {
     console.log("DARON", requestinfo.id);
-    fetch("https://quest-backend-six.vercel.app/request/openRequest", {
+    fetch("http://localhost:3000/request/openRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -118,17 +118,14 @@ function MyComponent() {
   // });
 
   function requestNotDone() {
-    fetch(
-      "https://quest-backend-six.vercel.app/request/changeRequestStatusToFalse",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    fetch("http://localhost:3000/request/changeRequestStatusToFalse", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        body: JSON.stringify({ id: requestinfo.id }),
-      }
-    )
+      body: JSON.stringify({ id: requestinfo.id }),
+    })
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -139,7 +136,7 @@ function MyComponent() {
   }
 
   function createFinishedRequest() {
-    fetch("https://quest-backend-six.vercel.app/request/finishedRequest", {
+    fetch("http://localhost:3000/request/finishedRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -260,7 +257,7 @@ function MyComponent() {
   }
 
   function deleteRequestDb() {
-    fetch("https://quest-backend-six.vercel.app/request/delete", {
+    fetch("http://localhost:3000/request/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -330,7 +327,11 @@ function MyComponent() {
               ref={messagesRef}
             >
               <div className="h-full flex flex-col">
-                <ChatComponent userType="client" sender={currentRequest.from} />
+                <ChatComponent
+                  userType="client"
+                  sender={currentRequest.from}
+                  id={currentRequest._id}
+                />
               </div>
             </div>
           </div>

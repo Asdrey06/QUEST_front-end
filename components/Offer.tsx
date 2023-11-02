@@ -64,7 +64,7 @@ function Offer() {
   }, []);
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/create-payment-intent", {
+    fetch("http://localhost:3000/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,13 +87,13 @@ function Offer() {
     clientSecret: clientSecret,
   };
 
-  // const calculateTotalCosts = () => {
-  //   const valueServiceFees = serviceFees || 0;
-  //   const valueProductFees = productFees || 0;
+  const calculateTotalCosts = () => {
+    const valueServiceFees = serviceFees || 0;
+    const valueProductFees = productFees || 0;
 
-  //   const costsTotal = valueServiceFees + valueProductFees;
-  //   return costsTotal;
-  // };
+    const costsTotal = Number(valueServiceFees) + Number(valueProductFees);
+    return costsTotal;
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -178,7 +178,7 @@ function Offer() {
                 <p className="mt-2 ml-10 text-2xl  justify-end pr-10 text-neutral-600 flex items-center flex w-full">
                   Total :
                   <p className="text-3xl ml-2 font-semibold">
-                    {/* {calculateTotalCosts()} € */}
+                    {calculateTotalCosts()} €
                   </p>
                 </p>
               </div>

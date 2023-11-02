@@ -29,22 +29,20 @@ function Dashconcierge() {
 
   const user = useSelector((state: RootState) => state.users.value);
 
-  const [starsAverage, setStarsAverage] = useState("");
+  const [starsAverage, setStarsAverage] = useState(0);
 
   useEffect(() => {
-    fetch(
-      "https://quest-backend-six.vercel.app/concierges/findInfoDashboardConcierge",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    fetch("http://localhost:3000/concierges/findInfoDashboardConcierge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        body: JSON.stringify({ token: concierge.token }),
-      }
-    )
+      body: JSON.stringify({ token: concierge.token }),
+    })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.result.reviews);
         let total = 0;
         for (let i of data.result.reviews) {
           total += i.stars;
@@ -52,7 +50,9 @@ function Dashconcierge() {
 
         let calculatedStars = total / data.result.reviews.length;
 
-        setStarsAverage(calculatedStars.toFixed(2));
+        console.log(calculatedStars);
+
+        setStarsAverage(Number(calculatedStars.toFixed(2)));
       })
       .catch((error) => {
         console.error("Error fetching concierge:", error);
@@ -61,7 +61,7 @@ function Dashconcierge() {
 
   useEffect(() => {
     const fetchRequests = () => {
-      fetch("https://quest-backend-six.vercel.app/concierges/findRequests", {
+      fetch("http://localhost:3000/concierges/findRequests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,18 +98,15 @@ function Dashconcierge() {
   const [totalEarned, setTotalEarned] = useState(null);
 
   useEffect(() => {
-    fetch(
-      "https://quest-backend-six.vercel.app/request/getFinishedRequestConcierge",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: concierge.token,
-        }),
-      }
-    )
+    fetch("http://localhost:3000/request/getFinishedRequestConcierge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: concierge.token,
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setPastRequests(data.result);
@@ -216,6 +213,8 @@ function Dashconcierge() {
     );
   });
 
+  console.log(starsAverage);
+
   const data = [
     {
       id: 1,
@@ -253,7 +252,9 @@ function Dashconcierge() {
       text: (
         <p className="flex flex-col text-center items-center">
           <FontAwesomeIcon icon={faStar} className="text-amber-500" />
-          <p className="font-bold text-2xl">{starsAverage}</p>
+          <p className="font-bold text-2xl">
+            {isNaN(starsAverage) ? 0 : starsAverage}
+          </p>
 
           <p className="text-sm mb-4">note moyenne</p>
         </p>

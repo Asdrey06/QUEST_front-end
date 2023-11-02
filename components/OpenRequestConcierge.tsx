@@ -24,7 +24,7 @@ function MyComponent() {
 
   useEffect(() => {
     //Ouverture de la requete par le concierge
-    fetch(`https://quest-backend-six.vercel.app/request/requests`)
+    fetch(`http://localhost:3000/request/requests`)
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -58,7 +58,7 @@ function MyComponent() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/request/openRequest", {
+    fetch("http://localhost:3000/request/openRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -152,7 +152,7 @@ function MyComponent() {
   }, [messages]);
 
   const finishRequest = () => {
-    fetch("https://quest-backend-six.vercel.app/request/changeRequestStatus", {
+    fetch("http://localhost:3000/request/changeRequestStatus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -195,6 +195,7 @@ function MyComponent() {
                 <ChatComponent
                   userType="concierge"
                   sender={currentRequest.fromConcierge}
+                  id={currentRequest._id}
                 />
               </div>
             </div>

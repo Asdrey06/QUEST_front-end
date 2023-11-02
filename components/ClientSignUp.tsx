@@ -44,7 +44,7 @@ function ClientSignUp() {
   const [birthday, setBirthday] = useState("");
 
   const handleRegister = () => {
-    fetch("https://quest-backend-six.vercel.app/users/signUp", {
+    fetch("http://localhost:3000/users/signUp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

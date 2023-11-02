@@ -5,7 +5,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { RootState } from "../pages/_app";
 
-function ChatComponent({ userType, sender }) {
+function ChatComponent({ userType, sender, id }) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
@@ -40,6 +40,8 @@ function ChatComponent({ userType, sender }) {
 
   console.log(sender);
 
+  console.log(id);
+
   let isSending = false;
 
   const requestinfo = useSelector(
@@ -58,9 +60,10 @@ function ChatComponent({ userType, sender }) {
       message: message,
       sender: sender,
       userType: userType,
+      id: id,
     };
 
-    fetch("https://quest-backend-six.vercel.app/sendmessage", {
+    fetch("http://localhost:3000/sendmessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(clientMessage),
@@ -83,7 +86,7 @@ function ChatComponent({ userType, sender }) {
   console.log(chats);
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/request/openRequest", {
+    fetch("http://localhost:3000/request/openRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -92,6 +95,7 @@ function ChatComponent({ userType, sender }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.result);
         console.log(data.result.fromConcierge);
         setChats(data.result.chat);
       })
@@ -137,19 +141,16 @@ function ChatComponent({ userType, sender }) {
     <div className="h-full flex flex-col">
       <ul ref={messagesRef} className="overflow-y-auto flex-grow">
         {displayChat}
-        {messages.map(
-          (msg, index) =>
-            msg.message.length && (
-              <div
-                className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
-                key={index}
-              >
-                {msg.sender}
-                {/* Display sender based on userType */}
-                <p className="text-black font-light">{msg.message}</p>
-              </div>
-            )
-        )}
+        {messages.map((msg, index) => (
+          <div
+            className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+            key={index}
+          >
+            {msg.sender}
+            {/* Display sender based on userType */}
+            <p className="text-black font-light">{msg.message}</p>
+          </div>
+        ))}
       </ul>
       <div className="flex flex-row">
         <input
