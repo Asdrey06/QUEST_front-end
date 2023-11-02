@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import pusher from "../pusher";
 import { useRef } from "react";
 import moment from "moment";
+import { useSelector } from "react-redux";
+import { RootState } from "../pages/_app";
 
-function ChatComponent({ userType, sender, id }) {
+function ChatComponent({ userType, sender }) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+
+  console.log(messages);
 
   const formatTimeAgo = (date) => {
     return moment(date).fromNow();
@@ -17,8 +21,12 @@ function ChatComponent({ userType, sender, id }) {
     const channel = pusher.subscribe(channelName);
 
     channel.bind("message", (data) => {
+      console.log(data);
       // Handle incoming messages and add them to the state
-      setMessages((prevMessages) => [...prevMessages, data.message]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { message: data.message, sender: data.sender },
+      ]);
     });
 
     // Don't forget to unsubscribe when the component unmounts
@@ -32,10 +40,13 @@ function ChatComponent({ userType, sender, id }) {
 
   console.log(sender);
 
-  console.log(id);
-
   let isSending = false;
 
+  const requestinfo = useSelector(
+    (state: RootState) => state.openrequest.value
+  );
+
+  console.log(requestinfo.id);
   const sendMessage = () => {
     if (isSending) {
       // Already sending a message, skip this request
@@ -47,7 +58,6 @@ function ChatComponent({ userType, sender, id }) {
       message: message,
       sender: sender,
       userType: userType,
-      id: id,
     };
 
     fetch("https://quest-backend-six.vercel.app/sendmessage", {
@@ -78,10 +88,11 @@ function ChatComponent({ userType, sender, id }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ id: requestinfo.id }),
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.result.fromConcierge);
         setChats(data.result.chat);
       })
       .catch((error) => {
@@ -131,9 +142,9 @@ function ChatComponent({ userType, sender, id }) {
             className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
             key={index}
           >
-            {sender}
+            {msg.sender}
             {/* Display sender based on userType */}
-            <p className="text-black font-light">{msg}</p>
+            <p className="text-black font-light">{msg.message}</p>
           </div>
         ))}
       </ul>

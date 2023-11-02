@@ -68,6 +68,7 @@ function MyComponent() {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
+    console.log("DARON", requestinfo.id);
     fetch("https://quest-backend-six.vercel.app/request/openRequest", {
       method: "POST",
       headers: {
@@ -95,26 +96,26 @@ function MyComponent() {
       });
   }, []);
 
-  const displayChat = chats.map((data, i) => {
-    return (
-      <li
-        key={i}
-        className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
-      >
-        <div className="flex flex-row w-full justify-between items-center">
-          <p className="text-black text-sm">
-            <p>{data.firstname}</p>
-          </p>
-          <p className="text-black text-sm font-extralight italic">
-            {formatTimeAgo(data.date)}
-          </p>
-        </div>
-        <div>
-          <p className="text-black font-light">{data.message}</p>
-        </div>
-      </li>
-    );
-  });
+  // const displayChat = chats.map((data, i) => {
+  //   return (
+  //     <li
+  //       key={i}
+  //       className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+  //     >
+  //       <div className="flex flex-row w-full justify-between items-center">
+  //         <p className="text-black text-sm">
+  //           <p>{data.firstname}</p>
+  //         </p>
+  //         <p className="text-black text-sm font-extralight italic">
+  //           {formatTimeAgo(data.date)}
+  //         </p>
+  //       </div>
+  //       <div>
+  //         <p className="text-black font-light">{data.message}</p>
+  //       </div>
+  //     </li>
+  //   );
+  // });
 
   function requestNotDone() {
     fetch(
@@ -329,11 +330,7 @@ function MyComponent() {
               ref={messagesRef}
             >
               <div className="h-full flex flex-col">
-                <ChatComponent
-                  userType="client"
-                  sender={currentRequest.from}
-                  id={currentRequest._id}
-                />
+                <ChatComponent userType="client" sender={currentRequest.from} />
               </div>
             </div>
           </div>

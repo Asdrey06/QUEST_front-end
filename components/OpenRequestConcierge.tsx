@@ -195,7 +195,6 @@ function MyComponent() {
                 <ChatComponent
                   userType="concierge"
                   sender={currentRequest.fromConcierge}
-                  id={currentRequest._id}
                 />
               </div>
             </div>
