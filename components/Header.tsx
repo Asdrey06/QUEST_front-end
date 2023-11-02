@@ -55,7 +55,7 @@ function Header() {
   const [signInPasswordConcierge, setSignInPasswordConcierge] = useState("");
 
   const handleConnection = () => {
-    fetch("https://https://quest-backend-six.vercel.app/users/signin", {
+    fetch("https://quest-backend-six.vercel.app/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -96,17 +96,14 @@ function Header() {
   };
 
   const handleConnectionConcierge = () => {
-    fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/signinConcierge",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: signInEmailConcierge,
-          password: signInPasswordConcierge,
-        }),
-      }
-    )
+    fetch("https://quest-backend-six.vercel.app/concierges/signinConcierge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: signInEmailConcierge,
+        password: signInPasswordConcierge,
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {

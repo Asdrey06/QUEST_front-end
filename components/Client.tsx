@@ -48,9 +48,7 @@ function Client() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch(
-        "https://https://quest-backend-six.vercel.app/concierges/conciergeList"
-      )
+      fetch("https://quest-backend-six.vercel.app/concierges/conciergeList")
         .then((response) => response.json())
         .then((data) => {
           setConciergeList(data.result);
@@ -61,7 +59,7 @@ function Client() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch("https://https://quest-backend-six.vercel.app/users/findRequests", {
+      fetch("https://quest-backend-six.vercel.app/users/findRequests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +81,7 @@ function Client() {
 
   useEffect(() => {
     fetch(
-      "https://https://quest-backend-six.vercel.app/request/getFinishedRequestClient",
+      "https://quest-backend-six.vercel.app/request/getFinishedRequestClient",
       {
         method: "POST",
         headers: {
