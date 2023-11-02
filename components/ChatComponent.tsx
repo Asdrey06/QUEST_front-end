@@ -137,16 +137,19 @@ function ChatComponent({ userType, sender }) {
     <div className="h-full flex flex-col">
       <ul ref={messagesRef} className="overflow-y-auto flex-grow">
         {displayChat}
-        {messages.map((msg, index) => (
-          <div
-            className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
-            key={index}
-          >
-            {msg.sender}
-            {/* Display sender based on userType */}
-            <p className="text-black font-light">{msg.message}</p>
-          </div>
-        ))}
+        {messages.map(
+          (msg, index) =>
+            msg.message.length && (
+              <div
+                className="sent-message flex flex-col border-2 border-neutral-400 mt-1 mb-1 p-3 rounded-lg"
+                key={index}
+              >
+                {msg.sender}
+                {/* Display sender based on userType */}
+                <p className="text-black font-light">{msg.message}</p>
+              </div>
+            )
+        )}
       </ul>
       <div className="flex flex-row">
         <input
