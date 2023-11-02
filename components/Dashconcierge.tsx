@@ -19,6 +19,9 @@ import { faHandPointer } from "@fortawesome/free-regular-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { RootState } from "../pages/_app";
 import { UserState } from "../reducers/users";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 function Dashconcierge() {
   const [requests, setRequests] = useState([]);
@@ -32,14 +35,17 @@ function Dashconcierge() {
   const [starsAverage, setStarsAverage] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/findInfoDashboardConcierge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(
+      "https://https://quest-backend-six.vercel.app/concierges/findInfoDashboardConcierge",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({ token: concierge.token }),
-    })
+        body: JSON.stringify({ token: concierge.token }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data.result.reviews);
@@ -61,15 +67,18 @@ function Dashconcierge() {
 
   useEffect(() => {
     const fetchRequests = () => {
-      fetch("http://localhost:3000/concierges/findRequests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: concierge.token,
-        }),
-      })
+      fetch(
+        "https://https://quest-backend-six.vercel.app/concierges/findRequests",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: concierge.token,
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           setRequests(data.result);
@@ -98,15 +107,18 @@ function Dashconcierge() {
   const [totalEarned, setTotalEarned] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/request/getFinishedRequestConcierge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: concierge.token,
-      }),
-    })
+    fetch(
+      "https://https://quest-backend-six.vercel.app/request/getFinishedRequestConcierge",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: concierge.token,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setPastRequests(data.result);
@@ -328,107 +340,117 @@ function Dashconcierge() {
   ]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <div className="flex-grow mt-14" style={{ backgroundColor: "#FFFFFF" }}>
-        <h1 className="flex text-xl bg-neutral-800 pl-20 pb-5 pt-6 text-neutral-300 w-full">
-          <p>Bonjour</p>{" "}
-          <p className="italic ml-1 text-white font-bold">
-            {concierge.firstname}
-          </p>
-          , bienvenue sur votre espace personnel
-        </h1>
-        <div className="flex">
-          <div className="w-6/12">
-            <div className="flex flex-row justify-between">
-              <h3 className="ml-24 mt-6 mb-5 text-emerald-600 text-2xl font-semibold">
-                Demandes reçues
-              </h3>
-            </div>
+    <SkeletonTheme baseColor="#FFFFFF" highlightColor="#d6d6d6">
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <div className="flex-grow mt-14" style={{ backgroundColor: "#FFFFFF" }}>
+          <h1 className="flex text-xl bg-neutral-800 pl-20 pb-5 pt-6 text-neutral-300 w-full">
+            <p>Bonjour</p>{" "}
+            <p className="italic ml-1 text-white font-bold">
+              {concierge.firstname}
+            </p>
+            , bienvenue sur votre espace personnel
+          </h1>
+          <div className="flex">
+            <div className="w-6/12">
+              <div className="flex flex-row justify-between">
+                <h3 className="ml-24 mt-6 mb-5 text-emerald-600 text-2xl font-semibold">
+                  Demandes reçues
+                </h3>
+              </div>
 
-            <div className="justify-between w-full flex flex-row h-full mb-10">
-              <div className="flex flex-col w-full ">{requestList}</div>
-            </div>
-          </div>
-          <div className="flex flex-col w-5/12 mb-10">
-            <h3 className="ml-2 mt-6 mb-5 text-emerald-600 text-2xl font-semibold">
-              Vos statistiques
-            </h3>
-            <div className={`${styles.wrapper} shadow-xl`}>
-              <animated.div
-                style={{ ...rest, width: size, height: size }}
-                className={styles.container}
-                onClick={() => set((open) => true)}
-              >
-                {open ? (
-                  ""
-                ) : (
-                  <p className="">
-                    <FontAwesomeIcon
-                      icon={faHandPointer}
-                      className="h-10 text-white shadow-xl ml-5 mt-5"
-                    />
-                  </p>
-                )}
-                {transition((style, item) => (
-                  <animated.div
-                    className={styles.item}
-                    style={{
-                      ...style,
-                      background: "white",
-                    }}
-                  >
-                    <div className={styles.text}>{item.text}</div>
-                  </animated.div>
-                ))}
-              </animated.div>
-            </div>
-            <div className="w-full h-64 mt-10 mb-10 flex flex-col items-center">
-              <h1 className="text-2xl font-light mb-3 mt-3">
-                3 conseils pour devenir un concierge au top
-              </h1>
-              <div className="flex flex-row w-full h-full text-center">
-                <div className="w-full m-1 p-3">
-                  <p className="font-bold text-center mb-3">
-                    Faites-vous remarquer
-                  </p>{" "}
-                  <p className="text-md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-                </div>
-                <div className="border-l-2 w-full m-1 p-3">
-                  <p className="font-bold text-center mb-3">
-                    Faites-vous remarquer
-                  </p>{" "}
-                  <p className="text-md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-                </div>
-                <div className="border-l-2 w-full m-1 p-3">
-                  <p className="font-bold text-center mb-3">
-                    Faites-vous remarquer
-                  </p>{" "}
-                  <p className="text-md">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
+              <div className="justify-between w-full flex flex-row h-full mb-10">
+                <div className="flex flex-col w-full ">
+                  {requestList.length ? (
+                    requestList
+                  ) : (
+                    <Skeleton className="h-96 w-20" />
+                  )}
                 </div>
               </div>
             </div>
-            <p className="text-3xl font-semibold mt-20 flex text-center justify-center">
-              Requêtes passées
-            </p>
-            <div className="mt-10 ml-2 border-l-2 ">{displayPastRequests}</div>
+            <div className="flex flex-col w-5/12 mb-10">
+              <h3 className="ml-2 mt-6 mb-5 text-emerald-600 text-2xl font-semibold">
+                Vos statistiques
+              </h3>
+              <div className={`${styles.wrapper} shadow-xl`}>
+                <animated.div
+                  style={{ ...rest, width: size, height: size }}
+                  className={styles.container}
+                  onClick={() => set((open) => true)}
+                >
+                  {open ? (
+                    ""
+                  ) : (
+                    <p className="">
+                      <FontAwesomeIcon
+                        icon={faHandPointer}
+                        className="h-10 text-white shadow-xl ml-5 mt-5"
+                      />
+                    </p>
+                  )}
+                  {transition((style, item) => (
+                    <animated.div
+                      className={styles.item}
+                      style={{
+                        ...style,
+                        background: "white",
+                      }}
+                    >
+                      <div className={styles.text}>{item.text}</div>
+                    </animated.div>
+                  ))}
+                </animated.div>
+              </div>
+              <div className="w-full h-64 mt-10 mb-10 flex flex-col items-center">
+                <h1 className="text-2xl font-light mb-3 mt-3">
+                  3 conseils pour devenir un concierge au top
+                </h1>
+                <div className="flex flex-row w-full h-full text-center">
+                  <div className="w-full m-1 p-3">
+                    <p className="font-bold text-center mb-3">
+                      Faites-vous remarquer
+                    </p>{" "}
+                    <p className="text-md">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                  </div>
+                  <div className="border-l-2 w-full m-1 p-3">
+                    <p className="font-bold text-center mb-3">
+                      Faites-vous remarquer
+                    </p>{" "}
+                    <p className="text-md">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                  </div>
+                  <div className="border-l-2 w-full m-1 p-3">
+                    <p className="font-bold text-center mb-3">
+                      Faites-vous remarquer
+                    </p>{" "}
+                    <p className="text-md">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <p className="text-3xl font-semibold mt-20 flex text-center justify-center">
+                Requêtes passées
+              </p>
+              <div className="mt-10 ml-2 border-l-2 ">
+                {displayPastRequests}
+              </div>
+            </div>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </SkeletonTheme>
   );
 }
 export default Dashconcierge;

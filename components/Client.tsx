@@ -11,6 +11,9 @@ import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { openRequest } from "../reducers/openrequest";
 import Image from "next/image";
 import { RootState } from "../pages/_app";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 function Client() {
   const [conciergeList, setConciergeList] = useState([]);
@@ -42,42 +45,51 @@ function Client() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/conciergeList")
-      .then((response) => response.json())
-      .then((data) => {
-        setConciergeList(data.result);
-      });
+    setTimeout(() => {
+      fetch(
+        "https://https://quest-backend-six.vercel.app/concierges/conciergeList"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setConciergeList(data.result);
+        });
+    });
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/users/findRequests", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: user.token,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setActiveRequests(data.result);
+    setTimeout(() => {
+      fetch("https://https://quest-backend-six.vercel.app/users/findRequests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: user.token,
+        }),
       })
-      .catch((error) => {
-        console.error("An error occurred: ", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          setActiveRequests(data.result);
+        })
+        .catch((error) => {
+          console.error("An error occurred: ", error);
+        });
+    });
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/request/getFinishedRequestClient", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: user.token,
-      }),
-    })
+    fetch(
+      "https://https://quest-backend-six.vercel.app/request/getFinishedRequestClient",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: user.token,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setFinishedRequests(data.result);
@@ -86,10 +98,6 @@ function Client() {
         console.error("An error occurred: ", error);
       });
   }, []);
-
-  const allConcierge = [];
-
-  allConcierge.push(conciergeList);
 
   const displayRequests = activeRequests.map((data, i) => {
     const parsedDate = new Date(data.date);
@@ -133,6 +141,8 @@ function Client() {
       );
       window.location.href = "/openrequestpage";
     };
+
+    console.log(displayRequests);
 
     return (
       <div
@@ -238,6 +248,7 @@ function Client() {
   const concierge = conciergeList.map((data, i) => {
     return (
       <ProfileConcierge
+        key={i}
         name={data.firstname}
         poster={data.photo}
         voteAverage={data.voteAverage}
@@ -249,50 +260,70 @@ function Client() {
     );
   });
 
+  console.log(concierge.length);
+
+  console.log(displayRequests.length);
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
+    <SkeletonTheme baseColor="#FFFFFF" highlightColor="#d6d6d6">
+      <div className="flex flex-col min-h-screen">
+        <Header />
 
-      <div
-        className="flex-grow min-h-screen"
-        style={{ backgroundColor: "#FFFFFF" }}
-      >
-        <div className="flex items-center justify-left mb-10">
-          <h1 className="flex mt-12 text-xl bg-neutral-800 pl-20 pb-5 pt-8 text-neutral-300 w-full">
-            <p>Bonjour</p>{" "}
-            <p className="italic ml-2 text-white font-bold">{user.firstname}</p>
-            , veuillez sélectionnez un concierge à proximité
-          </h1>
-        </div>
-
-        <div className="flex">
-          <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 h-full flex-wrap">
-            {concierge}
-          </div>
-          <div className="w-6/12 h-full shadow-neutral-300border-neutral-400 mr-10 rounded-md overflow-auto ">
-            <h1 className="text-3xl mb-5 font-semibold text-neutral-600 border-emerald-700 text-left rounded-md">
-              <FontAwesomeIcon
-                icon={faBell}
-                bounce
-                className="mr-2 text-red-500 pt-4"
-              />{" "}
-              Requêtes actives
+        <div
+          className="flex-grow min-h-screen"
+          style={{ backgroundColor: "#FFFFFF" }}
+        >
+          <div className="flex items-center justify-left mb-10">
+            <h1 className="flex mt-12 text-xl bg-neutral-800 pl-20 pb-5 pt-8 text-neutral-300 w-full">
+              <p>Bonjour</p>{" "}
+              <p className="italic ml-2 text-white font-bold">
+                {user.firstname}
+              </p>
+              , veuillez sélectionnez un concierge à proximité
             </h1>
-            <div className="h-full">
-              {displayRequests}
-              {!activeRequests && "Aucune requête en cours pour le moment"}
+          </div>
+
+          <div className="flex">
+            <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 h-full flex-wrap">
+              {conciergeList.length ? (
+                concierge
+              ) : (
+                <Skeleton className="h-96" style={{ width: "50vw" }} />
+              )}
             </div>
-            <h1 className="text-3xl mb-5 font-light text-neutral-600 border-emerald-700 text-left rounded-md">
-              <FontAwesomeIcon icon={faCheck} className="mr-2 text-green-500" />{" "}
-              Requêtes terminées
-            </h1>
-            {displayPastRequests}
+            <div className="w-6/12 h-full shadow-neutral-300border-neutral-400 mr-10 rounded-md overflow-auto ">
+              <h1 className="text-3xl mb-5 font-semibold text-neutral-600 border-emerald-700 text-left rounded-md">
+                <FontAwesomeIcon
+                  icon={faBell}
+                  bounce
+                  className="mr-2 text-red-500 pt-4"
+                />{" "}
+                Requêtes actives
+              </h1>
+              <div className="h-full">
+                {/* {displayRequests} */}
+                {displayRequests.length ? (
+                  displayRequests
+                ) : (
+                  <Skeleton className="h-96 w-20" />
+                )}
+                {!activeRequests && "Aucune requête en cours pour le moment"}
+              </div>
+              <h1 className="text-3xl mb-5 font-light text-neutral-600 border-emerald-700 text-left rounded-md">
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className="mr-2 text-green-500"
+                />{" "}
+                Requêtes terminées
+              </h1>
+              {displayPastRequests}
+            </div>
           </div>
         </div>
-      </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </SkeletonTheme>
   );
 }
 

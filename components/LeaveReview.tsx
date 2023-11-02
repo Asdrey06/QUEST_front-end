@@ -40,7 +40,7 @@ function LeaveReview() {
   const [sentFrom, setSentFrom] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/findInfo", {
+    fetch("https://https://quest-backend-six.vercel.app/concierges/findInfo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,16 +63,19 @@ function LeaveReview() {
   console.log(writeReview);
 
   const handleOnSubmit = () => {
-    fetch("http://localhost:3000/concierges/leaveReview", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: conciergeInfo._id,
-        review: { from: sentFrom, stars: starRating, review: writeReview },
-      }),
-    })
+    fetch(
+      "https://https://quest-backend-six.vercel.app/concierges/leaveReview",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: conciergeInfo._id,
+          review: { from: sentFrom, stars: starRating, review: writeReview },
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         window.location.href = "/clientwelcome";

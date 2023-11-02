@@ -61,14 +61,17 @@ function OpenProfileConcierge() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/concierges/findInfoProfile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(
+      "https://https://quest-backend-six.vercel.app/concierges/findInfoProfile",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({ id: conciergeInfo.id }),
-    })
+        body: JSON.stringify({ id: conciergeInfo.id }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         let total = 0;

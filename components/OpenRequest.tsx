@@ -33,7 +33,7 @@ function MyComponent() {
   const [userType, setUserType] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/request/requests")
+    fetch("https://https://quest-backend-six.vercel.app/request/requests")
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -69,7 +69,7 @@ function MyComponent() {
 
   useEffect(() => {
     console.log("DARON", requestinfo.id);
-    fetch("http://localhost:3000/request/openRequest", {
+    fetch("https://https://quest-backend-six.vercel.app/request/openRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -118,14 +118,17 @@ function MyComponent() {
   // });
 
   function requestNotDone() {
-    fetch("http://localhost:3000/request/changeRequestStatusToFalse", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(
+      "https://https://quest-backend-six.vercel.app/request/changeRequestStatusToFalse",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({ id: requestinfo.id }),
-    })
+        body: JSON.stringify({ id: requestinfo.id }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -136,29 +139,32 @@ function MyComponent() {
   }
 
   function createFinishedRequest() {
-    fetch("http://localhost:3000/request/finishedRequest", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(
+      "https://https://quest-backend-six.vercel.app/request/finishedRequest",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({
-        instruction: currentRequest.instruction,
-        paymentInfo: currentRequest.paymentInfo,
-        date: currentRequest.date,
-        serviceFees: currentRequest.serviceFees,
-        producFees: currentRequest.productFees,
-        totalFees: currentRequest.totalFees,
-        from: currentRequest.from,
-        fromConcierge: currentRequest.fromConcierge,
-        photoConcierge: currentRequest.photoConcierge,
-        conciergeId: currentRequest.conciergeId,
-        clientToken: currentRequest.clientToken,
-        chat: currentRequest.chat,
-        pastRequestId: currentRequest._id,
-        done: true,
-      }),
-    })
+        body: JSON.stringify({
+          instruction: currentRequest.instruction,
+          paymentInfo: currentRequest.paymentInfo,
+          date: currentRequest.date,
+          serviceFees: currentRequest.serviceFees,
+          producFees: currentRequest.productFees,
+          totalFees: currentRequest.totalFees,
+          from: currentRequest.from,
+          fromConcierge: currentRequest.fromConcierge,
+          photoConcierge: currentRequest.photoConcierge,
+          conciergeId: currentRequest.conciergeId,
+          clientToken: currentRequest.clientToken,
+          chat: currentRequest.chat,
+          pastRequestId: currentRequest._id,
+          done: true,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {})
       .catch((error) => {
@@ -257,7 +263,7 @@ function MyComponent() {
   }
 
   function deleteRequestDb() {
-    fetch("http://localhost:3000/request/delete", {
+    fetch("https://https://quest-backend-six.vercel.app/request/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
