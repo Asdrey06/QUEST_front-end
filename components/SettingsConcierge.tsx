@@ -40,17 +40,14 @@ function SettingsClient() {
   const [phone, setPhone] = useState("");
 
   useEffect(() => {
-    fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/findInfoToken",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    fetch("https://quest-backend-six.vercel.app/concierges/findInfoToken", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-        body: JSON.stringify({ token: conciergeInfo.token }),
-      }
-    )
+      body: JSON.stringify({ token: conciergeInfo.token }),
+    })
       .then((response) => response.json())
       .then((data) => {
         setUserInfo(data.result);
@@ -69,14 +66,11 @@ function SettingsClient() {
   }, []);
 
   const handleUpdateEmail = () => {
-    fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/updateConcierge",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: conciergeInfo.token, email: newEmail }),
-      }
-    )
+    fetch("https://quest-backend-six.vercel.app/concierges/updateConcierge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: conciergeInfo.token, email: newEmail }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.result === true) {
@@ -94,7 +88,7 @@ function SettingsClient() {
 
   const handleUpdatePassword = () => {
     fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/updatePasswordConcierge",
+      "https://quest-backend-six.vercel.app/concierges/updatePasswordConcierge",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -121,7 +115,7 @@ function SettingsClient() {
 
   const handleUpdateAddress = () => {
     fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/updateAddressConcierge",
+      "https://quest-backend-six.vercel.app/concierges/updateAddressConcierge",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -148,7 +142,7 @@ function SettingsClient() {
 
   const handleUpdateAboutMe = () => {
     fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/updateAboutMeConcierge",
+      "https://quest-backend-six.vercel.app/concierges/updateAboutMeConcierge",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -175,7 +169,7 @@ function SettingsClient() {
 
   const handleUpdateIban = () => {
     fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/updateIbanConcierge",
+      "https://quest-backend-six.vercel.app/concierges/updateIbanConcierge",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

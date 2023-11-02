@@ -210,34 +210,31 @@ function ConciergeSignUp() {
 
   //fetch pour l'inscription du concierge
   const handleRegister = () => {
-    fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/signupConcierge",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstname: firstName,
-          lastname: lastName,
-          birthday: birthday,
-          address: addressAPI,
-          city: city,
-          zipcode: zipcode,
-          photo: photo,
-          username: userName,
-          email: email,
-          password: password,
-          paymentInfo: iban,
-          nationality: nationality,
-          phoneNumber: number,
-          skills: skills,
-          languages: languages,
-          aboutme: about,
-          transport: moving,
-          documents: id,
-          status: "concierge",
-        }),
-      }
-    )
+    fetch("https://quest-backend-six.vercel.app/concierges/signupConcierge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstname: firstName,
+        lastname: lastName,
+        birthday: birthday,
+        address: addressAPI,
+        city: city,
+        zipcode: zipcode,
+        photo: photo,
+        username: userName,
+        email: email,
+        password: password,
+        paymentInfo: iban,
+        nationality: nationality,
+        phoneNumber: number,
+        skills: skills,
+        languages: languages,
+        aboutme: about,
+        transport: moving,
+        documents: id,
+        status: "concierge",
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.result === false) {

@@ -36,7 +36,7 @@ function Dashconcierge() {
 
   useEffect(() => {
     fetch(
-      "https://https://quest-backend-six.vercel.app/concierges/findInfoDashboardConcierge",
+      "https://quest-backend-six.vercel.app/concierges/findInfoDashboardConcierge",
       {
         method: "POST",
         headers: {
@@ -67,18 +67,15 @@ function Dashconcierge() {
 
   useEffect(() => {
     const fetchRequests = () => {
-      fetch(
-        "https://https://quest-backend-six.vercel.app/concierges/findRequests",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            token: concierge.token,
-          }),
-        }
-      )
+      fetch("https://quest-backend-six.vercel.app/concierges/findRequests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: concierge.token,
+        }),
+      })
         .then((response) => response.json())
         .then((data) => {
           setRequests(data.result);
@@ -108,7 +105,7 @@ function Dashconcierge() {
 
   useEffect(() => {
     fetch(
-      "https://https://quest-backend-six.vercel.app/request/getFinishedRequestConcierge",
+      "https://quest-backend-six.vercel.app/request/getFinishedRequestConcierge",
       {
         method: "POST",
         headers: {
