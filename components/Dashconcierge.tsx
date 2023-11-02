@@ -34,9 +34,11 @@ function Dashconcierge() {
 
   const [starsAverage, setStarsAverage] = useState(0);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     fetch(
-      "https://quest-backend-six.vercel.app/concierges/findInfoDashboardConcierge",
+      "https://https://quest-backend-six.vercel.app/concierges/findInfoDashboardConcierge",
       {
         method: "POST",
         headers: {
@@ -67,18 +69,22 @@ function Dashconcierge() {
 
   useEffect(() => {
     const fetchRequests = () => {
-      fetch("https://quest-backend-six.vercel.app/concierges/findRequests", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: concierge.token,
-        }),
-      })
+      fetch(
+        "https://https://quest-backend-six.vercel.app/concierges/findRequests",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: concierge.token,
+          }),
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           setRequests(data.result);
+          setIsLoading(false); // Data has been loaded
         })
         .catch((error) => {
           console.error("An error occurred: ", error);
@@ -105,7 +111,7 @@ function Dashconcierge() {
 
   useEffect(() => {
     fetch(
-      "https://quest-backend-six.vercel.app/request/getFinishedRequestConcierge",
+      "https://https://quest-backend-six.vercel.app/request/getFinishedRequestConcierge",
       {
         method: "POST",
         headers: {
@@ -358,10 +364,18 @@ function Dashconcierge() {
 
               <div className="justify-between w-full flex flex-row h-full mb-10">
                 <div className="flex flex-col w-full ">
-                  {requestList.length ? (
+                  {isLoading ? (
+                    <Skeleton
+                      className="h-48 ml-20 border-2 mt-3 mb-3"
+                      style={{ width: "40vw" }}
+                      count={1}
+                    />
+                  ) : requestList.length > 0 ? (
                     requestList
                   ) : (
-                    <Skeleton className="h-96 w-20" />
+                    <p className="italic text-xl ml-24 mb-10 mt-10 font-semibold">
+                      Aucune demande reçue.
+                    </p>
                   )}
                 </div>
               </div>

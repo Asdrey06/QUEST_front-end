@@ -61,35 +61,40 @@ function OpenProfileConcierge() {
   };
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/concierges/findInfoProfile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    setTimeout(() => {
+      fetch(
+        "https://https://quest-backend-six.vercel.app/concierges/findInfoProfile",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-      body: JSON.stringify({ id: conciergeInfo.id }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        let total = 0;
-        for (let i of data.result.reviews) {
-          total += i.stars;
+          body: JSON.stringify({ id: conciergeInfo.id }),
         }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          let total = 0;
+          for (let i of data.result.reviews) {
+            total += i.stars;
+          }
 
-        let calculatedStars = total / data.result.reviews.length;
+          let calculatedStars = total / data.result.reviews.length;
 
-        setStarsAverage(calculatedStars.toFixed(2));
+          setStarsAverage(calculatedStars.toFixed(2));
 
-        setReviews(data.result.reviews);
-        setConciergeData(data.result);
-        setSkills(data.result.personalInfo[0].skills);
-        setAbout(data.result.personalInfo[0].aboutme);
-        setName(data.result.firstname);
-        setLanguages(data.result.personalInfo[0].languages);
-      })
-      .catch((error) => {
-        console.error("Error fetching concierge:", error);
-      });
+          setReviews(data.result.reviews);
+          setConciergeData(data.result);
+          setSkills(data.result.personalInfo[0].skills);
+          setAbout(data.result.personalInfo[0].aboutme);
+          setName(data.result.firstname);
+          setLanguages(data.result.personalInfo[0].languages);
+        })
+        .catch((error) => {
+          console.error("Error fetching concierge:", error);
+        });
+    });
   }, []);
 
   return (
@@ -140,7 +145,9 @@ function OpenProfileConcierge() {
             <p className="italic text-right">
               Note moyenne
               <p className="font-bold">
-                {starsAverage}{" "}
+                {isNaN(parseFloat(starsAverage))
+                  ? "Aucun avis laissé"
+                  : starsAverage}{" "}
                 <FontAwesomeIcon icon={faStar} className="text-amber-400" />
               </p>
             </p>

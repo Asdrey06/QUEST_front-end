@@ -29,6 +29,8 @@ function Client() {
 
   const [finishedRequests, setFinishedRequests] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (conciergeRedux.status === "concierge") {
       window.location.href = "/dashconcierge";
@@ -46,17 +48,20 @@ function Client() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch("https://quest-backend-six.vercel.app/concierges/conciergeList")
+      fetch(
+        "https://https://quest-backend-six.vercel.app/concierges/conciergeList"
+      )
         .then((response) => response.json())
         .then((data) => {
           setConciergeList(data.result);
+          setIsLoading(false); // Data has been loaded
         });
     });
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
-      fetch("https://quest-backend-six.vercel.app/users/findRequests", {
+      fetch("https://https://quest-backend-six.vercel.app/users/findRequests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,6 +73,7 @@ function Client() {
         .then((response) => response.json())
         .then((data) => {
           setActiveRequests(data.result);
+          setIsLoading(false); // Data has been loaded
         })
         .catch((error) => {
           console.error("An error occurred: ", error);
@@ -77,7 +83,7 @@ function Client() {
 
   useEffect(() => {
     fetch(
-      "https://quest-backend-six.vercel.app/request/getFinishedRequestClient",
+      "https://https://quest-backend-six.vercel.app/request/getFinishedRequestClient",
       {
         method: "POST",
         headers: {
@@ -283,10 +289,18 @@ function Client() {
 
           <div className="flex">
             <div className="outline-black border-emerald-200 flex w-8/12 ml-10 mb-10 h-full flex-wrap">
-              {conciergeList.length ? (
+              {isLoading ? (
+                <Skeleton
+                  className="h-48 border-2 mt-3 mb-3"
+                  style={{ width: "40vw" }}
+                  count={1}
+                />
+              ) : conciergeList.length > 0 ? (
                 concierge
               ) : (
-                <Skeleton className="h-96" style={{ width: "50vw" }} />
+                <p className="italic text-xl ml-10 mb-10 mt-10 font-semibold">
+                  Aucun concierge disponible.
+                </p>
               )}
             </div>
             <div className="w-6/12 h-full shadow-neutral-300border-neutral-400 mr-10 rounded-md overflow-auto ">
@@ -300,12 +314,19 @@ function Client() {
               </h1>
               <div className="h-full">
                 {/* {displayRequests} */}
-                {displayRequests.length ? (
+                {isLoading ? (
+                  <Skeleton
+                    className="h-48 border-2 mt-3 mb-3"
+                    style={{ width: "40vw" }}
+                    count={1}
+                  />
+                ) : displayRequests.length > 0 ? (
                   displayRequests
                 ) : (
-                  <Skeleton className="h-96 w-20" />
+                  <p className="italic text-xl ml-10 mb-10 mt-10 font-semibold">
+                    Aucune requête active.
+                  </p>
                 )}
-                {!activeRequests && "Aucune requête en cours pour le moment"}
               </div>
               <h1 className="text-3xl mb-5 font-light text-neutral-600 border-emerald-700 text-left rounded-md">
                 <FontAwesomeIcon

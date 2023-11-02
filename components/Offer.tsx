@@ -64,14 +64,17 @@ function Offer() {
   }, []);
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/create-payment-intent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch(
+      "https://https://quest-backend-six.vercel.app/create-payment-intent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({}),
-    })
+        body: JSON.stringify({}),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setClientSecret(data.clientSecret);

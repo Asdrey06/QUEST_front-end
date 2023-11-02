@@ -45,7 +45,7 @@ function Home() {
         </h1>
       </div>
       <div className=" flex flex-row justify-between mb-5">
-        <div className="w-full ml-5">
+        <div className="w-full ml-5 mr-5">
           <Image
             width={500}
             height={350}
@@ -55,7 +55,7 @@ function Home() {
             style={{ border: "2px solid red" }}
           />
         </div>
-        <div className="w-full">
+        <div className="w-full mr-5 mb-5">
           <Image
             width={500}
             height={350}
@@ -65,7 +65,7 @@ function Home() {
             style={{ border: "2px solid red" }}
           />
         </div>
-        <div className="w-full mr-5">
+        <div className="w-full mr-5 mb-5">
           <Image
             width={500}
             height={350}

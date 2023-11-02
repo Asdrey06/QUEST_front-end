@@ -63,7 +63,7 @@ function ChatComponent({ userType, sender, id }) {
       id: id,
     };
 
-    fetch("https://quest-backend-six.vercel.app/sendmessage", {
+    fetch("https://https://quest-backend-six.vercel.app/sendmessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(clientMessage),
@@ -86,7 +86,7 @@ function ChatComponent({ userType, sender, id }) {
   console.log(chats);
 
   useEffect(() => {
-    fetch("https://quest-backend-six.vercel.app/request/openRequest", {
+    fetch("https://https://quest-backend-six.vercel.app/request/openRequest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
